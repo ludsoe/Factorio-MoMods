@@ -1,0 +1,10 @@
+
+{
+  "name": "moindustry",
+  "version": "0.0.1",
+  "title": "MoIndustry",
+  "author": "Ludsoe",
+  "homepage": "",
+  "description": "Adds more Industrial Options to factorio.",
+  "dependencies": ["base"]
+}

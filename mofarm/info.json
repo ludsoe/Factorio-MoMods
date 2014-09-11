@@ -1,0 +1,11 @@
+
+{
+  "name": "mofarm",
+  "version": "0.0.14",
+  "title": "MoFarm",
+  "author": "Ludsoe",
+  "contact": "",
+  "homepage": "",
+  "description": "Adds a new farming mechanic to Factorio",
+  "dependencies": ["base","? xmoddat"]
+}

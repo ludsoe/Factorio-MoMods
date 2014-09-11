@@ -1,0 +1,11 @@
+
+{
+  "name": "motoolbar",
+  "version": "0.0.1",
+  "title": "MoToolBar",
+  "author": "Ludsoe",
+  "contact": "",
+  "homepage": "",
+  "description": "Creates a ToolBar Gui, that other mods can use to easily place buttons on screen.",
+  "dependencies": ["base"]
+}
