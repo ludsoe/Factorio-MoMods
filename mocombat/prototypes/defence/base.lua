@@ -12,3 +12,6 @@ if M.OtherMines then
 	require("othermines")
 end
 
+if M.AttackDrones then
+	require("DroneDef.base")
+end

@@ -50,7 +50,7 @@ data:extend(
 										{
 											{
 												type = "damage",
-												damage = {amount = 40, type = "explosion"}
+												damage = {amount = 200, type = "explosion"}
 											},
 											{
 												type = "create-entity",

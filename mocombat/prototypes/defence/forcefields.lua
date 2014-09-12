@@ -56,7 +56,7 @@ data:extend(
     subgroup = "defensive-structure",
     order = "a[wall]-a[wall]",
     place_result = "forcefield-post",
-    stack_size = 32
+    stack_size = 40
   },
   {
     type = "wall",

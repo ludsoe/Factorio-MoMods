@@ -7,7 +7,7 @@ local M = MoConfig
 M.Spitters = true
 
 --Adds a dangerus biter variant with a suicide explosive attack.
-M.Exploders = false --Warning, Causes Crashs.
+M.Exploders = true --Warning, Causes Crashs.
 
 --------------------------------------------------------------------------------------
 --------------------------------Weapons-----------------------------------------------
@@ -38,6 +38,9 @@ M.TeslaTower = true
 
 --------------------------------------------------------------------------------------
 --------------------------------Mechanics---------------------------------------------
+
+--Adds Attack Drone.
+M.AttackDrones = true
 
 --Overrides the worm and spitter spit to have splash damage.
 M.SpitAOE = true
