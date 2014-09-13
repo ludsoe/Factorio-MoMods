@@ -53,7 +53,7 @@ function ProtectArea(G,V,R)
 	local Scan = game.findnearestenemy{position=V, maxdistance=R}
 	if Scan~=nil and Scan.valid then
 		CommandDrones(G,{type=DefC.attack,target=Scan,distraction=DefD.byenemy})
-	else--Return to base nothing nearvy for us to kill.
+	else--Return to base nothing nearby for us to kill.
 		CommandDrones(G,{type=DefC.gotolocation,destination=V,radius=10,distraction=DefD.byenemy})
 	end
 end

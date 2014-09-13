@@ -1,6 +1,4 @@
-if data.XModSupport then
-	data.XModData.mofarm = true
-end
+data.mofarm = true
 
 require("prototypes.plants")
 require("prototypes.machines")
