@@ -23,16 +23,12 @@ end
 function SpawnDrone(E,G,A)
 	local Drones = E.getitemcount(DroneName)
 	if Drones > 0 then
-		local P = E.position
-		local V = {x=P.x+Random(P.x,1,4)*PosOrNeg(P.x),y=P.y+Random(P.y,1,4)*PosOrNeg(P.y)}
+		local V = game.findnoncollidingposition(DroneName, E.position, 10, 1)
 		
-		local DrC = MoEntity.findentinsquareradius(V,1,DroneName) 
-		if #DrC <= 0 then
-			local Drone=game.createentity{name = DroneName, position=V}
-			Drone.force=game.player.force
-			table.insert(G,RegKey(Drone))
-			E.getinventory(1).remove({name=DroneName,count=1})
-		end
+		local Drone=game.createentity{name = DroneName, position=V}
+		Drone.force=game.player.force
+		table.insert(G,RegKey(Drone))
+		E.getinventory(1).remove({name=DroneName,count=1})
 	end
 end
 
@@ -53,8 +49,8 @@ function GetOrders(P)
 	return false,Rad
 end
 
-function ProtectArea(G,V)
-	local Scan = game.findnearestenemy{position=V, maxdistance=40}
+function ProtectArea(G,V,R)
+	local Scan = game.findnearestenemy{position=V, maxdistance=R}
 	if Scan~=nil and Scan.valid then
 		CommandDrones(G,{type=DefC.attack,target=Scan,distraction=DefD.byenemy})
 	else--Return to base nothing nearvy for us to kill.
@@ -72,10 +68,10 @@ function ManageDrones(P,E)
 	local Orders,Radius = GetOrders(P)
 	if Orders ~= false then -- If some other orders
 		if Orders == "Player" then
-			ProtectArea(G,game.player.position)
+			ProtectArea(G,game.player.position,Radius)
 		end
 	else
-		ProtectArea(G,P.position)
+		ProtectArea(G,P.position,Radius)
 	end
 end
 
