@@ -7,7 +7,7 @@ local M = MoConfig
 M.Spitters = true
 
 --Adds a dangerus biter variant with a suicide explosive attack.
-M.Exploders = true --Warning, Causes Crashs.
+M.Exploders = false --Warning, Causes Crashs.
 
 --------------------------------------------------------------------------------------
 --------------------------------Weapons-----------------------------------------------

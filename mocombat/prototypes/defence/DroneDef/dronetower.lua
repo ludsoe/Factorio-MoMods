@@ -38,15 +38,14 @@ data:extend(
     type = "recipe",
     name = "combat-roboport",
 	enabled = "false",
-    energy_required = 5,
+    energy_required = 10,
     ingredients =
     {
-      {"steel-plate", 40},
-      {"electronic-circuit", 20},
-	  {"processing-unit", 10},
-	  {"medium-electric-pole",2}
+      {"steel-plate", 100},
+      {"iron-gear-wheel", 45},
+      {"advanced-circuit", 60}
     },
-    result = "forcefield-post"
+    result = "combat-roboport"
   }
 }
 )

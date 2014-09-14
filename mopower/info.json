@@ -7,5 +7,5 @@
   "contact": "",
   "homepage": "",
   "description": "Adds more power options to factorio.",
-  "dependencies": ["base","? motrans","? moweather","? motoolbar", "? mofarm"]
+  "dependencies": ["base","? mocombat","? motrans","? moweather","? motoolbar", "? mofarm"]
 }
