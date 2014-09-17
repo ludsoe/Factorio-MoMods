@@ -16,7 +16,7 @@ data:extend(
 		{
 			ammo_category = "combat-robot-laser",
 			cooldown = 20,
-			damage_modifier = 0.7,
+			damage_modifier = 1.5,
 			projectile_center = {0, 0},
 			projectile_creation_distance = 0.6,
 			range = 15,
@@ -101,7 +101,7 @@ data:extend(
     energy_required = 5,
     ingredients =
     {
-      {"distractor-capsule", 4},
+      {"distractor-capsule", 2},
 	  {"flying-robot-frame", 1}
     },
     result = "attack-drone"
