@@ -27,6 +27,10 @@ data:extend(
 	  {
         type = "unlock-recipe",
         recipe = "attack-drone"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "combat-drone-wagon"
       }
     },
     prerequisites = {"robotics","combat-robotics-2"},
@@ -48,4 +52,6 @@ data:extend(
 
 require "drones"
 require "dronetower"
+require "dronewagon"
+require "dronecommandtower"
 require "orders"

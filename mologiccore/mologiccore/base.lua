@@ -21,7 +21,7 @@ ExtraInfo: None
 require "util"
 require "defines"
 
-local MLCDataVers = 1.45
+local MLCDataVers = 1.50
 local LastCompatable = 1.38
 IsLoaded = false
 
@@ -32,17 +32,31 @@ function FuncRegister(Name,Function)
 end
 function GetTable() end
 
+function TableCopy(Table)
+	local NewTable = {}
+	for i,d in pairs(Table) do
+		local T = type(d)
+		if T=="Table" then
+			NewTable[i]=TableCopy(d)
+		else
+			NewTable[i]=d
+		end
+	end
+	return NewTable
+end
+
 --Due to the save system of factorio being wierd, Im forced to use a hack workaround to save MoLogicCores data properly.
 local STables = {}
-function RegisterSaveTable(Name,Table,Func,Over)
-	STables[Name]={N=Name,T=Table,O=Over,F=Func}
-end
+function RegisterSaveTable(Name,Table,Func,Over) STables[Name]={N=Name,T=Table,O=Over,F=Func} end
+function DefaultSaveLoad(T2,T1) for i,d in pairs(T1) do T2[i]=d end end 
 
 if MLC == nil then
 	game.showmessagedialog("Warning, MoLogicCore Loaded without a setup table!")
 else	
 	--If timer core is enabled use it instead.
 	MLCSaveFix = function() if not IsLoaded then MoSave() end end
+	
+	PostInit = {} --Create a table to store post lua load functions.
 	
 	if MLC.Debug then
 		require "scripts.debug"
@@ -59,19 +73,8 @@ else
 	if MLC.Entity then
 		require "scripts.entity"
 	end
-end
-
-function TableCopy(Table)
-	local NewTable = {}
-	for i,d in pairs(Table) do
-		local T = type(d)
-		if T=="Table" then
-			NewTable[i]=TableCopy(d)
-		else
-			NewTable[i]=d
-		end
-	end
-	return NewTable
+	
+	for i,d in pairs(PostInit) do d() end PostInit = nil
 end
 
 return function()

@@ -16,8 +16,7 @@ end)
 ------------MLC Debug Menu------------
 --Just because I got tired of guessing the the dark.
 
-local Tables = {}
-local Temp = {}
+local Tables,Temp,Meta = {},{},{}
 
 function FormatButton(Value,Gui,N,i,Num)
 	local F,T,Ex = function() end,type(Value),{}
@@ -42,7 +41,7 @@ function ClearChildren(Gui,Num)
 end
 
 function OpenTable(Table,Name,Num,ID)
-	local Gui = game.player.gui.top["MLCD"]
+	local Gui = game.player.gui.top["MLCD"] if Gui==nil then return end
 	local M = Gui["TableList"..Num] if M~=nil then M.destroy() ClearChildren(Gui,Num) end
 	Gui.add{type="table", name="TableList"..Num, direction = "horizontal", colspan=#Table+1}
 	Gui["TableList"..Num].add{type="label", name="Label", direction = "horizontal", caption=ID}
@@ -50,6 +49,13 @@ function OpenTable(Table,Name,Num,ID)
 		local N = Name..tostring(i)
 		Temp[N]=FormatButton(d,Gui["TableList"..Num],N,i,Num+1)
 	end
+	Meta.Tab = {T=Table,NA=Name,NU=Num,I=ID}
+end
+
+PostInit.DebugThink = function()
+	MoTimers.CreateTimer("MoDebugThink",0.5,0,false,function()
+		local M = Meta.Tab if M~=nil then OpenTable(M.T,M.NA,M.NU,M.ID) end
+	end)
 end
 
 FuncRegister("RegisterTable",function(Name,Table)
@@ -64,11 +70,8 @@ FuncRegister("OpenMLCDebug",function()
 end)
 
 remote.addinterface("MoDebug", {
-	OpenGui = function() Debug.OpenMLCDebug()  end,
-	CloseGui = function()
-		local M = game.player.gui.top["MLCD"]
-		if M~=nil then Temp={} M.destroy() end
-	end
+	OpenGui = function() Debug.OpenMLCDebug() Meta.Tab = nil end,
+	CloseGui = function() local M = game.player.gui.top["MLCD"] if M~=nil then Temp={} M.destroy() end end
 })
 
 game.onevent(defines.events.onguiclick, function(event)
@@ -77,4 +80,10 @@ game.onevent(defines.events.onguiclick, function(event)
 		N.F(N.T,N.N,N.I,N.ID,N.E)
 	end
 end)
+
+--MoToolBar Support.
+if remote.interfaces.MoToolBar and remote.interfaces.MoToolBar.addbutton then
+	remote.call("MoToolBar", "addbutton","OpenGui","Open Debug","MoDebug","OpenGui","MoDebug","Open Debug")
+	remote.call("MoToolBar", "addbutton","CloseGui","Close Debug","MoDebug","CloseGui","MoDebug","Close Debug")
+end
 --remote.call("MoDebug","OpenGui")

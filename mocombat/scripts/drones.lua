@@ -5,18 +5,19 @@ local MaxDrones = 20
 local DroneName = "attack-drone"
 
 function OnCRPBuilt(entity)
-	MoEntity.AddToLoop("croboport",entity,{G={}})
+	MoEntity.AddToLoop("croboport",entity,{G={},C=1})
 end
 
 MoEntity.SubscribeOnBuilt("combat-roboport","combatroboport",OnCRPBuilt)
+MoEntity.SubscribeOnBuilt("combat-drone-wagon","combatrobowagon",OnCRPBuilt)
 
 function SpawnDrone(E,G)
 	local Drones = E.getitemcount(DroneName)
-	if Drones > 0 then
+	if Drones > 0 and not E.tobedeconstructed(E.force) then
 		local V = game.findnoncollidingposition(DroneName, E.position, 10, 1)
 		
 		local Drone=game.createentity{name = DroneName, position=V}
-		Drone.force=game.player.force
+		Drone.force=E.force
 		table.insert(G,RegKey(Drone))
 		E.getinventory(1).remove({name=DroneName,count=1})
 		

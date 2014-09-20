@@ -3,7 +3,7 @@ GetTable=function()
 	return MoMath
 end
 
---Clamps a number between two other numbers.
+--Clamps a number between two other numbers. A cant be greater then B and cant be lesser then C.
 FuncRegister("Clamp",function(N1,N2,N3)
 	if(N1<N2)then
 		return N2
@@ -13,7 +13,7 @@ FuncRegister("Clamp",function(N1,N2,N3)
 	return N1
 end)
 
---Returns the sign of a number.
+--Returns the sign of a number. Aka if its greater equal or lesser then 0.
 FuncRegister("Sign", function(N1)
 	if N1>0 then
 		return 1

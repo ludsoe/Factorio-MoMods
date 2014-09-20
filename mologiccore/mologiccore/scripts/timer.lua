@@ -5,7 +5,7 @@ end
 
 local Timers = {} --Localise for speed.
 local WaitingList = {} --The waiting list while we load our tables.
-local SetTab = function(Table) for i,d in pairs(Table) do Timers[d.Name]=d end end
+local SetTab = function(Table) DefaultSaveLoad(Timers,Table) end
 RegisterSaveTable("MoTimers",Timers,SetTab,false)
 if MLC.Debug then Debug.RegisterTable("Timers",Timers) end
 local Functions = {}

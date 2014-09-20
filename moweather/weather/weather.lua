@@ -1,10 +1,5 @@
 local Random = MoMisc.Random --Localise the psuedo random function.
 
-TimeTables = { --The Base WindSpeed and sunlight settings for each Time of the day.
-	Day={Name="Day",W=0.024,L=0,NT="Night",D=600},
-	Night={Name="Night",W=0.018,L=100,NT="Day",D=240}
-}
-
 --Rain Code
 NextRSound = 0
 local Rain = function()
@@ -22,6 +17,7 @@ local Rain = function()
 		end
 	end
 end
+
 local RF = function() MoTimers.CreateTimer("MoWeatherRainDrops",0.4,0,false,Rain) end
 local RE = function() MoTimers.DeleteTimer("MoWeatherRainDrops")end
 
@@ -33,9 +29,8 @@ local Storm = function()
 	if(Random(42,1,30)<8)then
 		local Light = game.daytime
 		game.daytime = 0.99
-		DayLightOver=true
 		MoMisc.PlaySound("thunder-roll") 
-		MoTimers.CreateTimer("LightningFlash",0.2,1,false,function() game.daytime = Light DayLightOver = false end) 
+		MoTimers.CreateTimer("LightningFlash",0.2,1,false,function() game.daytime = Light end) 
 	end 
 end
 

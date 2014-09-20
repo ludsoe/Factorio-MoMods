@@ -109,8 +109,7 @@ end)
 --Oh God so much ugly code!!!
 local Loops,Entitys = {},{Ents={}}
 if MLC.Debug then Debug.RegisterTable("MLALoops",Loops) Debug.RegisterTable("MLAEnts",Entitys) end
-local TabSet = function(T2,T1) for i,d in pairs(T1) do T2[i]=d end end
-local SetTab,SetTab2 = function(Table) TabSet(Loops,Table) end,function(Table) TabSet(Entitys,Table) end
+local SetTab,SetTab2 = function(Table) DefaultSaveLoad(Loops,Table) end,function(Table) DefaultSaveLoad(Entitys,Table) end
 RegisterSaveTable("MoLoopAid",Loops,SetTab,false)
 RegisterSaveTable("MLAEnts",Entitys,SetTab2,false)
 

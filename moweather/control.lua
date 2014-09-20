@@ -1,16 +1,17 @@
-require "util"
-require "defines"
-
 MLC = {
 	Math=true,
 	Timers=true,
 	Misc=true,
 	Entity=true,
-	Debug=false
+	Debug=true
 }
+MoSave = require "mologiccore.base" 
+Random = MoMisc.Random --Localise the psuedo random function.
+
+MoConfig = {}
+require "config"
 
 WeatherTables={}
---TimeTables = {}
 
 function CreateWeather(Name,EndFunc,StartFunc,ThinkFunk,NextWeather,locale,WindSpeed,LightDimper,DurHigh,DurLow,CoolDown,Chance)
 	WeatherTables[Name]={
@@ -28,35 +29,21 @@ function CreateWeather(Name,EndFunc,StartFunc,ThinkFunk,NextWeather,locale,WindS
 		R=Chance
 	}	
 end
-
-MoSave = require "mologiccore.base"
 require "weather.weather"
 
 CurrentWeather = {}
-DayLightOver = false
+local Save=function(T) DefaultSaveLoad(CurrentWeather,T) end
+RegisterSaveTable("MoWeather",CurrentWeather,Save,true)
+if Debug~=nil then Debug.RegisterTable("CurrentWeather",CurrentWeather) end
 
---Bah Stuff
-TimeofDayChange = game.generateeventname()
-WeatherChange = game.generateeventname()
-remote.addinterface("MoWeather", {
-	gettimeeventkey = function() return TimeofDayChange end,
-	getweathereventkey = function() return WeatherChange end,
+require "scripts.day-night"
+require "scripts.wind"
+require "scripts.weathers"
 
-	curtimename = function() return glob.timeofday.Name end,
-	curweathername = function() return glob.Weather.Name end,
-	
-	--Returns the time left in the current day event, in seconds.
-	daytimeleft = function() return (glob.tod.daywait-game.tick)/60 or 0 end, --Exmample to Call = remote.call("MoWeather", "daytimeleft")
+remote.addinterface("MoWeather", {	
+	daytimeleft = function() return (CurrentWeather.Time.DayEnd-game.tick)/60 or 0 end,
 	weathertimeleft = function() return MoTimers.TimerTimeLeft("MoWeatherEvent") or 0 end,
-	
-	forcetimeofday = function(Want)
-		if TimeTables[Want] ~= nil then
-			SetTime(TimeTables[Want])
-			return true
-		end
-		return false
-	end,
-	
+
 	forceweather = function(Want)
 		if WeatherTables[Want] ~= nil then
 			SetWeather(WeatherTables[Want])
@@ -66,121 +53,41 @@ remote.addinterface("MoWeather", {
 	end
 })
 
-game.oninit(MoWInit) --If we start a new game, init MoWeather right off the bat.
-function MoWInit()
-	glob.moweather = true
-	glob.curwind,glob.windwait,glob.weathercooldown,glob.weatherevent = BaseWind,0,0,{}
-	SetTime(TimeTables["Day"])
-	if not glob.Weather then
-		SetWeather(WeatherTables["Clear"])
-	end
-	--MoMisc.Print("MoWInit!")
-end
+game.oninit(function() 
+	game:freezedaytime()
+	game.daytime=0.99
+end) 
 
-local Random = MoMisc.Random --Localise the psuedo random function.
-
-
---Handles the random wind fluxs.
-function ManageWind()
-	rand = Random(54,1,20)
-	if rand>10 then X=0.001 else X=-0.001 end
-	glob.curwind = MoMath.Clamp(math.abs(glob.tod.corewind+(Random(100,1,20)*X)),glob.tod.corewind-0.1,glob.tod.corewind+0.1)
-end
-
---Ends the weather.
-function EndWeather(Weather)
-	glob.weathercooldown = game.tick+(WeatherTables[Weather].C*60)
-	PickWeather()
-end
-
---Cache the function, so MoTimers can run it after a save game was loaded.
-MoTimers.CacheFunction("MoWeatherEvent",EndWeather)
-
-function SetWeather(Weather)
-	if glob.Weather ~= Weather.Name then
-		if CurrentWeather.EF then CurrentWeather.EF() end
-		MoTimers.CreateTimer("MoWeatherEvent",Random(350,Weather.DL,Weather.DH),1,false,EndWeather,Weather.Name)
-		glob.Weather = Weather.Name
-		CurrentWeather = Weather
-		CurrentWeather.SF()
-		game.player.print(game.gettext(Weather.locale))
-	else
-		CurrentWeather = Weather
-	end
-end
-
-function PickWeather()
-	if game.tick > glob.weathercooldown then
-		for i,d in pairs(WeatherTables) do
-			if d.R >= Random(500,1,1000) then
-				SetWeather(d,true)
-				return
-			end
-		end
-	end
-	SetWeather(WeatherTables[CurrentWeather.NT] or WeatherTables["Clear"])
-end
-
-function ManageWeather()
-	if not glob.Weather or MoTimers.TimerTimeLeft("MoWeatherEvent")<=0 then
-		PickWeather()
-	else
-		CurrentWeather.TF()
-	end
-end
-
-function Finalise() --Converts the numbers from MoWeather into numbers the game engine understands.
-	local Wind = (glob.curwind+CurrentWeather.W)/2
-	local Sun = (MoMath.Clamp(glob.tod.sunlight+CurrentWeather.L,0,100)/100)/2
+function CalculateValues()
+	local W = CurrentWeather.Weather.Data
+	
+	local Wind = (CurrentWeather.Wind.Wind+W.W)/2
+	local Sun = ((MoMath.Clamp(CurrentWeather.Time.Light-W.L,0,100)/100)/2)+0.49
 	return Wind,Sun
 end
 
---Sets the time.
-function SetTime(Tyme)
-	glob.timeofday = Tyme
-	glob.tod = {daywait=(Tyme.D*60)+game.tick,corewind=Tyme.W,sunlight=Tyme.L}
-	game.raiseevent(TimeofDayChange, Tyme)
-	--game.player.print("It is now "..Tyme.Name.." for "..Tyme.D.." secs")
-end
+local Length = MoConfig.DayLength
+local TransMult = MoConfig.TransitionMult
 
---Handles the time.
-function ManageTimes()
-	if game.tick > glob.tod.daywait then
-		local Tyme = TimeTables[glob.timeofday.NT]
-		SetTime(Tyme)
-	end
-end
-
-MoTimers.CreateTimer("MoWeatherInit",0,1,false,function()
-	if not glob.moweather then MoWInit() end
-	SetWeather(WeatherTables[glob.Weather] or WeatherTables["Clear"])
+MoTimers.CreateTimer("MoWeatherManage",0.1,0,false,function()
+	DayNightCycle()
 	ManageWind()
-	ManageTimes()
 	ManageWeather()
-	MoWeatherInited=true
-end)
+	
+	local Wind,Sun = CalculateValues()
 
-MoTimers.CreateTimer("MoWeatherManageThread",0.1,0,true,function()
-	if not MoWeatherInited then return end
-	ManageWind()
-	ManageTimes()
-	ManageWeather()
-	Wind,Sun = Finalise()
-
-	if not DayLightOver then
-		game.windspeed = MoMath.Approach(game.windspeed,Wind,0.001)
-		game.daytime = MoMath.Approach(game.daytime,Sun,0.002)
+	game.windspeed = MoMath.Approach(game.windspeed,Wind,0.001)
+	game.daytime = MoMath.Approach(game.daytime,Sun,(Length/TransMult))
+	
+	if Debug~= nil then --Debugging Values.
+		CurrentWeather.GameTime=game.daytime
+		CurrentWeather.Tick = game.tick
+		CurrentWeather.TimeLeft = (CurrentWeather.Time.DayEnd-game.tick)/60
 	end
 end)
 
---[[
-MoTimers.CreateTimer("Debug",1,0,false,function()	
-	--game.player.print("DayTime Left: "..(glob.tod.daywait-game.tick)/60)
-	--game.player.print("TimeLeftWeather: "..MoTimers.TimerTimeLeft("MoWeatherEvent"))
-	--game.player.print("CoolDownLeft: "..MoMath.Clamp((glob.weathercooldown-game.tick)/60,0,100000))
-	--game.player.print("DayLightDebug: "..game.daytime.." : "..((MoMath.Clamp(glob.tod.sunlight+glob.Weather.L,0,100)/100)/2).." : ")
-end)
-]]
+
+
 
 
 

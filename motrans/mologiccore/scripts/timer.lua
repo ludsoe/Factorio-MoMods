@@ -5,7 +5,7 @@ end
 
 local Timers = {} --Localise for speed.
 local WaitingList = {} --The waiting list while we load our tables.
-local SetTab = function(Table) for i,d in pairs(Table) do Timers[d.Name]=d end end
+local SetTab = function(Table) DefaultSaveLoad(Timers,Table) end
 RegisterSaveTable("MoTimers",Timers,SetTab,false)
 if MLC.Debug then Debug.RegisterTable("Timers",Timers) end
 local Functions = {}
@@ -19,10 +19,12 @@ local function MergeWaitingList()
 	WaitingList={}
 end
 
+--Caches a function so it doesnt error out while loading a save.
 FuncRegister("CacheFunction",function(Name,Function)
 	Functions["CB"..Name]=Function
 end)
 
+--This creates a timer, which calls a function after a defined time.
 FuncRegister("CreateTimer",function(Name,Length,Repeat,Over,CallBack,Data)
 	if IsLoaded then
 		if Timers[Name]~=nil and Over then return end --If we are given the dont overright flag, dont continue.
@@ -53,11 +55,13 @@ FuncRegister("CreateTimer",function(Name,Length,Repeat,Over,CallBack,Data)
 	--game.player.print("Timer Created: "..Name)
 end)
 
+--Deletes a timer before it finishs and calls its function.
 FuncRegister("DeleteTimer",function(Name)
 	--game.player.print("Timer Deleted: "..Name)
 	Timers[Name]=nil
 end)
 
+--Returns how much time is left in a timer.
 FuncRegister("TimerTimeLeft",function(Name) 
 	if Timers[Name] ~= nil then
 		local Return = (Timers[Name].Nxt-game.tick)/60
@@ -68,6 +72,7 @@ FuncRegister("TimerTimeLeft",function(Name)
 	return 0
 end)
 
+--Returns all active timers.
 FuncRegister("GetTimers",function() return Timers end)
 
 game.onevent(defines.events.ontick, function(event) --Timer Master Think.
