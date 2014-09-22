@@ -3,7 +3,7 @@ MLC = {
 	Timers=true, --Load the Timer Module?
 	Misc=true, --Load the Misc Module?
 	Entity=true, --Load the entity module?
-	Debug=true --Load the debug module?
+	Debug=false --Load the debug module?
 }
 
 MoSave = require "mologiccore.base"

@@ -54,7 +54,9 @@ data:extend(
     energy_required = 4,
     ingredients =
     {
-      {"steel-plate", 5}
+      {"steel-plate", 40},
+	  {"combat-roboport",1},
+	  {"radar",5}
     },
     result = "combat-command-tower"
   }

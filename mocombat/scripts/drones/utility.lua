@@ -18,30 +18,48 @@ function PickupArtifact(T,P,G)
 	end)
 end
 
-function ArtifactScan(P,E,V,R)
-	local G = E.G
+function ArtifactScan(O)
+	local P = KTE(O.Post)
+	if P==nil or not P.valid then return false end
 	
+	local Artifacts = {}
 	if P.caninsert({name=ArtifactName,count=1}) then
-		local Scan = MoEntity.findentinsquareradius(V,R,"item-on-ground")
+		local Scan = MoEntity.findentinsquareradius(O.C,O.R,"item-on-ground")
 		for s,d in pairs(Scan) do
 			if d~=nil and d.valid and d.stack.name==ArtifactName then
-				while #G < MaxDrones do 
-					if not SpawnDrone(P,G) then break end 
-				end
-				CommandDrones(G,P.position,{type=DefC.gotolocation,destination=d.position,radius=5,distraction=DefD.byenemy})
-				PickupArtifact(d,P,G)
+				Artifacts[s]=d--Add the artifact to the artifacts table.
 			end
-			return true
 		end
 	end
-	return false
+	if #Artifacts >= 1 then
+		O.MS = 2
+		O.Artifacts = Artifacts
+		return true
+	else
+		return false
+	end
 end
 
-function ReturnToBase(P,E)
-	local G = E.G
+function ArtifactFinish(O,C)
+	if O.A then
+		local P = KTE(O.Post)
+	
+		local ArtCount = #O.Artifacts or 0
+		if ArtCount >= 1 then
+			local d = O.Artifacts[MoMath.Clamp(C,1,ArtCount)]
+		
+			O.Command = {P=P.position,C={type=DefC.gotolocation,destination=d.position,radius=5,distraction=DefD.byenemy}}
+			O.ComFunc = {N="Collect",F=PickupArtifact,T=d,P=P}			
+		end
+	end
+end
 
-	CommandDrones(G,P.position,{type=DefC.gotolocation,destination=P.position,radius=10,distraction=DefD.byenemy})
-	StoreDrone(P,G)
+function ReturnToBase(O)
+	local P = KTE(O.Post)
+	
+	O.S=false
+	O.Command = {P=P.position,C={type=DefC.gotolocation,destination=P.position,radius=10,distraction=DefD.byenemy}}
+	O.ComFunc = {N="Store",F=StoreDrone,P=P}
 end
 
 

@@ -52,7 +52,7 @@ function StoreDrone(E,G)
 	end)	
 end
 
-function CommandDrones(G,V,C)
+function CommandDrones(G,O)
 	MoEntity.LoopThis(G,function(ent)
 		local D = KTE(ent)
 		if D==nil or not D.valid then 
@@ -67,50 +67,72 @@ function CommandDrones(G,V,C)
 			MoEntity.AddToLoop("combatrobots",D,{NT=0})
 		else
 			if Dat.extra.NT<=game.tick then
-				local Distance = (util.distance(V,D.position)/10)
+				local Distance = (util.distance(O.Command.P,D.position)/10)
 				Dat.extra.Dis = Distance
 				Dat.extra.NT = game.tick+(Distance*60)
-				D.setcommand(C)
+				D.setcommand(O.Command.C)
 			end
 		end
 		return true
 	end)
+	
+	local CF = O.ComFunc
+	if CF~=nil then
+		if CF.N=="Collect" then
+			CF.F(CF.T,CF.P,G)
+		elseif CF.N=="Store" then
+			CF.F(CF.P,G)
+		end
+	end
 end
 
-function GetOrders(P)
-	local Tab = {A=false,P=false}
-	Tab.Rad = 40+(P.getitemcount("drone-orders-rangeboost")*10)
-	if P.getitemcount("drone-orders-player") > 0 then
+function GetOrdersFromInv(C,P)
+	local Tab = {S=true,A=false,P=false,MS=MaxDrones,Post=RegKey(P),C=C.position,Artifacts={}}
+	Tab.R = 40+(C.getitemcount("drone-orders-rangeboost")*10)
+	if C.getitemcount("drone-orders-player") > 0 then
 		Tab.PE=game.player
 		Tab.P = true
 	end
-	if P.getitemcount("drone-orders-artifact") > 0 then
+	if C.getitemcount("drone-orders-artifact") > 0 then
 		Tab.A=true
 	end
 	return Tab
 end
 
-function ManageDrones(P,E,CP)
-	local Orders = GetOrders(P,E)
-	local Center = P
+function GetOrdersFromAI(C,P,N)
+	local Orders = GetOrdersFromInv(C,P)
 	
-	
-	if CP and CP.valid then
-		Orders = GetOrders(CP)
-		Center = CP
+	if Orders.P and util.distance(Orders.C,Orders.PE.position) < Orders.R then
+		if AssistPlayer(Orders) then return Orders end
 	end
 	
-	if Orders.P and util.distance(Center.position,E.P.position) < Orders.Rad then
-		if AssistPlayer(P,E,E.P) then return end
+	if ProtectArea(Orders) then return Orders end
+	
+	if Orders.A and N==1 then
+		if ArtifactScan(Orders) then 
+			return Orders 
+		end
 	end
-	
-	if ProtectArea(P,E,Center.position,Orders.Rad) then return end
-	
-	if Orders.A then
-		if ArtifactScan(P,E,Center.position,Orders.Rad) then return end
-	end
-	
-	ReturnToBase(P,E)
+
+	ReturnToBase(Orders)
+	return Orders
+end
+
+function ManageDrones(CP,P)
+	local LA = 1
+	MoEntity.LoopThis(P,function(dat)
+		local CR = KTE(dat.entity)
+		if not CR or not CR.valid then return false end
+		local G = dat.extra.G
+		local Orders = GetOrdersFromAI(CP,CR,LA)
+
+		while Orders.S and #G < Orders.MS do 
+			if not SpawnDrone(CR,G) then break end 
+		end
+		ArtifactFinish(Orders,LA)
+		CommandDrones(G,Orders) LA=LA+1
+		return true
+	end)
 end
 
 function CommandPostFind(Key,entity,data)
@@ -145,10 +167,9 @@ MoTimers.CreateTimer("Combat-RobotPorts",0.5,0,false,function()
 		local DE = KTE(data.entity)
 		if DE==nil or not DE.valid then return false end
 		
-		local E = data.extra
-		if E.CP==nil or not KTE(E.CP).valid then
-			ManageDrones(DE,E)
-		end
+		local CMD = KTE(data.extra.CP)
+		if CMD~=nil and CMD.valid then return true end
+		ManageDrones(DE,{data})
 		
 		return true
 	end)
@@ -158,14 +179,7 @@ MoTimers.CreateTimer("Combat-RobotPorts",0.5,0,false,function()
 		if DE==nil or not DE.valid then return false end
 		
 		CommandPostFind(data.entity,DE,data.extra)
-
-		MoEntity.LoopThis(data.extra.P,function(dat)
-			local CR = KTE(dat.entity)
-			if not CR or not CR.valid then return false end
-			ManageDrones(CR,dat.extra,DE)
-			return true
-		end)		
-		
+		ManageDrones(DE,data.extra.P)	
 		return true
 	end)
 end)
