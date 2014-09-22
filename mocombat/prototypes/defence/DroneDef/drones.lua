@@ -4,8 +4,8 @@ data:extend(
 		type = "unit",
 		name = "attack-drone",
 		icon = "__base__/graphics/icons/logistic-robot.png",
-		flags = {"placeable-player", "player-creation", "placeable-off-grid", "not-on-map"},
-		max_health = 180,
+		flags = {"placeable-player", "player-creation", "placeable-off-grid"},
+		max_health = 320,
 		resistances={{type = "acid",percent = 50},{type = "electric",percent = 90}},
 		order="c",
 		subgroup="drone-combat",
@@ -17,7 +17,7 @@ data:extend(
 		{
 			ammo_category = "combat-robot-laser",
 			cooldown = 20,
-			damage_modifier = 1.5,
+			damage_modifier = 3,
 			projectile_center = {0, 0},
 			projectile_creation_distance = 0.6,
 			range = 18,
@@ -55,7 +55,7 @@ data:extend(
 			}
 		},
 		vision_distance = 30,
-		movement_speed = 0.15,
+		movement_speed = 0.24,
 		distance_per_frame = 0.1,
 		pollution_to_join_attack = 20000000,
 		distraction_cooldown = 300,

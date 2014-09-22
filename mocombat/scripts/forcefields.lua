@@ -43,9 +43,7 @@ MoEntity.SubscribeOnBuilt("forcefield-post","ForceFieldDetection",OnPostBuilt)
 
 --Lets Register into the MoToolBar :D
 if remote.interfaces.MoToolBar and remote.interfaces.MoToolBar.addbutton then
-	MoTimers.CreateTimer("RegisterToolBar",0,1,false,function()
-		remote.call("MoToolBar", "addbutton","calcffps","Detect FF Posts","MoCombat","detectforcefields","MoCombat","Detect Force Field Posts")
-	end)
+	remote.call("MoToolBar", "addbutton","calcffps","Detect FF Posts","MoCombat","detectforcefields","MoCombat","Detect Force Field Posts")
 end
 
 ModInterface.detectforcefields = function()

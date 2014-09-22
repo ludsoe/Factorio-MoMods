@@ -1,8 +1,8 @@
 data:extend(
 {
  {
-    type = "container",
-    name = "combat-roboport",
+    type = "smart-container",
+    name = "combat-roboport-smart",
     icon = "__base__/graphics/icons/roboport.png",
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "combat-roboport"},
@@ -22,6 +22,19 @@ data:extend(
       width = 143,
       height = 135,
       shift = {0.5, 0.25}
+    },
+    connection_point =
+    {
+      shadow =
+      {
+        red = {0.7, -0.3},
+        green = {0.7, -0.3}
+      },
+      wire =
+      {
+        red = {0.3, -0.8},
+        green = {0.3, -0.8}
+      }
     }
   },
   {
@@ -31,7 +44,7 @@ data:extend(
     flags = {"goes-to-quickbar"},
 	order="a",
 	subgroup="drone-combat",
-    place_result = "combat-roboport",
+    place_result = "combat-roboport-smart",
     stack_size = 5
   },
   {

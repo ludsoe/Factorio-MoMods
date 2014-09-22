@@ -39,6 +39,26 @@ data:extend(
       {"advanced-circuit", 10}
     },
     result = "drone-orders-rangeboost"
+  },
+  {
+    type = "item",
+    name = "drone-orders-artifact",
+    icon = "__mocombat__/graphics/icons/artifact.png",
+    flags = {"goes-to-main-inventory"},
+    subgroup = "drone-combat",
+    order = "b-c",
+    stack_size = 1
+  },
+  {
+    type = "recipe",
+    name = "drone-orders-artifact",
+	enabled = "false",
+    energy_required = 5,
+    ingredients =
+    {
+      {"advanced-circuit", 5}
+    },
+    result = "drone-orders-artifact"
   }
 }
 )

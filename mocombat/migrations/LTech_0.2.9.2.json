@@ -1,0 +1,7 @@
+{
+  "entity":
+  [
+    ["combat-roboport", "combat-roboport-smart"],
+	["combat-command-tower", "combat-command-tower-smart"]
+  ]
+}

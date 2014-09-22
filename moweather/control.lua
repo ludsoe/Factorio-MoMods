@@ -3,7 +3,7 @@ MLC = {
 	Timers=true,
 	Misc=true,
 	Entity=true,
-	Debug=true
+	Debug=false
 }
 MoSave = require "mologiccore.base" 
 Random = MoMisc.Random --Localise the psuedo random function.

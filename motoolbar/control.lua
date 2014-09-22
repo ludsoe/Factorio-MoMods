@@ -61,7 +61,9 @@ function GenerateBar()
 	--Now we add the buttons the user wants loaded.
 	for i,d in pairs(glob.Settings.A) do
 		if d == true then
-			AddButton(Register[i].n,Register[i].c,Register[i].s,Register[i].f)
+			if Register[i]~=nil then --Fixes a error that happens if a mod with a button was removed.
+				AddButton(Register[i].n,Register[i].c,Register[i].s,Register[i].f)
+			end
 		end
 	end
 	

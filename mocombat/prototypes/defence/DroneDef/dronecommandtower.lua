@@ -1,8 +1,8 @@
 data:extend(
 {
  {
-    type = "container",
-    name = "combat-command-tower",
+    type = "smart-container",
+    name = "combat-command-tower-smart",
     icon = "__base__/graphics/icons/radar.png",
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "combat-command-tower"},
@@ -22,6 +22,19 @@ data:extend(
       width = 145,
       height = 110,
       shift = {0.5, 0.25}
+    },
+    connection_point =
+    {
+      shadow =
+      {
+        red = {0.7, -0.3},
+        green = {0.7, -0.3}
+      },
+      wire =
+      {
+        red = {0.3, -0.8},
+        green = {0.3, -0.8}
+      }
     }
   },
   {
@@ -31,7 +44,7 @@ data:extend(
     flags = {"goes-to-quickbar"},
 	order="a-b",
 	subgroup="drone-combat",
-    place_result = "combat-command-tower",
+    place_result = "combat-command-tower-smart",
     stack_size = 5
   },
   {

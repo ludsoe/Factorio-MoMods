@@ -64,6 +64,13 @@ FuncRegister("addtoplayerpos",function(X,Y)
 end)
 
 -------------Vector Functions----------
+--Adds a vector to a entities position.
+FuncRegister("addtoentpos",function(Ent,Vec)
+	local Pos = Ent.position
+	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
+	return {Pos.x+X,Pos.y+Y}
+end)
+
 --Finds a certain entity in a square area around a point.
 FuncRegister("findentinsquareradius",function(Vec,Rad,Ent)
 	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
@@ -74,7 +81,7 @@ end)
 FuncRegister("findentinradius",function(Vec,Rad,Ent)
 end)
 
---Returns if 2 vectors are inline.
+--Returns if 2 vectors are inline. (Vertical or Horizontal)
 FuncRegister("inline",function(Vec,Vec2)
 	return (Vec.x or Vec.X) == (Vec2.x or Vec2.X) or (Vec.y or Vec.Y) == (Vec2.y or Vec2.Y)
 end)
@@ -92,6 +99,7 @@ FuncRegister("traceline",function(Vec,Vec2,Ent)
 	return true
 end)
 
+--Exactly like traceline, except it has a extra function called for each position being tested. (If its open.)
 FuncRegister("functraceline",function(Vec,Vec2,Ent,Func)
 	local V,A = Vec,MoMath.Approach
 	for I=1, util.distance(Vec,Vec2) do
@@ -114,8 +122,9 @@ RegisterSaveTable("MoLoopAid",Loops,SetTab,false)
 RegisterSaveTable("MLAEnts",Entitys,SetTab2,false)
 
 function GetKey(Ent)
+	if Ent==nil or not Ent.valid then return 0 end --Your ent is nil.
 	for i,d in pairs(Entitys.Ents) do
-		if d.valid then
+		if d~=nil and d.valid then
 			if d.equals(Ent) then
 				return i 
 			end

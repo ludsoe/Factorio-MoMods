@@ -1,8 +1,11 @@
 local KTE,RegKey = MoEntity.KeyToEnt,MoEntity.EntToKey
 local DefC,DefD,DefS = defines.command,defines.distraction,defines.groupstate
 
-local MaxDrones = 10
-local DroneName = "attack-drone"
+MaxDrones = 10
+local CombatDroneName = "attack-drone"
+
+require "drones.combat"
+require "drones.utility"
 
 function OnCRPBuilt(entity)
 	MoEntity.AddToLoop("croboport",entity,{G={},C=1})
@@ -18,15 +21,15 @@ MoEntity.SubscribeOnBuilt("combat-drone-wagon","combatrobowagon",OnCRPBuilt)
 MoEntity.SubscribeOnBuilt("combat-command-tower-smart","combatcommtower",OnCRCCBuilt)
 
 function SpawnDrone(E,G)
-	local Drones = E.getitemcount(DroneName)
+	local Drones = E.getitemcount(CombatDroneName)
 	if Drones > 0 and not E.tobedeconstructed(E.force) then
-		local V = game.findnoncollidingposition(DroneName, E.position, 10, 1)
+		local V = game.findnoncollidingposition(CombatDroneName, E.position, 10, 1)
 		
-		local Drone=game.createentity{name = DroneName, position=V}
+		local Drone=game.createentity{name = CombatDroneName, position=V}
 		Drone.force=E.force
-		MoEntity.AddToLoop("combatrobots",Drone,{NT=0})
+		MoEntity.AddToLoop("combatrobots",Drone,{NT=0,Post=E})
 		table.insert(G,RegKey(Drone))
-		E.getinventory(1).remove({name=DroneName,count=1})
+		E.getinventory(1).remove({name=CombatDroneName,count=1})
 		return true
 	else
 		return false
@@ -37,9 +40,9 @@ function StoreDrone(E,G)
 	MoEntity.LoopThis(G,function(ent)
 		local D = KTE(ent)
 		if D==nil or not D.valid then return false end
-		if E.caninsert({name=DroneName,count=1}) then
+		if E.caninsert({name=CombatDroneName,count=1}) then
 			if util.distance(D.position,E.position) < 5 then
-				E.insert({name=DroneName,count=1})
+				E.insert({name=CombatDroneName,count=1})
 				MoEntity.RemoveFromLoop("combatrobots",D)
 				D.destroy()
 				return false --We stored the drone, lets remove it from the table.
@@ -56,6 +59,9 @@ function CommandDrones(G,V,C)
 			MoEntity.RemoveFromLoop("combatrobots",D)
 			return false 
 		end
+		
+		D.force.chart{MoEntity.addtoentpos(D,{y=-5,x=-5}),MoEntity.addtoentpos(D,{y=5,x=5})}
+		
 		local Dat = MoEntity.GetDataFromLoop("combatrobots",D)
 		if Dat==nil then
 			MoEntity.AddToLoop("combatrobots",D,{NT=0})
@@ -71,72 +77,40 @@ function CommandDrones(G,V,C)
 	end)
 end
 
-function ProtectArea(P,E,V,R)
-	local G = E.G
-
-	local Scan = game.findnearestenemy{position=V, maxdistance=R}
-	if Scan~=nil and Scan.valid then
-		while #G < MaxDrones do 
-			if not SpawnDrone(P,G) then break end 
-		end
-		CommandDrones(G,Scan.position,{type=DefC.attack,target=Scan,distraction=DefD.byenemy})
-	else--Return to base nothing nearby for us to kill.
-		CommandDrones(G,P.position,{type=DefC.gotolocation,destination=P.position,radius=10,distraction=DefD.byenemy})
-		StoreDrone(P,G)
-	end
-end
-
-function AssistPlayer(P,E,O)
-	local G = E.G
-	if E.C==nil then E.C = 1 else E.C=E.C+1 end
-	
-	while #G < MaxDrones do 
-		if not SpawnDrone(P,G) then break end 
-	end
-	
-	local Scan = game.findnearestenemy{position=O.position, maxdistance=20}
-	if Scan~=nil and Scan.valid then
-		if E.C > 6 then E.C=1
-			CommandDrones(G,Scan.position,{type=DefC.attack,target=Scan,distraction=DefD.byenemy})
-		end
-	else
-		if E.C > 4 then E.C=1	
-			CommandDrones(G,P.position,{type=DefC.gotolocation,destination=O.position,radius=10,distraction=DefD.byenemy})
-		end
-	end
-end
-
-function GetOrders(P,E)
-	local Rad = 40+(P.getitemcount("drone-orders-rangeboost")*10)
+function GetOrders(P)
+	local Tab = {A=false,P=false}
+	Tab.Rad = 40+(P.getitemcount("drone-orders-rangeboost")*10)
 	if P.getitemcount("drone-orders-player") > 0 then
-		--Find closest player, store inside table.
-		E.P=game.player
-		return "Player",Rad
+		Tab.PE=game.player
+		Tab.P = true
 	end
-	return false,Rad
+	if P.getitemcount("drone-orders-artifact") > 0 then
+		Tab.A=true
+	end
+	return Tab
 end
 
 function ManageDrones(P,E,CP)
-	local Orders,Radius = GetOrders(P,E)
+	local Orders = GetOrders(P,E)
 	local Center = P
 	
 	
 	if CP and CP.valid then
-		Orders,Radius = GetOrders(CP,E)
+		Orders = GetOrders(CP)
 		Center = CP
 	end
 	
-	if Orders then
-		if Orders == "Player" then
-			if util.distance(Center.position,E.P.position) < Radius then
-				AssistPlayer(P,E,E.P)
-			else
-				ProtectArea(P,E,Center.position,Radius)
-			end
-		end
-	else
-		ProtectArea(P,E,Center.position,Radius)
+	if Orders.P and util.distance(Center.position,E.P.position) < Orders.Rad then
+		if AssistPlayer(P,E,E.P) then return end
 	end
+	
+	if ProtectArea(P,E,Center.position,Orders.Rad) then return end
+	
+	if Orders.A then
+		if ArtifactScan(P,E,Center.position,Orders.Rad) then return end
+	end
+	
+	ReturnToBase(P,E)
 end
 
 function CommandPostFind(Key,entity,data)
