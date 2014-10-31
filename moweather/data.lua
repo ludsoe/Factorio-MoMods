@@ -12,8 +12,8 @@ data:extend(
       {
         filename = "__moweather__/graphics/empty.png",
         priority = "low",
-        frame_width = 32,
-        frame_height = 32,
+        width = 32,
+        height = 32,
         frame_count = 1
       }
     },   
@@ -47,8 +47,8 @@ data:extend(
       {
         filename = "__moweather__/graphics/empty.png",
         priority = "low",
-        frame_width = 32,
-        frame_height = 32,
+        width = 32,
+        height = 32,
         frame_count = 1
       }
     },   
@@ -73,24 +73,24 @@ data:extend(
       {
         filename = "__moweather__/graphics/Rain/rain.png",
         priority = "low",
-        frame_width = 200,
-        frame_height = 200,
+        width = 200,
+        height = 200,
         frame_count = 6,
 		animation_speed = 0.1
       },
 	  {
         filename = "__moweather__/graphics/Rain/rain2.png",
         priority = "low",
-        frame_width = 200,
-        frame_height = 200,
+        width = 200,
+        height = 200,
         frame_count = 6,
 		animation_speed = 0.1
       },
 	  {
         filename = "__moweather__/graphics/Rain/rain3.png",
         priority = "low",
-        frame_width = 200,
-        frame_height = 200,
+        width = 200,
+        height = 200,
         frame_count = 6,
 		animation_speed = 0.1
       }

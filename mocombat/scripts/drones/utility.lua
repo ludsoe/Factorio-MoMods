@@ -18,24 +18,37 @@ function PickupArtifact(T,P,G)
 	end)
 end
 
-function ArtifactScan(O)
+function ArtifactScan(O,D)
 	local P = KTE(O.Post)
 	if P==nil or not P.valid then return false end
 	
 	local Artifacts = {}
-	if P.caninsert({name=ArtifactName,count=1}) then
-		local Scan = MoEntity.findentinsquareradius(O.C,O.R,"item-on-ground")
-		for s,d in pairs(Scan) do
+	if D.Scan~=nil and D.Scan>game.tick then
+		for s,d in pairs(D.Facts) do
 			if d~=nil and d.valid and d.stack.name==ArtifactName then
 				Artifacts[s]=d--Add the artifact to the artifacts table.
 			end
 		end
+	else
+		D.Scan=game.tick+(2*60)
+		if P.caninsert({name=ArtifactName,count=1}) then
+			local Scan = MoEntity.findentinsquareradius(O.C,O.R,"item-on-ground")
+			for s,d in pairs(Scan) do
+				if d~=nil and d.valid and d.stack.name==ArtifactName then
+					Artifacts[s]=d--Add the artifact to the artifacts table.
+				end
+			end
+		end
 	end
+	
+	D.Facts=Artifacts
+	
 	if #Artifacts >= 1 then
 		O.MS = 2
 		O.Artifacts = Artifacts
 		return true
 	else
+		O.MS = 10
 		return false
 	end
 end
@@ -47,7 +60,9 @@ function ArtifactFinish(O,C)
 		local ArtCount = #O.Artifacts or 0
 		if ArtCount >= 1 then
 			local d = O.Artifacts[MoMath.Clamp(C,1,ArtCount)]
-		
+			
+			if d==nil or not d.valid then ReturnToBase(O) return end
+			
 			O.Command = {P=P.position,C={type=DefC.gotolocation,destination=d.position,radius=5,distraction=DefD.byenemy}}
 			O.ComFunc = {N="Collect",F=PickupArtifact,T=d,P=P}			
 		end

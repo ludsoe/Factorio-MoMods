@@ -99,7 +99,7 @@ function GetOrdersFromInv(C,P)
 	return Tab
 end
 
-function GetOrdersFromAI(C,P,N)
+function GetOrdersFromAI(C,P,N,D)
 	local Orders = GetOrdersFromInv(C,P)
 	
 	if Orders.P and util.distance(Orders.C,Orders.PE.position) < Orders.R then
@@ -109,7 +109,7 @@ function GetOrdersFromAI(C,P,N)
 	if ProtectArea(Orders) then return Orders end
 	
 	if Orders.A and N==1 then
-		if ArtifactScan(Orders) then 
+		if ArtifactScan(Orders,D) then 
 			return Orders 
 		end
 	end
@@ -124,7 +124,7 @@ function ManageDrones(CP,P)
 		local CR = KTE(dat.entity)
 		if not CR or not CR.valid then return false end
 		local G = dat.extra.G
-		local Orders = GetOrdersFromAI(CP,CR,LA)
+		local Orders = GetOrdersFromAI(CP,CR,LA,dat.extra)
 
 		while Orders.S and #G < Orders.MS do 
 			if not SpawnDrone(CR,G) then break end 

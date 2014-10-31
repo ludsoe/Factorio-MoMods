@@ -40,8 +40,8 @@ data:extend({
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",
-      frame_width = 1,
-      frame_height = 1,
+      width = 1,
+      height = 1,
       frame_count = 1,
       animation_speed = 0.5
     },
@@ -49,8 +49,8 @@ data:extend({
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",
-      frame_width = 1,
-      frame_height = 1,
+      width = 1,
+      height = 1,
       frame_count = 1,
       animation_speed = 0.5
     },
@@ -58,8 +58,8 @@ data:extend({
     {
       filename = "__base__/graphics/entity/roboport/roboport-recharging.png",
       priority = "high",
-      frame_width = 37,
-      frame_height = 35,
+      width = 37,
+      height = 35,
       frame_count = 16,
       scale = 1.5,
       animation_speed = 0.5
@@ -164,8 +164,8 @@ data:extend({
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",
-      frame_width = 1,
-      frame_height = 1,
+      width = 1,
+      height = 1,
       frame_count = 1,
       animation_speed = 0.5
     },
@@ -173,8 +173,8 @@ data:extend({
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",
-      frame_width = 1,
-      frame_height = 1,
+      width = 1,
+      height = 1,
       frame_count = 1,
       animation_speed = 0.5
     },
@@ -182,8 +182,8 @@ data:extend({
     {
       filename = "__base__/graphics/entity/roboport/roboport-recharging.png",
       priority = "high",
-      frame_width = 37,
-      frame_height = 35,
+      width = 37,
+      height = 35,
       frame_count = 16,
       scale = 1.5,
       animation_speed = 0.5

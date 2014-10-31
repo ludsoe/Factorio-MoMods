@@ -69,8 +69,8 @@ data:extend(
 			animation =
 			{
 				filename = "__mocombat__/graphics/enemys/exploder/attack.png",
-				frame_width = 139,
-				frame_height = 93,
+				width = 139,
+				height = 93,
 				frame_count = 11,
 				direction_count = 16,
 				axially_symmetrical = false,
@@ -106,8 +106,8 @@ data:extend(
 		{
 			filename = "__mocombat__/graphics/enemys/exploder/run.png",
 			still_frame = 4,
-			frame_width = 86,
-			frame_height = 59,
+			width = 86,
+			height = 59,
 			frame_count = 16,
 			direction_count = 16,
 			shift = {0.359375, -0.15625},
@@ -127,8 +127,8 @@ data:extend(
 		final_render_layer = "corpse",
 		animation =
 		{
-			frame_width = 142,
-			frame_height = 97,
+			width = 142,
+			height = 97,
 			frame_count = 17,
 			direction_count = 16,
 			axially_symetric = false,

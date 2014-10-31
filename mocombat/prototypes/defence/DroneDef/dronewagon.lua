@@ -27,8 +27,8 @@ data:extend(
     pictures =
     {
       priority = "very-low",
-      frame_width = 285,
-      frame_height = 218,
+      width = 285,
+      height = 218,
       axially_symmetrical = false,
       back_equals_front = true,
       direction_count = 128,

@@ -32,7 +32,7 @@ end)
 --This does all the hard work.
 local function EventHandler(event)
 	local Event = event.name
-	if Event == defines.events.onbuiltentity then
+	if Event == defines.events.onbuiltentity or Event == defines.events.onrobotbuiltentity then
 		local Name = event.createdentity.name
 		if Subscribed.Built[Name] then
 			for i,d in pairs(Subscribed.Built[Name]) do

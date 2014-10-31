@@ -25,34 +25,6 @@ data:extend(
 		percent = 100
 	  }
     },
-    ammo_type =
-    {
-      type = "projectile",
-      category = "railgun",
-	  energy_consumption = "10kJ",
-      target_type = "direction",
-      action =
-      {
-        type = "line",
-        range = 25,
-        width = 1.5,
-
-        source_effects =
-        {
-          type = "create-entity",
-          entity_name = "lightning-bolt"
-        },
-        action_delivery =
-        {
-          type = "instant",
-          target_effects =
-          {
-            type = "damage",
-            damage = { amount = 50, type="electric"}
-          }
-        }
-      }
-    },
     energy_source =
     {
       type = "electric",
@@ -72,8 +44,8 @@ data:extend(
     {
       filename = "__base__/graphics/entity/laser-turret/laser-turret.png",
       priority = "medium",
-      frame_width = 131,
-      frame_height = 72,
+      width = 131,
+      height = 72,
       direction_count = 64,
       frame_count = 1,
       line_length = 8,
@@ -99,6 +71,34 @@ data:extend(
       cooldown = 20,
       projectile_creation_distance = 0.6,
       range = 25,
+	  ammo_type =
+		{
+		  type = "projectile",
+		  category = "railgun",
+		  energy_consumption = "10kJ",
+		  target_type = "direction",
+		  action =
+		  {
+			type = "line",
+			range = 25,
+			width = 1.5,
+
+			source_effects =
+			{
+			  type = "create-entity",
+			  entity_name = "lightning-bolt"
+			},
+			action_delivery =
+			{
+			  type = "instant",
+			  target_effects =
+			  {
+				type = "damage",
+				damage = { amount = 50, type="electric"}
+			  }
+			}
+		  }
+		},
 	  sound =
       {
         {
@@ -120,15 +120,15 @@ data:extend(
 	  {
         filename = "__mocombat__/graphics/defenses/tesla/zap.png",
         priority = "extra-high",
-        frame_width = 50,
-        frame_height = 50,
+        width = 50,
+        height = 50,
         frame_count = 6,
       },
       {
         filename = "__mocombat__/graphics/defenses/tesla/zap2.png",
         priority = "extra-high",
-        frame_width = 50,
-        frame_height = 50,
+        width = 50,
+        height = 50,
         frame_count = 6,
       }
     },

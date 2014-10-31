@@ -12,6 +12,7 @@ data:extend(
     minable = {mining_time = 1, result = "boat"},
     max_health = 2000,
     corpse = "medium-remnants",
+	dying_explosion = "huge-explosion",
     resistances = 
     {
       {
@@ -21,8 +22,8 @@ data:extend(
     },
     collision_box = {{-0.7, -1}, {0.7, 1}},
     selection_box = {{-0.7, -1}, {0.7, 1}},
-    acceleration_per_energy = 0.000002,
-    breaking_speed = 0.01,
+    effectivity = 0.02,
+    braking_power = "200kW",
     burner =
     {
       effectivity = 1,
@@ -52,16 +53,55 @@ data:extend(
         size = 40,
       }
     },
-    pictures =
+    animation =
     {
       filename = "__motrans__/graphics/entity/boat-sheet.png",
       line_length = 6,
-      frame_width = 88,
-      frame_height = 83,
+      width = 88,
+      height = 83,
       scale=1.4,
+	  frame_count = 1,
       axially_symmetrical = false,
       direction_count = 36
+    },    
+	stop_trigger_speed = 0.2,
+    stop_trigger =
+    {
+      {
+        type = "play-sound",
+        sound =
+        {
+          {
+            filename = "__base__/sound/car-breaks.ogg",
+            volume = 0.6
+          },
+        }
+      },
     },
+    crash_trigger = crash_trigger(),
+    sound_minimum_speed = 0.2;
+    working_sound =
+    {
+      sound =
+      {
+        filename = "__base__/sound/car-engine.ogg",
+        volume = 0.6
+      },
+      activate_sound =
+      {
+        filename = "__base__/sound/car-engine-start.ogg",
+        volume = 0.6
+      },
+      deactivate_sound =
+      {
+        filename = "__base__/sound/car-engine-stop.ogg",
+        volume = 0.6
+      },
+      match_speed_to_activity = true,
+    },
+    open_sound = { filename = "__base__/sound/car-door-open.ogg", volume=0.7 },
+    close_sound = { filename = "__base__/sound/car-door-close.ogg", volume = 0.7 },
+
     rotation_speed = 0.008,
     weight = 1500,
     inventory_size = 80

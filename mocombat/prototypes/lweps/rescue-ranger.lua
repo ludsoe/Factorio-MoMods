@@ -57,8 +57,8 @@ data:extend(
 		{
 		  filename = "__mocombat__/graphics/weapons/rrbolt.png",
 		  frame_count = 1,
-		  frame_width = 7,
-		  frame_height = 14,
+		  width = 7,
+		  height = 14,
 		  priority = "high"
 		},
 		speed = 0.25

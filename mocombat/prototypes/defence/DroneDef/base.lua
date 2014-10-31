@@ -11,7 +11,11 @@ data:extend(
     name = "adv-com-drones",
     icon = "__base__/graphics/icons/distractor.png",
     effects =
-    {
+    {      
+	  {
+        type = "unlock-recipe",
+        recipe = "combat-command-tower"
+      },
       {
         type = "unlock-recipe",
         recipe = "combat-roboport"

@@ -29,8 +29,8 @@ data:extend(
     charge_animation =
     {
       filename = "__mopower__/graphics/adv-accumulator/adv-accumulator.png",
-      frame_width = 248,
-      frame_height = 206,
+      width = 248,
+      height = 206,
       frame_count = 1,
       shift = {1.4, -0.4},
       animation_speed = 1
@@ -40,8 +40,8 @@ data:extend(
     discharge_animation =
     {
       filename = "__mopower__/graphics/adv-accumulator/adv-accumulator.png",
-      frame_width = 248,
-      frame_height = 206,
+      width = 248,
+      height = 206,
       frame_count = 1,
       shift = {1.4, -0.4},
       animation_speed = 1

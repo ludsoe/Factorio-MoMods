@@ -29,8 +29,8 @@ data:extend(
     charge_animation =
     {
       filename = "__mopower__/graphics/turbine/spin.png",
-      frame_width = 90,
-      frame_height = 200,
+      width = 90,
+      height = 200,
       line_length = 9,
       frame_count = 9,
       shift = {0.3, -2},
@@ -41,8 +41,8 @@ data:extend(
     discharge_animation =
     {
       filename = "__mopower__/graphics/turbine/idle.png",
-      frame_width = 90,
-      frame_height = 200,
+      width = 90,
+      height = 200,
       line_length = 1,
       frame_count = 1,
       shift = {0.3, -2},

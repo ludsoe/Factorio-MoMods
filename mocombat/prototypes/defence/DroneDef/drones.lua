@@ -47,8 +47,8 @@ data:extend(
 				filename = "__base__/graphics/entity/combat-robot/distractor.png",
 				priority = "high",
 				still_frame = 1,
-				frame_width = 37,
-				frame_height = 34,
+				width = 37,
+				height = 34,
 				frame_count = 1,
 				direction_count = 1,
 				shift = {0, 0}
@@ -77,8 +77,8 @@ data:extend(
 		{
 			filename = "__base__/graphics/entity/combat-robot/distractor.png",
 			still_frame = 1,
-			frame_width = 37,
-			frame_height = 34,
+			width = 37,
+			height = 34,
 			frame_count = 1,
 			priority = "high",
 			direction_count = 1,
@@ -92,7 +92,6 @@ data:extend(
     flags = {"goes-to-quickbar"},
 	order="c",
 	subgroup="drone-combat",
-    place_result = "combat-roboport",
     stack_size = 20
   },
   {

@@ -4,7 +4,7 @@ local M = MoConfig
 --------------------------------Enemys------------------------------------------------
 
 --Adds a dangerus ranged biter variant with splash damage.
-M.Spitters = true
+M.Spitters = false
 
 --Adds a dangerus biter variant with a suicide explosive attack.
 M.Exploders = false --Warning, Causes Crashs.
@@ -39,7 +39,7 @@ M.TeslaTower = true
 --------------------------------------------------------------------------------------
 --------------------------------Mechanics---------------------------------------------
 
---Adds Attack Drone.
+--Adds Attack Drones.
 M.AttackDrones = true
 
 --Overrides the worm and spitter spit to have splash damage.

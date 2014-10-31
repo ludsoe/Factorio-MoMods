@@ -13,8 +13,8 @@ data:extend({
 			{
 				filename = "__mocombat__/graphics/weapons/bfg/explosion-1.png",
 				priority = "extra-high",
-				frame_width = 64,
-				frame_height = 59,
+				width = 64,
+				height = 59,
 				frame_count = 16
 			}
 		},
@@ -40,8 +40,8 @@ data:extend({
 			{
 				filename = "__mocombat__/graphics/weapons/bfg/explosion-1.png",
 				priority = "extra-high",
-				frame_width = 64,
-				frame_height = 59,
+				width = 64,
+				height = 59,
 				frame_count = 16
 			}
 		},
@@ -98,8 +98,8 @@ data:extend({
 		{
 		  filename = "__mocombat__/graphics/weapons/bfg/plasma.png",
 		  frame_count = 1,
-		  frame_width = 30,
-		  frame_height = 30,
+		  width = 30,
+		  height = 30,
 		  priority = "high"
 		}
 	},

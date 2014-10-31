@@ -13,8 +13,8 @@ local Post = {
 	priority = "extra-high",
 	width = 64,
 	height = 100,
-	frame_width = 64,
-	frame_height = 100,
+	width = 64,
+	height = 100,
 	frame_count = 1,
 	shift = {0.5, 0}
 }

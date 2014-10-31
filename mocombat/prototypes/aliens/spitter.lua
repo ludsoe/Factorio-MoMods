@@ -44,8 +44,8 @@ data:extend(
       cooldown = 35,
       animation =
       {
-        frame_width = 200,
-        frame_height = 132,
+        width = 200,
+        height = 132,
         frame_count = 11,
         direction_count = 16,
         axially_symmetrical = false,
@@ -104,8 +104,8 @@ data:extend(
     {
       filename = "__mocombat__/graphics/enemys/spitter/medium-biter-run.png",
       still_frame = 4,
-      frame_width = 122,
-      frame_height = 84,
+      width = 122,
+      height = 84,
       frame_count = 16,
       direction_count = 16,
       axially_symmetrical = false,
@@ -124,8 +124,8 @@ data:extend(
     final_render_layer = "corpse",
     animation =
     {
-      frame_width = 204,
-      frame_height = 138,
+      width = 204,
+      height = 138,
       frame_count = 17,
       direction_count = 16,
       axially_symetric = false,

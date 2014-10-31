@@ -30,8 +30,8 @@ data:extend(
 		{
 			filename = "__base__/graphics/entity/stone-furnace/stone-furnace.png",
 			priority = "extra-high",
-			frame_width = 81,
-			frame_height = 64,
+			width = 81,
+			height = 64,
 			frame_count = 1,
 			shift = {0.5, 0.05 }
 		},
@@ -41,8 +41,8 @@ data:extend(
 		{
 			filename = "__mopower__/graphics/coalgen/coalgenrunning.png",
 			priority = "extra-high",
-			frame_width = 81,
-			frame_height = 64,
+			width = 81,
+			height = 64,
 			frame_count = 12,
 			shift = {0.5, 0.05}
 		},

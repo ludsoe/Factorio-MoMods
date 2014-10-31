@@ -7,5 +7,5 @@
   "contact": "",
   "homepage": "",
   "description": "Adds weather to factorio",
-  "dependencies": ["base","motoolbar"]
+  "dependencies": ["base","? motoolbar"]
 }
