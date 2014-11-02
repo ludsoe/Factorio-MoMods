@@ -62,7 +62,7 @@ end
 if M.SpitAOE then
 	--Splash damage to the spit!
 	local Dat = data.raw["projectile"]["acid-projectile-purple"].action.action_delivery.target_effects
-	local Explode = {type = "nested-result", action = {type = "area", perimeter = 6,entity_flags = {"player-creation"}, action_delivery ={type = "instant",target_effects ={{type = "damage",damage = {amount = 13, type = "acid"}}}}}}
+	local Explode = {type = "nested-result", action = {type = "area", perimeter = 3,entity_flags = {"player-creation"}, action_delivery ={type = "instant",target_effects ={{type = "damage",damage = {amount = 4, type = "acid"}}}}}}
 	table.insert(Dat, Explode)
 end
 

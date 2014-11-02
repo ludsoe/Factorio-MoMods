@@ -53,14 +53,26 @@ game.onevent(defines.events.onentitydied, EventHandler)
 
 ------------Player Related------------
 --Shortcut to get the players positioning.
-FuncRegister("getplayerpos",function()
-	return game.getplayer().position
+FuncRegister("getplayerpos",function(I)
+	return game.getplayer(I or 1).position
 end)
 
 --Adds another vector to the players position, and returns the result.
-FuncRegister("addtoplayerpos",function(X,Y)
-	local Pos = game.getplayer().position
+FuncRegister("addtoplayerpos",function(I,X,Y)
+	local Pos = game.getplayer(I or 1).position
 	return {Pos.x+X,Pos.y+Y}
+end)
+
+FuncRegister("closestplayer",function(X,Y)
+	local C = 999999999999999999
+	for i,d in pairs(game.players) do
+		local P = d.position
+		
+		if util.distance(P,{X,Y}) < C then
+			CP = d
+		end
+	end
+	return CP
 end)
 
 -------------Vector Functions----------

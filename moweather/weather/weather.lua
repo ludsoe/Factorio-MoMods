@@ -3,17 +3,18 @@ local Random = MoMisc.Random --Localise the psuedo random function.
 --Rain Code
 NextRSound = 0
 local Rain = function()
-
-	if NextRSound<=game.tick then
-		NextRSound = game.tick+(4.3*60)
-		MoMisc.PlaySound("rain-loop")
-	end
-	
-	local CellSize = 16
-	local CellDist = 6
-	for X=1, CellSize do
-		for Y=1, CellSize do
-			game.createentity{name = "rain-drops", position=MoEntity.addtoplayerpos((X-(CellSize/2))*CellDist,(Y-(CellSize/2))*CellDist)}
+	for i,d in pairs(game.players) do
+		if NextRSound<=game.tick then
+			NextRSound = game.tick+(4.3*60)
+			MoMisc.PlaySound("rain-loop",i)
+		end
+		
+		local CellSize = 8
+		local CellDist = 6
+		for X=1, CellSize do
+			for Y=1, CellSize do
+				game.createentity{name = "rain-drops", position=MoEntity.addtoplayerpos(i,(X-(CellSize/2))*CellDist,(Y-(CellSize/2))*CellDist)}
+			end
 		end
 	end
 end

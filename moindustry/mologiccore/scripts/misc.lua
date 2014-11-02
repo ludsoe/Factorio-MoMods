@@ -5,8 +5,8 @@ end
 
 --This is extremly experimental, and uses work arounds to work. Use at your own caution.
 --This requires a explosion entity with the sounds you want preloaded into it.
-FuncRegister("PlaySound",function(Sound)
-	game.createentity({name = Sound, position=game.getplayer().position})
+FuncRegister("PlaySound",function(Sound,I)
+	game.createentity({name = Sound, position=game.getplayer(I or 1).position})
 end)
 
 --Ease Function to help printing.

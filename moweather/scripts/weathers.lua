@@ -17,7 +17,7 @@ function SetWeather(Weather)
 		W.Name = Weather.Name
 		W.Data = Weather
 		W.Data.SF()
-		game.player.print(game.gettext(Weather.locale))
+		game.player.print(game.localise(Weather.locale))
 	else
 		W.Data = Weather
 	end

@@ -6,7 +6,7 @@ MLC = {
 	Timers=true,
 	Misc=false,
 	Entity=true,
-	Debug=false
+	Debug=true
 }
 
 MoSave = require "mologiccore.base"

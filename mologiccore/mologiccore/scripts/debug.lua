@@ -7,10 +7,20 @@ FuncRegister("Print",function(Text)
 	game.player.print(""..Text)
 end)
 
-FuncRegister("PrintTable",function(Table)
+local function PrintTab(Table)
 	for i,d in pairs(Table) do
-		Debug.Print(i.." : "..tostring(d))
+		local T = type(d)
+		if T == "table" then
+			Debug.Print("Table: "..i)
+			PrintTab(d)
+		else
+			Debug.Print(i.." : "..tostring(d))
+		end
 	end
+end
+
+FuncRegister("PrintTable",function(Table)
+	PrintTab(Table)
 end)
 
 ------------MLC Debug Menu------------

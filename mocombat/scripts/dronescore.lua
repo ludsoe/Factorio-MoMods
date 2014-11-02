@@ -90,7 +90,8 @@ function GetOrdersFromInv(C,P)
 	local Tab = {S=true,A=false,P=false,MS=MaxDrones,Post=RegKey(P),C=C.position,Artifacts={}}
 	Tab.R = 40+(C.getitemcount("drone-orders-rangeboost")*10)
 	if C.getitemcount("drone-orders-player") > 0 then
-		Tab.PE=game.player
+		local Spot = C.position
+		Tab.PE=MoEntity.closestplayer(Spot.x,Spot.y)
 		Tab.P = true
 	end
 	if C.getitemcount("drone-orders-artifact") > 0 then
