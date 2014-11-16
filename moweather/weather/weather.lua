@@ -27,7 +27,7 @@ MoTimers.CacheFunction("MoWeatherRainDrops",Rain)
 
 --ThunderStorm Code
 local Storm = function() 
-	if(Random(42,1,30)<8)then
+	if(math.random(1,30)<8)then
 		local Light = game.daytime
 		game.daytime = 0.99
 		MoMisc.PlaySound("thunder-roll") 

@@ -36,6 +36,15 @@ data:extend({
       height = 122,
       shift = {1.3, -1.1}
     },
+	base_patch =
+    {
+      filename = "__moindustry__/graphics/empty_dot.png",
+      priority = "medium",
+      width = 1,
+      height = 1,
+      frame_count = 1,
+      shift = {0.03125, 0.203125}
+    },
     base_animation =
     {
       filename = "__moindustry__/graphics/empty_dot.png",
@@ -45,7 +54,16 @@ data:extend({
       frame_count = 1,
       animation_speed = 0.5
     },
-    door_animation =
+    door_animation_up =
+    {
+      filename = "__moindustry__/graphics/empty_dot.png",
+      priority = "low",
+      width = 1,
+      height = 1,
+      frame_count = 1,
+      animation_speed = 0.5
+    },
+    door_animation_down =
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",
@@ -160,6 +178,15 @@ data:extend({
       height = 122,
       shift = {1.3, -1.1}
     },
+	base_patch =
+    {
+      filename = "__moindustry__/graphics/empty_dot.png",
+      priority = "medium",
+      width = 1,
+      height = 1,
+      frame_count = 1,
+      shift = {0.03125, 0.203125}
+    },
     base_animation =
     {
       filename = "__moindustry__/graphics/empty_dot.png",
@@ -169,7 +196,16 @@ data:extend({
       frame_count = 1,
       animation_speed = 0.5
     },
-    door_animation =
+    door_animation_up =
+    {
+      filename = "__moindustry__/graphics/empty_dot.png",
+      priority = "low",
+      width = 1,
+      height = 1,
+      frame_count = 1,
+      animation_speed = 0.5
+    },
+    door_animation_down =
     {
       filename = "__moindustry__/graphics/empty_dot.png",
       priority = "low",

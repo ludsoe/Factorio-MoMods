@@ -39,6 +39,8 @@ function ManageWeather()
 	if MoTimers.TimerTimeLeft("MoWeatherEvent")<=0 then
 		PickWeather()
 	else
-		CurrentWeather.Weather.Data.TF()
+		if CurrentWeather.Weather.Data.TF then
+			CurrentWeather.Weather.Data.TF()
+		end
 	end
 end
