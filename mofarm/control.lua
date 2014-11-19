@@ -10,7 +10,6 @@ MLC = {
 
 MoSave = require "mologiccore.base"
 local KTE = MoEntity.KeyToEnt
-local Random = MoMisc.Random --Localise the psuedo random function.
 local Plant = "greenleaf-ore"
 
 local PlanterCost = 500
@@ -29,7 +28,7 @@ MoEntity.SubscribeOnBuilt("greenleafplanter","FarmSpawn",function(entity)
 end)
 
 function PosOrNeg(Seed)
-	local X = Random(Seed,1,10)
+	local X = math.random(1,10)
 	if X>=5then
 		return -1
 	end
@@ -42,15 +41,15 @@ MoTimers.CreateTimer("PlanterThink",1,0,false,function()
 		if E.valid then
 			if E.energy >= PlanterCost then
 				local P = E.position
-				local V = {x=P.x+Random(P.x,1,4)*PosOrNeg(P.x),y=P.y+Random(P.y,1,4)*PosOrNeg(P.y)}
+				local V = {x=P.x+math.random(1,4)*PosOrNeg(P.x),y=P.y+math.random(1,4)*PosOrNeg(P.y)}
 				local Plants = MoEntity.findentinsquareradius(V,1,Plant) 
 				if #Plants <= 0 then
 					local NewPlant = game.createentity({name = Plant, position= V})
-					NewPlant.amount=Random((V.x+V.y)*0.1,1,3)
+					NewPlant.amount=math.random(1,3)
 					E.energy=E.energy-PlanterCost
 				else
 					MoEntity.LoopThis(Plants,function(plnt)
-						plnt.amount=plnt.amount+Random((V.x+V.y)*0.1,1,3)
+						plnt.amount=plnt.amount+math.random(1,3)
 					end)
 				end
 			end

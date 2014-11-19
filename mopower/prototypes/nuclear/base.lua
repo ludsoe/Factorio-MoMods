@@ -37,7 +37,7 @@ data:extend(
       },
 	  {
         type = "unlock-recipe",
-        recipe = "uranium-disposal"
+        recipe = "disposal-plant"
       }
     },
     prerequisites = {"electric-energy-accumulators-1"},
