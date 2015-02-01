@@ -2,10 +2,10 @@ data:extend(
 {
  {
     type = "accumulator",
-    name = "adv-accumulator",
+    name = "octo-accumulator",
     icon = "__mopower__/graphics/icons/adv-accumulator.png",
     flags = {"placeable-neutral", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "adv-accumulator"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "octo-accumulator"},
     max_health = 2000,
     corpse = "medium-remnants",
     collision_box = {{-1.9, -1.9}, {1.9, 1.9}},
@@ -51,34 +51,34 @@ data:extend(
   },
   {
     type = "item",
-    name = "adv-accumulator",
+    name = "octo-accumulator",
     icon = "__mopower__/graphics/icons/adv-accumulator.png",
     flags = {"goes-to-quickbar"},
     subgroup = "energy",
-    order = "e[accumulator]-a[adv-accumulator]",
-    place_result = "adv-accumulator",
+    order = "e[accumulator]-a[octo-accumulator]",
+    place_result = "octo-accumulator",
     stack_size = 32
   },
   {
     type = "recipe",
-    name = "adv-accumulator",
+    name = "octo-accumulator",
 	enabled = "false",
     energy_required = 5,
     ingredients =
     {
       {"basic-accumulator", 8}
     },
-    result = "adv-accumulator"
+    result = "octo-accumulator"
   },
   {
     type = "technology",
-    name = "electric-energy-accumulators-2",
+    name = "electric-energy-accumulators-octo",
     icon = "__mopower__/graphics/icons/adv-accumulator.png",
     effects =
     {
       {
         type = "unlock-recipe",
-        recipe = "adv-accumulator"
+        recipe = "octo-accumulator"
       }
     },
     prerequisites = {"electric-energy-accumulators-1"},

@@ -11,7 +11,7 @@ MoTimers.CreateTimer("NuclearPower",0,0,false,function()
 				E.fluidbox[2]={
 					type = F.type,
 					amount = F.amount,
-					temperature = 556
+					temperature = 180
 				}
 			end
 			return true

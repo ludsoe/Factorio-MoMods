@@ -8,7 +8,7 @@ local Fuels = Fuels
 
 function AddFuelStorage(entity)
 	local Pos = entity.position
-	local Fuel=game.createentity{name = "fuel-storage", position={x=Pos.x-1.5,y=Pos.y}}
+	local Fuel=game.createentity{name = "fuel-storage", position={x=Pos.x,y=Pos.y}}
 	
 	MoEntity.AddToLoop("FuelStorages",Fuel,{F=entity})
 end

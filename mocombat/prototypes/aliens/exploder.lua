@@ -13,10 +13,6 @@ data:extend(
 			{
 				type = "physical",
 				decrease = 4,
-			},
-			{
-				type = "explosion",
-				percent = -600
 			}
 		},
 		healing_per_tick = 0.01,
@@ -43,6 +39,7 @@ data:extend(
 								{
 									type = "area",
 									perimeter = 3.5,
+									entity_flags = {"player-creation"},
 									action_delivery =
 									{
 										type = "instant",

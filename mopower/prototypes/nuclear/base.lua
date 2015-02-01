@@ -11,7 +11,7 @@ data:extend(
     icon = "__base__/graphics/icons/fluid/water.png",
     order = "steam",
     pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.8
+    flow_to_energy_ratio = 0.61
   },
   {
     type = "technology",

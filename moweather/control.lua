@@ -11,7 +11,8 @@ Random = MoMisc.Random --Localise the psuedo random function.
 MoConfig = {}
 require "config"
 
-WeatherTables={}
+WeatherFuncs = {}
+WeatherTables = {}
 
 function CreateWeather(Name,EndFunc,StartFunc,ThinkFunk,NextWeather,locale,WindSpeed,LightDimper,DurHigh,DurLow,CoolDown,Chance)
 	WeatherTables[Name]={
@@ -29,7 +30,7 @@ function CreateWeather(Name,EndFunc,StartFunc,ThinkFunk,NextWeather,locale,WindS
 		R=Chance
 	}	
 end
-require "weather.weather"
+
 
 CurrentWeather = {}
 local Save=function(T) DefaultSaveLoad(CurrentWeather,T) end
@@ -39,6 +40,8 @@ if Debug~=nil then Debug.RegisterTable("CurrentWeather",CurrentWeather) end
 require "scripts.day-night"
 require "scripts.wind"
 require "scripts.weathers"
+
+require "weather.weather"
 
 remote.addinterface("MoWeather", {	
 	daytimeleft = function() return (CurrentWeather.Time.DayEnd-game.tick)/60 or 0 end,

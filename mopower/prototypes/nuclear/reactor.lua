@@ -156,15 +156,15 @@ data:extend(
 	icon = "__mopower__/graphics/icons/ne-icon.png",
 	category="nuclear-power",
 	subgroup = "nuclear-resouces",
-    energy_required = 1,
+    energy_required = 12,
     ingredients =
     {
-	  {type="fluid", name="water", amount=120},
+	  {type="fluid", name="water", amount=90},
 	  {type="item", name="uranium-rod", amount=2}
     },
     results = {
-		{type="item", name="uranium-waste", amount=2},
-		{type="fluid", name="steam", amount=240}
+		{type="item", name="uranium-waste", amount=3},
+		{type="fluid", name="steam", amount=60}
 	},
 	main_product= "",
     order = "b"

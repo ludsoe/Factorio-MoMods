@@ -36,7 +36,7 @@ data:extend(
     {
       type = "electric",
       buffer_capacity = "1MJ",
-      usage_priority = "terciary",
+      usage_priority = "primary-input",
       input_flow_limit = "1MJ",
       output_flow_limit = "0kW"
     },

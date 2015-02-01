@@ -36,6 +36,10 @@ if M.OtherMines then
 	table.insert(data.raw["technology"]["land-mine"].effects,{type = "unlock-recipe",recipe = "poison-landmine"})
 end
 
+if M.DepletedRounds then
+	table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "depleted-bullet-magazine"})
+end
+
 if M.TeslaTower then
 	--Converts all walls to be resistant to electric attacks.
 	local Walls = data.raw["wall"]

@@ -2,7 +2,8 @@ CurrentWeather.Weather = {Override=false,Name="Clear",CoolDown=0,Data={}}
 
 --Ends the weather.
 function EndWeather(Weather)
-	CurrentWeather.Weather.CoolDown = game.tick+(WeatherTables[Weather].C*60)
+	--CurrentWeather.Weather.CoolDown = game.tick+(WeatherTables[Weather].C*60)
+	CurrentWeather.Weather.CoolDown = game.tick+(WeatherTables[Weather].C)
 	PickWeather()
 end
 
@@ -13,7 +14,7 @@ function SetWeather(Weather)
 	local W = CurrentWeather.Weather
 	if W.Name ~= Weather.Name then
 		if W.Data.EF then WeatherTables[W.Name].EF() end
-		MoTimers.CreateTimer("MoWeatherEvent",Random(350,Weather.DL,Weather.DH),1,false,EndWeather,Weather.Name)
+		MoTimers.CreateTimer("MoWeatherEvent",math.random(Weather.DL,Weather.DH),1,false,EndWeather,Weather.Name)
 		W.Name = Weather.Name
 		W.Data = Weather
 		W.Data.SF()
@@ -26,7 +27,7 @@ end
 function PickWeather()
 	if game.tick > CurrentWeather.Weather.CoolDown then
 		for i,d in pairs(WeatherTables) do
-			if d.R >= Random(500,1,1000) then
+			if d.R >= math.random(1,1000) then
 				SetWeather(d)
 				return
 			end

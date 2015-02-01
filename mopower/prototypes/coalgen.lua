@@ -63,8 +63,8 @@ data:extend(
 		type = "container",
 		name = "fuel-storage",
 		icon = "__base__/graphics/icons/wooden-chest.png",
-		flags = {"placeable-neutral", "player-creation"},
-		max_health = 150,
+		flags = {"placeable-neutral", "player-creation","placeable-off-grid"},
+		max_health = 100000,
 		corpse = "small-remnants",
 		collision_box = {{-0.35, -0.35}, {0.35, 0.35}},
 		selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
@@ -73,11 +73,10 @@ data:extend(
 		close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
 		picture =
 		{
-		  filename = "__base__/graphics/entity/wooden-chest/wooden-chest.png",
+		  filename = "__mopower__/graphics/empty_dot.png",
 		  priority = "extra-high",
-		  width = 46,
-		  height = 33,
-		  shift = {0.3, 0}
+		  width = 1,
+		  height = 1
 		}
 	},
 	{

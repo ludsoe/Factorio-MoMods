@@ -1,5 +1,9 @@
 local M = MoConfig
 
+if M.DepletedRounds and data.mopower then
+	require("depletedrounds")
+end
+
 if M.BFG or M.RailGun then
 	require("research")
 end

@@ -37,7 +37,7 @@ data:extend(
         recipe = "combat-drone-wagon"
       }
     },
-    prerequisites = {"robotics","combat-robotics-2"},
+    prerequisites = MoConfig.ModCompat.CombatBotsResearch,
     unit =
     {
       count = 50,

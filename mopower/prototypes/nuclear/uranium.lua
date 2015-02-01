@@ -119,7 +119,7 @@ data:extend(
 		flags = {"goes-to-quickbar"},
 		subgroup = "nuclear-resouces",
 		order = "a",
-		stack_size = 10
+		stack_size = 20
 	},
   {
     type = "recipe",
