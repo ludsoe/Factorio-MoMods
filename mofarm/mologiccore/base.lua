@@ -8,7 +8,7 @@ ___  ___      _                 _      _____
                            __/ |                            
                           |___/                             
 ------------------------------------------------------------------------
-MoLogicCore was develped by Ludsoe, you may use and modify the code in
+MoLogicCore was developed by Ludsoe, you may use and modify the code in
 MoLogicCore to your hearts content. Please provide info below if you 
 modify and redistribute this folder and its contents.
 ------------------------------------------------------------------------ 
@@ -21,11 +21,11 @@ ExtraInfo: None
 require "util"
 require "defines"
 
-local MLCDataVers = 1.80
+local MLCDataVers = 1.95
 local LastCompatable = 1.38
 IsLoaded = false
 
---This automaticly sorts all the functions into their respective tables.
+--This automatically sorts all the functions into their respective tables.
 function FuncRegister(Name,Function)
 	local Table=GetTable()
 	Table[Name]=Function
@@ -45,7 +45,7 @@ function TableCopy(Table)
 	return NewTable
 end
 
---Due to the save system of factorio being wierd, Im forced to use a hack workaround to save MoLogicCores data properly.
+--Due to the save system of factorio being weird, I'm forced to use a hack workaround to save MoLogicCores data properly.
 local STables = {}
 function RegisterSaveTable(Name,Table,Func,Over) STables[Name]={N=Name,T=Table,O=Over,F=Func} end
 function DefaultSaveLoad(T2,T1) for i,d in pairs(T1) do T2[i]=d end end 

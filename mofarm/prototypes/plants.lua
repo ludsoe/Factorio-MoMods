@@ -32,7 +32,7 @@ data:extend(
     name = "greenleaf",
     icon = "__mofarm__/graphics/icons/greenleaf-ore.png",
     flags = {"goes-to-main-inventory"},
-    subgroup = "raw-resource",
+    subgroup = "farming-raw-food",
     order = "h",
     stack_size = 64
   },
@@ -41,7 +41,7 @@ data:extend(
     name = "salad",
     icon = "__mofarm__/graphics/icons/greenleaf-ore.png",
     flags = {"goes-to-quickbar"},
-    subgroup = "raw-resource",
+    subgroup = "farming-low-level",
 	fuel_value = "3MJ",
     capsule_action =
     {

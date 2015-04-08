@@ -11,6 +11,7 @@ MLC = {
 MoSave = require "mologiccore.base"
 local KTE = MoEntity.KeyToEnt
 
+--[[
 MoEntity.SubscribeOnBuilt("boat","BoatSpawn",function(entity)
 	MoEntity.AddToLoop("Boats",entity)
 end)
@@ -26,3 +27,4 @@ MoTimers.CreateTimer("BoatHealthRegen",1,0,false,function()
 		return false
 	end)
 end)
+]]

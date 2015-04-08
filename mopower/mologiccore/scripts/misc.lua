@@ -3,15 +3,34 @@ GetTable=function()
 	return MoMisc
 end
 
---This is extremly experimental, and uses work arounds to work. Use at your own caution.
 --This requires a explosion entity with the sounds you want preloaded into it.
 FuncRegister("PlaySound",function(Sound,Pos)
-	game.createentity({name = Sound, position=Pos})
+	return game.createentity({name = Sound, position=Pos})
 end)
 
 --Ease Function to help printing.
 FuncRegister("Print",function(Text)
-	game.player.print(""..Text)
+	for i,d in pairs(game.players) do
+		if d and d.valid then
+			d.print(""..Text)
+		end
+	end
+end)
+
+local function PrintTab(Table)
+	for i,d in pairs(Table) do
+		local T = type(d)
+		if T == "table" then
+			MoMisc.Print("Table: "..i)
+			PrintTab(d)
+		else
+			MoMisc.Print(i.." : "..tostring(d))
+		end
+	end
+end
+
+FuncRegister("PrintTable",function(Table)
+	PrintTab(Table)
 end)
 
 --This function lets you have random numbers, while not desyncing replays/multiplayer. (Hopefully.)

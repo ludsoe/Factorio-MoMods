@@ -47,9 +47,10 @@ if remote.interfaces.MoToolBar and remote.interfaces.MoToolBar.addbutton then
 end
 
 ModInterface.detectforcefields = function()
-	game.player.print("Detecting ForceFields!")
-	local Posts=MoEntity.findentinsquareradius(MoEntity.getplayerpos(),100,"forcefield-post")
-	MoEntity.LoopThis(Posts,OnPostBuilt)
+	MoMisc.Print("Detecting ForceFields!")
+	for i,d in pairs(game.players) do
+		MoEntity.LoopThis(MoEntity.findentinsquareradius(MoEntity.getplayerpos(i),20,"forcefield-post"),OnPostBuilt)
+	end
 end
 
 MoTimers.CreateTimer("ForceFieldManage",0.2,0,false,function()

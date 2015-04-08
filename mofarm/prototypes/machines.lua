@@ -56,7 +56,7 @@ data:extend(
     name = "greenleafplanter",
     icon = "__base__/graphics/icons/iron-chest.png",
     flags = {"goes-to-quickbar"},
-    subgroup = "extraction-machine",
+    subgroup = "farming-machines",
     order = "a[items]-b[iron-chest]",
     place_result = "greenleafplanter",
     stack_size = 64

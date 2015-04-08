@@ -4,7 +4,7 @@ GetTable=function()
 end
 
 ------------Entity Related Events------------
-local Subscribed = {Built={},Death={}}
+Subscribed = {Built={},Death={}}
 if MLC.Debug then Debug.RegisterTable("Subscribed",Subscribed) end
 
 --Allows you to subscribe a function to be called when a entity is built.
@@ -49,12 +49,31 @@ local function EventHandler(event)
 	end
 end
 game.onevent(defines.events.onbuiltentity, EventHandler)
+game.onevent(defines.events.onrobotbuiltentity, EventHandler)
 game.onevent(defines.events.onentitydied, EventHandler)
 
 ------------Player Related------------
 --Shortcut to get the players positioning.
 FuncRegister("getplayerpos",function(I)
 	return game.getplayer(I or 1).position
+end)
+
+--Easy loop for active players
+FuncRegister("loopplayers",function(F)
+	for i,d in pairs(game.players) do
+		if d and d.valid then
+			F(i,d)
+		end
+	end
+end)
+
+--Easy loop for all players including offline
+FuncRegister("loopallplayers",function(F)
+	for i,d in pairs(game.players) do
+		if d and d.valid then
+			F(i,d)
+		end
+	end
 end)
 
 --Adds another vector to the players position, and returns the result.
@@ -66,10 +85,12 @@ end)
 FuncRegister("closestplayer",function(X,Y)
 	local C = 999999999999999999
 	for i,d in pairs(game.players) do
-		local P = d.position
-		
-		if util.distance(P,{X,Y}) < C then
-			CP = d
+		if d.valid then
+			local P = d.position
+			
+			if util.distance(P,{x=X,y=Y}) < C then
+				CP = d
+			end
 		end
 	end
 	return CP
@@ -212,3 +233,4 @@ FuncRegister("LoopThis",function(Table,Func)
 	end
 end)
 
+require "entity2" --Load the next lua file for entity code.

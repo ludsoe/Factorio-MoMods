@@ -16,10 +16,11 @@ function InsertAt(T1,T2,N)
 	return T
 end
 
+--[[ --Disable the enabler so it cant be enabled.
 if M.Spitters then
 	--Lets add the spitter to the biter spawner.
 	data.raw["unit-spawner"]["biter-spawner"].result_units=InsertAt(data.raw["unit-spawner"]["biter-spawner"].result_units, {"medium-spitter", 0.20},5)
-end
+end]]
 
 if M.Exploders then
 	--Lets add the spitter to the biter spawner.
@@ -36,24 +37,34 @@ if M.OtherMines then
 	table.insert(data.raw["technology"]["land-mine"].effects,{type = "unlock-recipe",recipe = "poison-landmine"})
 end
 
-if M.DepletedRounds then
+if M.DepletedRounds and data.mopower  then
 	table.insert(data.raw["technology"]["military-4"].effects,{type = "unlock-recipe",recipe = "depleted-bullet-magazine"})
 end
 
-if M.TeslaTower then
-	--Converts all walls to be resistant to electric attacks.
-	local Walls = data.raw["wall"]
-	local Resist = {type = "electric",percent = 100}
-	for i,d in pairs(Walls) do
+function AddEletricResist(Raw,Percent)
+	local Resist = {type = "electric",percent = Percent}
+	for i,d in pairs(Raw) do
 		if d.resistances ==nil then d.resistances={} end
 		table.insert(d.resistances, Resist)
 	end
+end
+
+if M.TeslaTower then
+	--Add resistances to entities.
+	AddEletricResist(data.raw["wall"],100)
+	AddEletricResist(data.raw["gate"],100)
+	AddEletricResist(data.raw["car"],100)
+	AddEletricResist(data.raw["electric-pole"],90)
 	
+	table.insert(data.raw["armor"]["basic-modular-armor"].resistances,{type = "electric",percent = 50})
+	table.insert(data.raw["armor"]["power-armor"].resistances,{type = "electric",percent = 75})
+	table.insert(data.raw["armor"]["power-armor-mk2"].resistances,{type = "electric",percent = 100})
+		
 	table.insert(data.raw["technology"]["basic-electric-discharge-defense-equipment"].effects,{type = "unlock-recipe",recipe = "tesla-turret"})
 end
 
 if M.SpitPhysics then
-	--This converted the spit into a physical projectile, but due to collison issues ill have to disable this
+	--This converted the spit into a physical projectile, but due to collision issues ill have to disable this
 	data.raw["projectile"]["acid-projectile-purple"].direction_only = true
 	data.raw["projectile"]["acid-projectile-purple"].collision_box = {{-1, -1}, {1, 1}}
 end
@@ -66,7 +77,7 @@ end
 if M.SpitAOE then
 	--Splash damage to the spit!
 	local Dat = data.raw["projectile"]["acid-projectile-purple"].action.action_delivery.target_effects
-	local Explode = {type = "nested-result", action = {type = "area", perimeter = 3,entity_flags = {"player-creation"}, action_delivery ={type = "instant",target_effects ={{type = "damage",damage = {amount = 4, type = "acid"}}}}}}
+	local Explode = {type = "nested-result", action = {type = "area", perimeter = 1.5,entity_flags = {"player-creation"}, action_delivery ={type = "instant",target_effects ={{type = "damage",damage = {amount = 4, type = "acid"}}}}}}
 	table.insert(Dat, Explode)
 end
 

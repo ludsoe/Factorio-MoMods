@@ -28,7 +28,7 @@ data:extend(
     energy_source =
     {
       type = "electric",
-      buffer_capacity = "82kJ",
+      buffer_capacity = "2MJ",
       input_flow_limit = "1200kW",
       drain = "20kW",
       usage_priority = "primary-input"
@@ -67,45 +67,65 @@ data:extend(
     },
     attack_parameters =
     {
-      ammo_category = "railgun",
-      cooldown = 20,
+      ammo_category = "electric",
+      cooldown = 200,
       projectile_creation_distance = 0.6,
       range = 25,
-	  ammo_type =
-		{
-		  type = "projectile",
-		  category = "railgun",
-		  energy_consumption = "10kJ",
-		  target_type = "direction",
-		  action =
-		  {
-			type = "line",
-			range = 25,
-			width = 1.5,
-
-			source_effects =
-			{
-			  type = "create-entity",
-			  entity_name = "lightning-bolt"
-			},
-			action_delivery =
-			{
-			  type = "instant",
-			  target_effects =
-			  {
-				type = "damage",
-				damage = { amount = 50, type="electric"}
-			  }
-			}
-		  }
-		},
 	  sound =
       {
         {
           filename = "__mocombat__/sound/tesla_tower_pew.ogg",
           volume = 0.5
         }
-      }
+      },
+	  ammo_type =
+		{
+			type = "projectile",
+			category = "electric",
+			energy_consumption = "200KJ",
+			speed = 1,
+			action = 
+			{
+				{
+					type = "area",
+					perimeter = 25,
+					force = "enemy",
+					action_delivery =
+					{
+						{
+							type = "instant",
+							target_effects =
+							{
+								type = "nested-result",
+								action =
+								{
+									{
+										type = "line",
+										range = 25,
+										width = 1.5,
+
+										source_effects =
+										{
+											type = "create-entity",
+											entity_name = "lightning-bolt"
+										},
+										action_delivery =
+										{
+											type = "instant",
+											target_effects =
+											{
+												type = "damage",
+												damage = { amount = 50, type="electric"}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}  
     }
   },
   {

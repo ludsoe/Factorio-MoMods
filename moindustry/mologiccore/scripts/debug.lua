@@ -4,7 +4,11 @@ GetTable=function()
 end
 
 FuncRegister("Print",function(Text)
-	game.player.print(""..Text)
+	for i,d in pairs(game.players) do
+		if d and d.valid then
+			d.print(""..Text)
+		end
+	end
 end)
 
 local function PrintTab(Table)
@@ -50,8 +54,11 @@ function ClearChildren(Gui,Num)
 	end
 end
 
-function OpenTable(Table,Name,Num,ID)
-	local Gui = game.player.gui.top["MLCD"] if Gui==nil then return end
+function OpenTable(i,Table,Name,Num,ID)
+	local Gui = game.players[i]
+	if not Gui or not Gui.valid then return end
+	Gui = Gui.gui.top["MLCD"]
+	if Gui==nil then return end
 	local M = Gui["TableList"..Num] if M~=nil then M.destroy() ClearChildren(Gui,Num) end
 	Gui.add{type="table", name="TableList"..Num, direction = "horizontal", colspan=#Table+1}
 	Gui["TableList"..Num].add{type="label", name="Label", direction = "horizontal", caption=ID}
@@ -64,7 +71,12 @@ end
 
 PostInit.DebugThink = function()
 	MoTimers.CreateTimer("MoDebugThink",0.5,0,false,function()
-		local M = Meta.Tab if M~=nil then OpenTable(M.T,M.NA,M.NU,M.ID) end
+		for i,d in pairs(game.players) do
+			local M = Meta.Tab 
+			if M~=nil then 
+				OpenTable(i,M.T,M.NA,M.NU,M.ID) 
+			end
+		end
 	end)
 end
 
@@ -73,15 +85,23 @@ FuncRegister("RegisterTable",function(Name,Table)
 end)
 
 FuncRegister("OpenMLCDebug",function()
-	local P = game.player.gui.top
-	if P["MLCD"] then return end
-	P.add{type="frame", name="MLCD"} P = P["MLCD"]
-	OpenTable(Tables,"Tables",1,"Tables")
+	for i,d in pairs(game.players) do
+		local P = game.players[i].gui.top
+		if P["MLCD"] then return end
+		P.add{type="frame", name="MLCD"} P = P["MLCD"]
+		OpenTable(i,Tables,"Tables",1,"Tables")
+	end
 end)
 
 remote.addinterface("MoDebug", {
 	OpenGui = function() Debug.OpenMLCDebug() Meta.Tab = nil end,
-	CloseGui = function() local M = game.player.gui.top["MLCD"] if M~=nil then Temp={} M.destroy() end end
+	CloseGui = function(i) 
+		local M = game.players[i].gui.top["MLCD"] 
+		if M~=nil then 
+			Temp={} 
+			M.destroy() 
+		end 
+	end
 })
 
 game.onevent(defines.events.onguiclick, function(event)

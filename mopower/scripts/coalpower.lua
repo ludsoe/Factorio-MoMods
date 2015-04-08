@@ -1,30 +1,18 @@
-local KTE = MoEntity.KeyToEnt
-
 Fuels = {}
 
-require("fuels")
-
-local Fuels = Fuels
-
-function AddFuelStorage(entity)
-	local Pos = entity.position
-	local Fuel=game.createentity{name = "fuel-storage", position={x=Pos.x,y=Pos.y}}
-	
-	MoEntity.AddToLoop("FuelStorages",Fuel,{F=entity})
-end
+require("fuels") --Load the fuel values
 
 function CoalToPower(Genr,Tank)
-	
 	local PLvl = Genr.energy or 0
-	local MaxEnergy = 100000000
-	local FuelERatio = 10000000
 	--game.player.print("Inv "..Inv)
-	
+	local MJAmount = MoMath.GetMJ()
+	local MaxEnergy = 100*MJAmount
+
 	for i,d in pairs(Fuels) do
 		local Inv = Tank.getitemcount(i)
 		--game.player.print("Fuel "..i.." : "..Inv)
 		if Inv>0 then
-			local FLvl = PLvl+((d*FuelERatio)*Inv)
+			local FLvl = PLvl+((d*MJAmount)*Inv)
 			--game.player.print("Ener "..i.." : "..FLvl.." o "..MaxEnergy )
 			if FLvl<=MaxEnergy then
 				Tank.getinventory(1).remove({name=i,count=Inv})
@@ -32,10 +20,10 @@ function CoalToPower(Genr,Tank)
 				game.pollute(Genr.position,(d*Inv)*1.2)
 				return
 			else
-				local Count = math.floor((MaxEnergy-PLvl)/(d*FuelERatio))
+				local Count = math.floor((MaxEnergy-PLvl)/(d*MJAmount))
 				--game.player.print("Count "..i.." : "..Count)
 				if Inv>=Count and Count>0 then
-					local FLvl = PLvl+((d*FuelERatio)*Count)
+					local FLvl = PLvl+((d*MJAmount)*Count)
 					if FLvl<=MaxEnergy then
 						Tank.getinventory(1).remove({name=i,count=Count})
 						Genr.energy = FLvl
@@ -50,39 +38,43 @@ function CoalToPower(Genr,Tank)
 	end
 end
 
-local CoalThink = false
-MoTimers.CreateTimer("CoalGenThink",0.2,0,false,function()
-	if CoalThink then--Alternate between the fuel storage and the generators per think. (Saves processor time and lags less.)
-		CoalThink = false
-		MoEntity.CallLoop("CoalGens",function(ent)
-			local E = KTE(ent.entity)
-			if E.valid then
-				if ent.extra.F.valid then
-					CoalToPower(E,ent.extra.F)
-				else
-					AddFuelStorage(E)--Give the generator a fuel tank, as its storage died or something.
-				end
-				return true
-			end	
-			return false		
-		end)
-	else
-		CoalThink = true
-		MoEntity.CallLoop("FuelStorages",function(ent)
-		local E = KTE(ent.entity)
-			if E.valid then
-				if ent.extra.F.valid then
-					CoalToPower(ent.extra.F,E)
-				else
-					E.die()--Selfdestruct a useless fuel storage.
-				end
-				return true
-			end	
-			return false		
-		end)	
+local function PrintError(Text)
+	for i,d in pairs(game.players) do
+		d.print(""..Text)
 	end
+end
+
+MoEntity.CreateAdvEntityHook("basic-coalgen","CoalGenSpawn",{{Type="fuel-storage",Name="FuelTank"}},{},0.2,function(ent)
+	local E = ent.entity
+	if E and E.valid then
+		local Fuel = MoEntity.KeyToEnt(ent.bits["FuelTank"].E)
+		if Fuel and Fuel.valid then
+			CoalToPower(E,Fuel)
+		end
+		return true
+	end	
+	return false		
 end)
 
-MoEntity.SubscribeOnBuilt("basic-coalgen","CoalGenSpawn",function(entity)
-	AddFuelStorage(entity)
+MoTimers.CreateTimer("CoalGenUpgrade",0.2,1,false,function()
+	local KTE = MoEntity.KeyToEnt
+	MoEntity.CallLoop("FuelStorages",function(ent)
+		local E = KTE(ent.entity)
+		if E.valid then
+			local Pos = E.position
+			local Chest=game.createentity{name = "wooden-chest", position={x=Pos.x or 0,y=Pos.y or 0}}
+			
+			Chest.force = ent.extra.F.force
+			
+			Chest.getinventory(1).insert({name="basic-coalgen",count=1})
+			for i,d in pairs(E.getinventory(1).getcontents()) do
+				Chest.getinventory(1).insert({name=i,count=d})
+			end
+			Chest.orderdeconstruction(Chest.force)
+			
+			if ent.extra.F.valid then ent.extra.F.die() end				
+			E.destroy()
+		end	
+		return false		
+	end)
 end)

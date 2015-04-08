@@ -88,7 +88,9 @@ game.onevent(defines.events.ontick, function(event) --Timer Master Think.
 			end
 			if Functions["CB"..d.Name] ==nil then
 				d.Del = true
-				game.player.print("Warning: "..d.Name.." doesnt have a function!")
+				for ind,ply in pairs(game.players) do
+					ply.print("Warning: "..d.Name.." doesnt have a function!")
+				end
 			else
 				Functions["CB"..d.Name](d.Data) --Call The function we were told to.
 			end

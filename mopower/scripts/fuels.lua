@@ -5,6 +5,8 @@
 
 Fuels["wood"] = 0.6
 Fuels["raw-wood"] = 4
+Fuels["wooden-chest"] = 4
+Fuels["small-electric-pole"] = 4
 Fuels["coal"] = 8
 Fuels["solid-fuel"] = 25
 

@@ -38,8 +38,25 @@ FuncRegister("Approach", function(N1,N2,N3)
 	return N1+C
 end)
 
+--Joule Amounts
+FuncRegister("GetKJ", function() return 1000 end)
+FuncRegister("GetMJ", function() return 1000000 end)
+FuncRegister("GetGJ", function() return 1e-9 end)
 
+--Joule conversions.
+FuncRegister("JtoKJ", function(N1) return N1*1000 end)
+FuncRegister("JtoMJ", function(N1) return N1*1000000 end)
+FuncRegister("JtoGJ", function(N1) return N1*1e-9 end)
 
+FuncRegister("KJtoJ", function(N1) return N1/1000 end)
+FuncRegister("KJtoMJ", function(N1) return N1*1000 end)
+FuncRegister("KJtoGJ", function(N1) return N1*1000000 end)
 
+FuncRegister("MJtoJ", function(N1) return N1/1000000 end)
+FuncRegister("MJtoKJ", function(N1) return N1/1000 end)
+FuncRegister("MJtoGJ", function(N1) return N1*1000 end)
 
+FuncRegister("GJtoJ", function(N1) return N1/1e-9 end)
+FuncRegister("GJtoKJ", function(N1) return N1/1000000 end)
+FuncRegister("GJtoMJ", function(N1) return N1/1000 end)
 

@@ -44,7 +44,7 @@ data:extend(
 								target_effects =
 								{
 									type = "damage",
-									damage = { amount = 40, type = "nanocloud"}
+									damage = { amount = 20, type = "nanocloud"}
 								}
 							}
 						}					

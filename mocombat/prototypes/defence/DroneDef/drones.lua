@@ -92,6 +92,7 @@ data:extend(
     flags = {"goes-to-quickbar"},
 	order="c",
 	subgroup="drone-combat",
+	place_result = "attack-drone",
     stack_size = 20
   },
   {

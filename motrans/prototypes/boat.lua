@@ -4,13 +4,14 @@ data:extend(
     type = "car",
     name = "boat",
     icon = "__motrans__/graphics/icons/boat.png",
-    flags = {"pushable", "placeable-neutral", "player-creation","placeable-off-grid", "not-on-map", "not-repairable"},
+    flags = {"pushable", "placeable-neutral", "player-creation","placeable-off-grid", "not-on-map"},
 	collision_mask =
     {
 	  "ground-tile"
     },
     minable = {mining_time = 1, result = "boat"},
-    max_health = 2000,
+    max_health = 300,
+	energy_per_hit_point = 0.1,
     corpse = "medium-remnants",
 	dying_explosion = "huge-explosion",
     resistances = 
@@ -18,11 +19,16 @@ data:extend(
       {
         type = "physical",
         percent = 10
+      },
+      {
+        type = "impact",
+        decrease = 80,
+        percent = 80
       }
     },
     collision_box = {{-0.7, -1}, {0.7, 1}},
     selection_box = {{-0.7, -1}, {0.7, 1}},
-    effectivity = 0.02,
+    effectivity = 0.6,
     braking_power = "200kW",
     burner =
     {
@@ -33,7 +39,7 @@ data:extend(
         {
           name = "smoke",
           deviation = {0.25, 0.25},
-          frequency = 50,
+          frequency = 10,
           position = {0, 1.5},
           slow_down_factor = 0.9,
           starting_frame = 3,
@@ -43,8 +49,8 @@ data:extend(
         }
       }
     },
-    consumption = "600kW",
-    friction = 0.04,
+    consumption = "150kW",
+    friction = 2e-3,
     light =
     {
       {
@@ -101,9 +107,8 @@ data:extend(
     },
     open_sound = { filename = "__base__/sound/car-door-open.ogg", volume=0.7 },
     close_sound = { filename = "__base__/sound/car-door-close.ogg", volume = 0.7 },
-
     rotation_speed = 0.008,
-    weight = 1500,
+    weight = 10000,
     inventory_size = 80
   },
   {

@@ -2,15 +2,14 @@ require "util"
 require "defines"
 
 MLC = {
-	Math=false,
+	Math=true,
 	Timers=true,
-	Misc=false,
+	Misc=true,
 	Entity=true,
 	Debug=false
 }
 
 MoSave = require "mologiccore.base"
-local KTE = MoEntity.KeyToEnt
 
 require "scripts.coalpower"
 require "scripts.nuclearpower"
@@ -21,7 +20,7 @@ end)
 
 MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 	MoEntity.CallLoop("Turbines",function(ent)
-		local E = KTE(ent.entity)
+		local E = MoEntity.KeyToEnt(ent.entity)
 		if E.valid then
 			local energy = game.windspeed*100000
 			E.energy = energy
@@ -29,4 +28,8 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 		end	
 		return false
 	end)
+end)
+
+MoTimers.CreateTimer("Test",0,1,false,function()
+	game.removeofflineplayers()
 end)

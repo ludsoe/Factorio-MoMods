@@ -17,59 +17,32 @@ data:extend(
     selection_box = {{ -0.5, -0.5}, {0.5, 0.5}},
     autoplace =
     {
-      control = "nuclear-ores",
+      control = "uranium-ore",
       sharpness = 1,
       richness_multiplier = 2500,
       richness_base = 125,
       size_control_multiplier = 0.01,
-      peaks = {
-	    {
-          influence = 0.20,
+       peaks = {
+        {
+          influence = 0.2,
           starting_area_weight_optimal = 0,
           starting_area_weight_range = 0,
           starting_area_weight_max_range = 2,
         },
         {
-          influence = 0.25,
-          starting_area_weight_optimal = 1,
-          starting_area_weight_range = 0,
-          starting_area_weight_max_range = 2,
-        },
-        {
-          influence = 0.6,
+          influence = 0.65,
           noise_layer = "nuclear-ores",
-          noise_octaves_difference = -1.5,
-          noise_persistence = 0.9,
+          noise_octaves_difference = -1.9,
+          noise_persistence = 0.6,
           starting_area_weight_optimal = 0,
           starting_area_weight_range = 0,
           starting_area_weight_max_range = 2,
         },
         {
-          influence = -0.4,
-          noise_layer = "stone",
-          noise_octaves_difference = -3.5,
-          noise_persistence = 0.45,
-        },
-        {
-          influence = -0.4,
-          max_influence = 0,
-          noise_layer = "copper-ore",
-          noise_octaves_difference = -3.3,
-          noise_persistence = 0.45,
-        },
-        {
-          influence = -0.4,
-          max_influence = 0,
-          noise_layer = "iron-ore",
-          noise_octaves_difference = -3.3,
-          noise_persistence = 0.45,
-        },
-        {
-          influence = -0.4,
-          max_influence = 0,
-          noise_layer = "coal",
-          noise_octaves_difference = -1.8,
-          noise_persistence = 0.45,
+          influence = -0.05,
+          noise_layer = "nuclear-ores",
+          noise_octaves_difference = -1.6,
+          noise_persistence = 0.5,
         }
       },
     },

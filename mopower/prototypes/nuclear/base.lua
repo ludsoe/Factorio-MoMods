@@ -10,8 +10,8 @@ data:extend(
     flow_color = {r=0.7, g=0.7, b=0.7},
     icon = "__base__/graphics/icons/fluid/water.png",
     order = "steam",
-    pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.61
+    pressure_to_speed_ratio = 0.3,
+    flow_to_energy_ratio = 0.5
   },
   {
     type = "technology",
@@ -56,16 +56,6 @@ data:extend(
     order = "z",
   },
   {
-    type = "noise-layer",
-    name = "nuclear-ores"
-  },
-  {
-    type = "autoplace-control",
-    name = "nuclear-ores",
-    richness = true,
-    order = "z"
-  },
-  {
     type = "recipe-category",
     name="nuclear-power",
   },
@@ -94,7 +84,7 @@ data:extend(
   }
 }
 )
-
+require "autoplace"
 require "disposalplant"
 require "reactor"
 require "uranium"
