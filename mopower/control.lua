@@ -29,7 +29,3 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 		return false
 	end)
 end)
-
-MoTimers.CreateTimer("Test",0,1,false,function()
-	game.removeofflineplayers()
-end)
