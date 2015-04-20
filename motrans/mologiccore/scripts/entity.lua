@@ -3,10 +3,81 @@ GetTable=function()
 	return MoEntity
 end
 
-------------Entity Related Events------------
-Subscribed = {Built={},Death={}}
+------------Event Handler------------
+Subscribed = {Built={},Death={},PlyCreated={},Removed={}}
 if MLC.Debug then Debug.RegisterTable("Subscribed",Subscribed) end
 
+local EventFuncs = {}
+EventFuncs["Built"] = function(event)
+	local ent = event.createdentity
+	if ent == nil or not ent.valid then return end -- nil entity don't run it.
+	
+	local Name = ent.name
+	if Subscribed.Built[Name] then
+		for i,d in pairs(Subscribed.Built[Name]) do
+			d.Func(ent)
+		end
+	end	
+end
+
+EventFuncs["PlyBuilt"] = function(event)
+	local index = event.playerindex
+	local ent = game.getplayer(index)
+	if ent == nil or not ent.valid then return end -- nil player don't run it.
+	
+	for i,d in pairs(Subscribed.PlyCreated) do
+		d.Func(index,ent)
+	end
+end
+
+EventFuncs["Death"] = function(event)
+	local ent = event.entity
+	if ent == nil or not ent.valid then return end -- nil entity don't run it.
+	
+	local Name = ent.name
+	if Subscribed.Death[Name] then
+		for i,d in pairs(Subscribed.Death[Name]) do
+			d.Func(ent)
+		end
+	end	
+end
+
+EventFuncs["Removed"] = function(event)
+	local ent = event.entity
+	if ent == nil or not ent.valid then return end -- nil entity don't run it.
+	
+	local Name = ent.name
+	if Subscribed.Removed[Name] then
+		for i,d in pairs(Subscribed.Removed[Name]) do
+			d.Func(ent)
+		end
+	end	
+end
+
+local EventTypes = {}
+EventTypes[defines.events.onbuiltentity] = {"Built"}
+EventTypes[defines.events.onrobotbuiltentity] = {"Built"}
+EventTypes[defines.events.onplayercreated] = {"PlyBuilt"}
+EventTypes[defines.events.onentitydied] = {"Death","Removed"}
+EventTypes[defines.events.onpreplayermineditem] = {"Removed"}
+EventTypes[defines.events.onrobotpremined] = {"Removed"}
+
+--This does all the hard work.
+local function EventHandler(event)
+	local Event = event.name
+	for i,d in pairs(EventTypes[Event]) do
+		EventFuncs[d](event)
+	end
+end
+
+game.onevent(defines.events.onbuiltentity, EventHandler)
+game.onevent(defines.events.onrobotbuiltentity, EventHandler)
+game.onevent(defines.events.onentitydied, EventHandler)
+game.onevent(defines.events.onplayercreated, EventHandler)
+game.onevent(defines.events.onpreplayermineditem, EventHandler)
+game.onevent(defines.events.onrobotpremined, EventHandler)
+
+------------Entity Related Events------------
 --Allows you to subscribe a function to be called when a entity is built.
 FuncRegister("SubscribeOnBuilt",function(Ent,Name,Func)
 	if Subscribed.Built[Ent] == nil then Subscribed.Built[Ent] = {} end
@@ -29,28 +100,26 @@ FuncRegister("UnSubscribeOnDeath",function(Ent,Name)
 	Subscribed.Death[Ent][Name]=nil
 end)
 
---This does all the hard work.
-local function EventHandler(event)
-	local Event = event.name
-	if Event == defines.events.onbuiltentity or Event == defines.events.onrobotbuiltentity then
-		local Name = event.createdentity.name
-		if Subscribed.Built[Name] then
-			for i,d in pairs(Subscribed.Built[Name]) do
-				d.Func(event.createdentity)
-			end
-		end
-	elseif Event == defines.events.onentitydied then
-		local Name = event.entity.name
-		if Subscribed.Death[Name] then
-			for i,d in pairs(Subscribed.Death[Name]) do
-				d.Func(event.entity)
-			end
-		end		
-	end
-end
-game.onevent(defines.events.onbuiltentity, EventHandler)
-game.onevent(defines.events.onrobotbuiltentity, EventHandler)
-game.onevent(defines.events.onentitydied, EventHandler)
+--Allows you to subscribe a function to be called when a entity is removed.
+FuncRegister("SubscribeOnRemoved",function(Ent,Name,Func)
+	if Subscribed.Removed[Ent] == nil then Subscribed.Removed[Ent] = {} end
+	Subscribed.Removed[Ent][Name]={Name=Name,Func=Func}
+end)
+
+--Allows you to remove a function from being called when a entity is removed.
+FuncRegister("UnSubscribeOnRemoved",function(Ent,Name) 
+	Subscribed.Removed[Ent][Name]=nil
+end)
+
+--Allows you to subscribe a function to be called when a player is spawned.
+FuncRegister("SubscribeOnPlayerSpawn",function(Name,Func)
+	Subscribed.PlyCreated[Name]={Name=Name,Func=Func}
+end)
+
+--Allows you to remove a function from being called when a player is spawned.
+FuncRegister("UnSubscribeOnPlayerSpawn",function(Name) 
+	Subscribed.PlyCreated[Name]=nil
+end)
 
 ------------Player Related------------
 --Shortcut to get the players positioning.
@@ -58,11 +127,13 @@ FuncRegister("getplayerpos",function(I)
 	return game.getplayer(I or 1).position
 end)
 
---Easy loop for active players
+--Easy loop for active players, excludes none character players and offline ones.
 FuncRegister("loopplayers",function(F)
 	for i,d in pairs(game.players) do
 		if d and d.valid then
-			F(i,d)
+			if d.controllertype == defines.controllers.character then
+				F(i,d)
+			end
 		end
 	end
 end)

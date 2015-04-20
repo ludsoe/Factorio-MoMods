@@ -19,4 +19,11 @@ if M.AttackDrones then
 	require "scripts.dronescore"
 end
 
+if M.BFG then
+	if remote.interfaces.MoPower then
+		remote.call("MoPower", "RegisterFuel", "infused-solid-fuel", 54)
+	end
+end
+	
 remote.addinterface("MoCombat", ModInterface)
+

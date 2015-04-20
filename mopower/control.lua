@@ -11,6 +11,9 @@ MLC = {
 
 MoSave = require "mologiccore.base"
 
+ModInterface,MoConfig = {},{}
+require "config"
+
 require "scripts.coalpower"
 require "scripts.nuclearpower"
 
@@ -29,3 +32,5 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 		return false
 	end)
 end)
+
+remote.addinterface("MoPower", ModInterface)

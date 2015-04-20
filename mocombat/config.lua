@@ -3,11 +3,8 @@ local M = MoConfig
 --------------------------------------------------------------------------------------
 --------------------------------Enemies------------------------------------------------
 
---Adds a dangerous ranged biter variant with splash damage.
-M.Spitters = false
-
 --Adds a dangerous biter variant with a suicide explosive attack.
-M.Exploders = false --Warning, Causes Crashes.
+M.Exploders = true --Warning, Causes Crashes.
 
 --------------------------------------------------------------------------------------
 --------------------------------Weapons-----------------------------------------------

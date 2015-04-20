@@ -3,6 +3,12 @@ GetTable=function()
 	return MoMath
 end
 
+FuncRegister("Round", function(N1,N2)
+    local mult = 10^(N2 or 0)
+    if N1 >= 0 then return math.floor(N1 * mult + 0.5) / mult
+    else return math.ceil(N1 * mult - 0.5) / mult end
+end)
+
 --Clamps a number between two other numbers. A cant be greater then B and cant be lesser then C.
 FuncRegister("Clamp",function(N1,N2,N3)
 	if(N1<N2)then

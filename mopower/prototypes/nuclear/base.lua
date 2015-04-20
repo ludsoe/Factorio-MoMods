@@ -38,6 +38,10 @@ data:extend(
 	  {
         type = "unlock-recipe",
         recipe = "disposal-plant"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "depleted-uranium-enrichment"
       }
     },
     prerequisites = {"electric-energy-accumulators-1"},
@@ -84,6 +88,7 @@ data:extend(
   }
 }
 )
+
 require "autoplace"
 require "disposalplant"
 require "reactor"

@@ -21,7 +21,7 @@ ExtraInfo: None
 require "util"
 require "defines"
 
-local MLCDataVers = 1.95
+local MLCDataVers = 2.0
 local LastCompatable = 1.38
 IsLoaded = false
 

@@ -149,7 +149,7 @@ data:extend(
 			{
 				type = "ammo-damage",
 				ammo_category = "laser-combat-player",
-				modifier = "0.1"
+				modifier = "0.2"
 			}
 		},
 		prerequisites = {"laser-combat-damage-1"},
@@ -176,7 +176,7 @@ data:extend(
 			{
 				type = "ammo-damage",
 				ammo_category = "laser-combat-player",
-				modifier = "0.1"
+				modifier = "0.3"
 			}
 		},
 		prerequisites = {"laser-combat-damage-2"},
@@ -203,7 +203,7 @@ data:extend(
 			{
 				type = "ammo-damage",
 				ammo_category = "laser-combat-player",
-				modifier = "0.1"
+				modifier = "0.4"
 				}
 		},
 		prerequisites = {"laser-combat-damage-3"},
@@ -284,7 +284,7 @@ data:extend(
 			{
 				type = "gun-speed",
 				ammo_category = "laser-combat-player",
-				modifier = "0.1"
+				modifier = "0.2"
 			}
 		},
 		prerequisites = {"laser-combat-speed-2"},
@@ -311,7 +311,7 @@ data:extend(
 			{
 				type = "gun-speed",
 				ammo_category = "laser-combat-player",
-				modifier = "0.1"
+				modifier = "0.2"
 			}
 		},
 		prerequisites = {"laser-combat-speed-3"},

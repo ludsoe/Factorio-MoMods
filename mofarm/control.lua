@@ -23,6 +23,15 @@ remote.addinterface("MoFarm", {
 	end,
 })
 
+if remote.interfaces.MoPower then
+	remote.call("MoPower", "RegisterFuel", "greenleaf-ore", 1)
+	remote.call("MoPower", "RegisterFuel", "salad", 3)
+end
+	
+if remote.interfaces.MoSurvival then
+	remote.call("MoSurvival", "RegisterFoodItem", "salad", 150)
+end
+
 MoEntity.SubscribeOnBuilt("greenleafplanter","FarmSpawn",function(entity)
 	MoEntity.AddToLoop("Planters",entity)
 end)

@@ -1,6 +1,6 @@
 Fuels = {}
 
-require("fuels") --Load the fuel values
+require "fuels" --Load the fuels lua
 
 function CoalToPower(Genr,Tank)
 	local PLvl = Genr.energy or 0

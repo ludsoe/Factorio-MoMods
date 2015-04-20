@@ -34,7 +34,8 @@ data:extend(
     flags = {"goes-to-main-inventory"},
     subgroup = "farming-raw-food",
     order = "h",
-    stack_size = 64
+    stack_size = 64,
+	fuel_value = "1MJ"
   },
   {
     type = "capsule",

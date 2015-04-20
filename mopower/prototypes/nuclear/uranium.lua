@@ -94,24 +94,61 @@ data:extend(
 		order = "a",
 		stack_size = 20
 	},
-  {
-    type = "recipe",
-    name = "uranium-refinement",
-	enabled = "false",
-	icon = "__mopower__/graphics/icons/uranium-rod.png",
-	category="uranium-refine",
-	subgroup = "nuclear-resouces",
-    energy_required = 10,
-    ingredients =
-    {
-		{type="item", name="uranium-ore", amount=4}
-    },
-    results = {
-		{type="item", name="uranium-rod", amount=2},
-		{type="item", name="uranium-depleted", amount=3}
+	{
+		type = "recipe",
+		name = "uranium-refinement",
+		enabled = "false",
+		icon = "__mopower__/graphics/icons/uranium-rod.png",
+		category="uranium-refine",
+		subgroup = "nuclear-resouces",
+		energy_required = 10,
+		ingredients =
+		{
+			{type="item", name="uranium-ore", amount=4}
+		},
+		results = {
+			{type="item", name="uranium-rod", amount=2},
+			{type="item", name="uranium-depleted", amount=3}
+		},
+		main_product= "",
+		order = "a"
 	},
-	main_product= "",
-    order = "a"
-  }
+	{
+		type = "recipe",
+		name = "uranium-disposal",
+		enabled = "false",
+		icon = "__mopower__/graphics/icons/uranium-waste.png",
+		category="uranium-refine",
+		subgroup = "nuclear-resouces",
+		energy_required = 10,
+		ingredients =
+		{
+		  {type="fluid", name="water", amount=20},
+		  {type="item", name="uranium-waste", amount=2}
+		},
+		results = {
+			{type="item", name="uranium-ore", amount=1}
+		},
+		main_product= "",
+		order = "c"
+	},
+	{
+		type = "recipe",
+		name = "depleted-uranium-enrichment",
+		enabled = "false",
+		icon = "__mopower__/graphics/icons/uranium-waste.png",
+		category="uranium-refine",
+		subgroup = "nuclear-resouces",
+		energy_required = 20,
+		ingredients =
+		{
+		  {type="item", name="uranium-depleted", amount=6}
+		},
+		results = {
+			{type="item", name="uranium-ore", amount=1}
+		},
+		main_product= "",
+		order = "c"
+	}
 }
 )

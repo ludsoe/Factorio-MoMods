@@ -6,6 +6,8 @@ local NightRatio = MoConfig.DayNightRatio
 function DayNightCycle()
 	local T = CurrentWeather.Time
 	
+	if T.DayFroze then return end
+	
 	local Tick = game.tick
 	if CurrentWeather.Time.DayEnd <= Tick then
 		local DayLength=((Length*60)*60)
@@ -22,3 +24,11 @@ function DayNightCycle()
 		end
 	end
 end
+
+ModInterface.getdaystart = function() return CurrentWeather.Time.DayStart end
+ModInterface.getdayend = function() return CurrentWeather.Time.DayEnd end
+ModInterface.getdayturn = function() return CurrentWeather.Time.DayTurn end
+ModInterface.daytimeleft = function() return (CurrentWeather.Time.DayEnd-game.tick)/60 or 0 end
+ModInterface.getdaylight = function() return CurrentWeather.Time.Light end
+
+ModInterface.setdaylight = function(light) CurrentWeather.Time.Light = light or 0 end

@@ -170,25 +170,6 @@ data:extend(
 	  {"processing-unit", 15}
     },
     result = "disposal-plant"
-  },
-	{
-		type = "recipe",
-		name = "uranium-disposal",
-		enabled = "false",
-		icon = "__mopower__/graphics/icons/uranium-waste.png",
-		category="uranium-refine",
-		subgroup = "nuclear-resouces",
-		energy_required = 10,
-		ingredients =
-		{
-		  {type="fluid", name="water", amount=20},
-		  {type="item", name="uranium-waste", amount=2}
-		},
-		results = {
-			{type="item", name="uranium-ore", amount=1}
-		},
-		main_product= "",
-		order = "c"
-	}
+  }
 }
 )

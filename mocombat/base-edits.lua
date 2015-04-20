@@ -16,12 +16,6 @@ function InsertAt(T1,T2,N)
 	return T
 end
 
---[[ --Disable the enabler so it cant be enabled.
-if M.Spitters then
-	--Lets add the spitter to the biter spawner.
-	data.raw["unit-spawner"]["biter-spawner"].result_units=InsertAt(data.raw["unit-spawner"]["biter-spawner"].result_units, {"medium-spitter", 0.20},5)
-end]]
-
 if M.Exploders then
 	--Lets add the spitter to the biter spawner.
 	data.raw["unit-spawner"]["biter-spawner"].result_units=InsertAt(data.raw["unit-spawner"]["biter-spawner"].result_units, {"small-exploder", 0.32},3)
@@ -81,7 +75,8 @@ if M.SpitAOE then
 	table.insert(Dat, Explode)
 end
 
-
+local Worms = {{N="small-worm-turret",R={r=0, g=0.8, b=0.8}},{N="medium-worm-turret",R={r=0, g=0.8, b=0.8}},{N="big-worm-turret",R={r=0, g=0.8, b=0.8}}}
+for i,d in pairs(Worms) do data.raw["turret"][d.N].map_color=d.R end
 
 
 
