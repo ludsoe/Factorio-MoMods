@@ -35,7 +35,7 @@ data:extend(
     subgroup = "farming-raw-food",
     order = "h",
     stack_size = 64,
-	fuel_value = "1MJ"
+	fuel_value = "1.5MJ"
   },
   {
     type = "capsule",

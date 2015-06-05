@@ -2,7 +2,7 @@
 function RegisterFoodItem(name,amount)
 	Foods[name]=amount
 end
-RegisterFoodItem("raw-fish",200)
+RegisterFoodItem("raw-fish",MoConfig.MaxHunger/10)
 
 function IsFood(item)
 	--MoMisc.PrintTable(MoSurvival.Foods)
@@ -41,6 +41,23 @@ function EatFoodItem(ply,dat,food)
 		end
 		inv = ply.getinventory(defines.inventory.playerquickbar)
 	end
+end
+
+function GetTotalFoodPoints(ply)
+	local inv = ply.getinventory(defines.inventory.playermain)
+	local FoodPoints = 0
+	
+	for trys=1,2 do
+		for i,d in pairs(inv.getcontents()) do
+			if IsFood(i) then
+				FoodPoints = FoodPoints+(Foods[i]*d)
+			end
+		end
+		
+		inv = ply.getinventory(defines.inventory.playerquickbar)
+	end
+	
+	return FoodPoints
 end
 
 ModInterface.RegisterFoodItem = function(name,amount)

@@ -3,6 +3,18 @@ GetTable=function()
 	return MoMath
 end
 
+FuncRegister("SecondsToClock",function(N1)
+	if N1 == 0 then
+		--return nil;
+		return "00:00:00";
+	else
+		nHours = string.format("%02.f", math.floor(N1/3600));
+		nMins = string.format("%02.f", math.floor(N1/60 - (nHours*60)));
+		nSecs = string.format("%02.f", math.floor(N1 - nHours*3600 - nMins *60));
+		return nHours..":"..nMins..":"..nSecs
+	end
+end)
+
 FuncRegister("Round", function(N1,N2)
     local mult = 10^(N2 or 0)
     if N1 >= 0 then return math.floor(N1 * mult + 0.5) / mult

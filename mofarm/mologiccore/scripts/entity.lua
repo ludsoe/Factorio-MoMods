@@ -4,7 +4,7 @@ GetTable=function()
 end
 
 ------------Event Handler------------
-Subscribed = {Built={},Death={},PlyCreated={},Removed={}}
+Subscribed = {Built={},Death={},PlyCreated={},PlyDeath={},Removed={}}
 if MLC.Debug then Debug.RegisterTable("Subscribed",Subscribed) end
 
 local EventFuncs = {}
@@ -42,6 +42,21 @@ EventFuncs["Death"] = function(event)
 	end	
 end
 
+EventFuncs["PlyDeath"] = function(event)
+	local ent,index
+	for i,v in ipairs(game.players) do
+		if event.entity.equals(v.character) then
+			ent = v
+			index = i
+		end
+	end
+	if ent == nil or not ent.valid then return end -- nil entity don't run it.
+	
+	for i,d in pairs(Subscribed.PlyDeath) do
+		d.Func(index,ent,event.entity)
+	end
+end
+
 EventFuncs["Removed"] = function(event)
 	local ent = event.entity
 	if ent == nil or not ent.valid then return end -- nil entity don't run it.
@@ -58,7 +73,7 @@ local EventTypes = {}
 EventTypes[defines.events.onbuiltentity] = {"Built"}
 EventTypes[defines.events.onrobotbuiltentity] = {"Built"}
 EventTypes[defines.events.onplayercreated] = {"PlyBuilt"}
-EventTypes[defines.events.onentitydied] = {"Death","Removed"}
+EventTypes[defines.events.onentitydied] = {"PlyDeath","Death","Removed"}
 EventTypes[defines.events.onpreplayermineditem] = {"Removed"}
 EventTypes[defines.events.onrobotpremined] = {"Removed"}
 
@@ -121,6 +136,15 @@ FuncRegister("UnSubscribeOnPlayerSpawn",function(Name)
 	Subscribed.PlyCreated[Name]=nil
 end)
 
+--Allows you to subscribe a function to be called when a player is killed.
+FuncRegister("SubscribeOnPlayerKilled",function(Name,Func)
+	Subscribed.PlyDeath[Name]={Name=Name,Func=Func}
+end)
+
+--Allows you to remove a function from being called when a player is killed.
+FuncRegister("UnSubscribeOnPlayerKilled",function(Name) 
+	Subscribed.PlyDeath[Name]=nil
+end)
 ------------Player Related------------
 --Shortcut to get the players positioning.
 FuncRegister("getplayerpos",function(I)

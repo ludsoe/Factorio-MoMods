@@ -24,12 +24,13 @@ remote.addinterface("MoFarm", {
 })
 
 if remote.interfaces.MoPower then
-	remote.call("MoPower", "RegisterFuel", "greenleaf-ore", 1)
+	remote.call("MoPower", "RegisterFuel", "greenleaf-ore", 1.5)
 	remote.call("MoPower", "RegisterFuel", "salad", 3)
 end
 	
 if remote.interfaces.MoSurvival then
-	remote.call("MoSurvival", "RegisterFoodItem", "salad", 150)
+	local MaxHunger = remote.call("MoSurvival", "GetMaxHunger")
+	remote.call("MoSurvival", "RegisterFoodItem", "salad", MaxHunger/15)
 end
 
 MoEntity.SubscribeOnBuilt("greenleafplanter","FarmSpawn",function(entity)
@@ -55,12 +56,14 @@ MoTimers.CreateTimer("PlanterThink",1,0,false,function()
 				if #Plants <= 0 then
 					local NewPlant = game.createentity({name = Plant, position= V})
 					NewPlant.amount=math.random(1,3)
-					E.energy=E.energy-PlanterCost
 				else
 					MoEntity.LoopThis(Plants,function(plnt)
-						plnt.amount=plnt.amount+math.random(1,3)
+						if plnt.amount < 20 then
+							plnt.amount=plnt.amount+math.random(1,3)
+						end
 					end)
 				end
+				E.energy=E.energy-PlanterCost
 			end
 			return true
 		end	
