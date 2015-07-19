@@ -17,10 +17,11 @@ end
 
 function HandleRainSound()
 	MoEntity.loopplayers(function(i,d)
+		local Surface = d.surface
 		if not WeatherSave.RainAnimation[i] or not WeatherSave.RainAnimation[i].A or not WeatherSave.RainAnimation[i].A.valid then
-			local Rain = game.creat_eentity{name = "rain-loop-v2",position=MoEntity.getplayerpos(i)}
+			local Rain = Surface.create_entity{name = "rain-loop-v2",position=MoEntity.getplayerpos(i)}
 			Rain.energy = 5*MoMath.GetMJ()
-			local RainB = game.create_entity{name = "rain-power-pole",position=MoEntity.getplayerpos(i)}
+			local RainB = Surface.create_entity{name = "rain-power-pole",position=MoEntity.getplayerpos(i)}
 			WeatherSave.RainAnimation[i] = {A=Rain,B=RainB}
 		else
 			WeatherSave.RainAnimation[i].A.teleport(MoEntity.getplayerpos(i))
@@ -41,7 +42,7 @@ function WeatherFuncs.RainThink()
 		
 		MoEntity.loopplayers(function(i,d)
 			--Localise the players pos to weather grid.
-			local PPos = game.getplayer(i or 1).position
+			local PPos = game.get_player(i or 1).position
 			local PPGrid = {x=MoMath.Round(PPos.x/CellDist)*CellDist,y=MoMath.Round(PPos.y/CellDist)*CellDist}
 			for X=1, CellSize do
 				for Y=1, CellSize do
@@ -49,7 +50,8 @@ function WeatherFuncs.RainThink()
 					local Key = tostring(RainPos.x)..tostring(RainPos.y)
 					if not Rains[Key] then -- This is so players close to each other don't overlap rain effects.
 						Rains[Key] = true
-						game.createentity{name = "rain-drops", position=RainPos}
+						local Surface = d.surface
+						Surface.create_entity{name = "rain-drops", position=RainPos}
 					end
 				end
 			end
@@ -79,11 +81,9 @@ MoTimers.CacheFunction("MoWeatherRainDrops",WeatherFuncs.RainThink)
 
 --ThunderStorm Code
 function WeatherFuncs.StormThink() 
-	if(math.random(1,30)<8)then
-
-		
+	if(math.random(1,30)<8)then	
 		MoEntity.loopplayers(function(i,d)
-			MoMisc.PlaySound("thunder-roll",MoEntity.getplayerpos(i))
+			MoMisc.PlaySound("thunder-roll",MoEntity.getplayerpos(i),d.surface)
 		end)
 		
 		if not CurrentWeather.SVars.IgnoreLight then

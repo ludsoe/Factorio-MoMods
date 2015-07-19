@@ -34,7 +34,7 @@ function EatFoodItem(ply,dat,food)
 	local inv = ply.get_inventory(defines.inventory.player_main)
 	--MoMisc.Print("Eating food! "..tostring(food))
 	for trys=1,2 do
-		if inv.getitemcount(food) >= 1 then
+		if inv.get_item_count(food) >= 1 then
 			inv.remove{name=food, count=1}
 			dat.H=dat.H+Foods[food]
 			return

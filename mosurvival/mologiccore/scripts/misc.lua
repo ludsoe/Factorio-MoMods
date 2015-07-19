@@ -4,8 +4,8 @@ GetTable=function()
 end
 
 --This requires a explosion entity with the sounds you want preloaded into it.
-FuncRegister("PlaySound",function(Sound,Pos)
-	return game.createentity({name = Sound, position=Pos})
+FuncRegister("PlaySound",function(Sound,Pos,Surface)
+	return Surface.create_entity({name = Sound, position=Pos})
 end)
 
 --Ease Function to help printing.

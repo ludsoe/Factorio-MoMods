@@ -148,7 +148,7 @@ end)
 ------------Player Related------------
 --Shortcut to get the players positioning.
 FuncRegister("getplayerpos",function(I)
-	return game.getplayer(I or 1).position
+	return game.get_player(I or 1).position
 end)
 
 --Easy loop for active players, excludes none character players and offline ones.
@@ -173,7 +173,7 @@ end)
 
 --Adds another vector to the players position, and returns the result.
 FuncRegister("addtoplayerpos",function(I,X,Y)
-	local Pos = game.getplayer(I or 1).position
+	local Pos = game.get_player(I or 1).position
 	return {Pos.x+X,Pos.y+Y}
 end)
 
@@ -202,7 +202,7 @@ end)
 --Finds a certain entity in a square area around a point.
 FuncRegister("findentinsquareradius",function(Vec,Rad,Ent)
 	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
-	return game.findentitiesfiltered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
+	return game.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
 end)
 
 --Finds a certain entity in a circular area around a point.
@@ -220,7 +220,7 @@ FuncRegister("traceline",function(Vec,Vec2,Ent)
 	local V,A = Vec,MoMath.Approach
 	for I=1, util.distance(Vec,Vec2) do
 		V={x=A(V.x,Vec2.x,1),y=A(V.y,Vec2.y,1),1}
-		if not game.canplaceentity({name=Ent, position = V}) then
+		if not game.can_place_entity({name=Ent, position = V}) then
 			return false
 		end
 	end
@@ -232,7 +232,7 @@ FuncRegister("functraceline",function(Vec,Vec2,Ent,Func)
 	local V,A = Vec,MoMath.Approach
 	for I=1, util.distance(Vec,Vec2) do
 		V={x=A(V.x,Vec2.x,1),y=A(V.y,Vec2.y,1)}
-		if game.canplaceentity({name=Ent, position = V}) then
+		if game.can_place_entity({name=Ent, position = V}) then
 			if Func(V) then
 				return true
 			end
