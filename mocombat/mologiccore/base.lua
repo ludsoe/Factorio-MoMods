@@ -21,8 +21,8 @@ ExtraInfo: None
 require "util"
 require "defines"
 
-local MLCDataVers = 2.0
-local LastCompatable = 1.38
+local MLCDataVers = 3.0
+local LastCompatable = 3.0
 IsLoaded = false
 
 --This automatically sorts all the functions into their respective tables.
@@ -78,14 +78,14 @@ else
 end
 
 return function()
-	if glob.MoLogicCore == nil or glob.MoLogicCore.Vers<LastCompatable then glob.MoLogicCore = {Vers = MLCDataVers} end
+	if global.MoLogicCore == nil or global.MoLogicCore.Vers<LastCompatable then global.MoLogicCore = {Vers = MLCDataVers} end
 	for i,d in pairs(STables) do
-		if glob.MoLogicCore[d.N] == nil then
-			glob.MoLogicCore[d.N]=d.T
+		if global.MoLogicCore[d.N] == nil then
+			global.MoLogicCore[d.N]=d.T
 			--if MLC.Debug then Debug.Print("Data Tables Created") end
 		else
-			d.F(TableCopy(glob.MoLogicCore[d.N]))
-			glob.MoLogicCore[d.N]=d.T
+			d.F(TableCopy(global.MoLogicCore[d.N]))
+			global.MoLogicCore[d.N]=d.T
 			--if MLC.Debug then Debug.Print("Save Loaded") end
 		end
 	end	

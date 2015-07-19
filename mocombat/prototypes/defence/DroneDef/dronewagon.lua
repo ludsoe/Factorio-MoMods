@@ -11,7 +11,7 @@ data:extend(
     minable = {mining_time = 1, result = "combat-drone-wagon"},
     max_health = 1200,
     corpse = "medium-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "medium-explosion",
     collision_box = {{-0.6, -2.4}, {0.6, 2.4}},
     selection_box = {{-0.7, -2.5}, {1, 2.5}},
     weight = 1000,

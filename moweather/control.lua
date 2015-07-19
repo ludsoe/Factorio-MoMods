@@ -23,8 +23,8 @@ require "scripts.weathers"
 
 require "weather.weather"
 
-game.oninit(function() 
-	game:freezedaytime()
+game.on_init(function() 
+	game:freeze_daytime()
 	game.daytime=0.99
 end) 
 
@@ -54,7 +54,7 @@ MoTimers.CreateTimer("MoWeatherManage",0.1,0,false,function()
 	local Wind,Sun = CalculateValues()
 	
 	if not CurrentWeather.SVars.WindOver then
-		game.windspeed = MoMath.Approach(game.windspeed,Wind,0.001)
+		game.wind_speed = MoMath.Approach(game.wind_speed,Wind,0.001)
 	end
 	
 	if not CurrentWeather.SVars.LightOver then
@@ -79,7 +79,7 @@ ModInterface.addlightchange = function(name,val)
 	CurrentWeather.SVars.ModLight[name or "Generic"] = val or 0 
 end
 
-remote.addinterface("MoWeather", ModInterface)
+remote.add_interface("MoWeather", ModInterface)
 
 
 

@@ -13,7 +13,7 @@ data:extend(
     max_health = 300,
 	energy_per_hit_point = 0.1,
     corpse = "medium-remnants",
-	dying_explosion = "huge-explosion",
+	dying_explosion = "medium-explosion",
     resistances = 
     {
       {

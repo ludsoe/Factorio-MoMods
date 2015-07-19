@@ -18,12 +18,15 @@ data:extend(
     stage_counts = {8, 7, 6, 5, 4, 3, 2, 1},
     stages =
     {
-      filename = "__mofarm__/graphics/greenleaf/greenleaf-ore.png",
-      priority = "extra-high",
-      width = 38,
-      height = 38,
-      frame_count = 4,
-      direction_count = 8
+		sheet =
+		{
+			filename = "__mofarm__/graphics/greenleaf/greenleaf-ore.png",
+			priority = "extra-high",
+			width = 38,
+			height = 38,
+			frame_count = 4,
+			variation_count = 8
+		}
     },
     map_color = {r=0, g=0.6, b=0}
   },
@@ -49,6 +52,7 @@ data:extend(
       type = "use-on-self",
       attack_parameters =
       {
+		type = "projectile",
         ammo_category = "capsule",
         cooldown = 30,
         range = 0,

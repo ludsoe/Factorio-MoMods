@@ -56,7 +56,7 @@ function ResetData(index,entity)
 end
 
 function RegisterPlayer(index,entity)
-	if entity.controllertype ~= defines.controllers.character then return end
+	if entity.controller_type ~= defines.controllers.character then return end
 	ResetData(index,entity)
 	GenerateGui(index,entity) 
 end
@@ -67,7 +67,7 @@ MoEntity.SubscribeOnPlayerSpawn("OnSpawnPlayer",function(index,entity)
 	
 	--Insert all the items defined in config.lua
 	for i,d in pairs(MoConfig.ItemsOnSpawn) do
-		entity.getinventory(defines.inventory.playermain).insert({name=d.N, count=d.A})
+		entity.get_inventory(defines.inventory.player_main).insert({name=d.N, count=d.A})
 	end
 end)
 
@@ -123,4 +123,4 @@ ModInterface.SetHungerofPlayer = function(index,value)
 	end
 end
 
-remote.addinterface("MoSurvival", ModInterface)
+remote.add_interface("MoSurvival", ModInterface)

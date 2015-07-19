@@ -13,18 +13,19 @@ data:extend(
 		order = "d[laser-rifle]",
 		attack_parameters =
 		{
-		  ammo_category = "laser-combat-player",
-		  movement_slow_down_factor = 0.3,
-		  cooldown = 20,
-		  projectile_creation_distance = 0.6,
-		  range = 25,
-		  sound =
-		  {
+			type = "projectile",
+			ammo_category = "laser-combat-player",
+			movement_slow_down_factor = 0.3,
+			cooldown = 20,
+			projectile_creation_distance = 0.6,
+			range = 25,
+			sound =
 			{
-			  filename = "__base__/sound/laser.ogg",
-			  volume = 0.3
+				{
+					filename = "__base__/sound/fight/old/laser.ogg",
+					volume = 0.3
+				}
 			}
-		  }
 		},
 		stack_size = 4
 	},

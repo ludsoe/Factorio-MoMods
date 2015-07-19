@@ -14,7 +14,7 @@ local Plant = "greenleaf-ore"
 
 local PlanterCost = 500
 
-remote.addinterface("MoFarm", {
+remote.add_interface("MoFarm", {
 	addfarms = function() 
 		local Turbines=MoEntity.findentinsquareradius(MoEntity.getplayerpos(),300,"greenleafplanter")
 		MoEntity.LoopThis(Turbines,function(ent)

@@ -9,7 +9,7 @@ data:extend(
 	order="a",
 	subgroup="drone-combat",
     max_health = 600,
-	dying_explosion = "huge-explosion",
+	dying_explosion = "medium-explosion",
     corpse = "big-remnants",
     open_sound = { filename = "__base__/sound/metallic-chest-open.ogg", volume=0.65 },
     close_sound = { filename = "__base__/sound/metallic-chest-close.ogg", volume = 0.7 },

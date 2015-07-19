@@ -33,4 +33,4 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 	end)
 end)
 
-remote.addinterface("MoPower", ModInterface)
+remote.add_interface("MoPower", ModInterface)

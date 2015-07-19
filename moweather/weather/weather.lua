@@ -18,9 +18,9 @@ end
 function HandleRainSound()
 	MoEntity.loopplayers(function(i,d)
 		if not WeatherSave.RainAnimation[i] or not WeatherSave.RainAnimation[i].A or not WeatherSave.RainAnimation[i].A.valid then
-			local Rain = game.createentity{name = "rain-loop-v2",position=MoEntity.getplayerpos(i)}
+			local Rain = game.creat_eentity{name = "rain-loop-v2",position=MoEntity.getplayerpos(i)}
 			Rain.energy = 5*MoMath.GetMJ()
-			local RainB = game.createentity{name = "rain-power-pole",position=MoEntity.getplayerpos(i)}
+			local RainB = game.create_entity{name = "rain-power-pole",position=MoEntity.getplayerpos(i)}
 			WeatherSave.RainAnimation[i] = {A=Rain,B=RainB}
 		else
 			WeatherSave.RainAnimation[i].A.teleport(MoEntity.getplayerpos(i))

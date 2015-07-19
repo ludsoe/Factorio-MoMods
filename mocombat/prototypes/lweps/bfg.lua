@@ -112,18 +112,19 @@ data:extend({
 		order = "d[bfg10k]",
 		attack_parameters =
 		{
-		  ammo_category = "bfg-energy-cell",
-		  movement_slow_down_factor = 0.9,
-		  cooldown = 60,
-		  projectile_creation_distance = 0.6,
-		  range = 70,
-		  sound =
-		  {
+			type = "projectile",
+			ammo_category = "bfg-energy-cell",
+			movement_slow_down_factor = 0.9,
+			cooldown = 60,
+			projectile_creation_distance = 0.6,
+			range = 70,
+			sound =
 			{
-			  filename = "__mocombat__/sound/bfg_shooting_effect.ogg",
-			  volume = 1
+				{
+					filename = "__mocombat__/sound/bfg_shooting_effect.ogg",
+					volume = 1
+				}
 			}
-		  }
 		},
 		stack_size = 4
 	},

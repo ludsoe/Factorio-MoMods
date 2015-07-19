@@ -13,10 +13,10 @@ function IsFood(item)
 end
 
 function HasFood(ply,Dat)
-	local inv = ply.getinventory(defines.inventory.playermain)
+	local inv = ply.get_inventory(defines.inventory.player_main)
 	--MoMisc.Print("Checking for food!")
 	for trys=1,2 do
-		for i,d in pairs(inv.getcontents()) do
+		for i,d in pairs(inv.get_contents()) do
 			if IsFood(i) then
 				if Foods[i]<MoConfig.MaxHunger-Dat.H then
 					return true, i
@@ -24,14 +24,14 @@ function HasFood(ply,Dat)
 			end
 		end
 		
-		inv = ply.getinventory(defines.inventory.playerquickbar)
+		inv = ply.get_inventory(defines.inventory.player_quickbar)
 	end
 	
 	return false,""
 end
 
 function EatFoodItem(ply,dat,food)
-	local inv = ply.getinventory(defines.inventory.playermain)
+	local inv = ply.get_inventory(defines.inventory.player_main)
 	--MoMisc.Print("Eating food! "..tostring(food))
 	for trys=1,2 do
 		if inv.getitemcount(food) >= 1 then
@@ -39,22 +39,22 @@ function EatFoodItem(ply,dat,food)
 			dat.H=dat.H+Foods[food]
 			return
 		end
-		inv = ply.getinventory(defines.inventory.playerquickbar)
+		inv = ply.get_inventory(defines.inventory.playerquickbar)
 	end
 end
 
 function GetTotalFoodPoints(ply)
-	local inv = ply.getinventory(defines.inventory.playermain)
+	local inv = ply.get_inventory(defines.inventory.player_main)
 	local FoodPoints = 0
 	
 	for trys=1,2 do
-		for i,d in pairs(inv.getcontents()) do
+		for i,d in pairs(inv.get_contents()) do
 			if IsFood(i) then
 				FoodPoints = FoodPoints+(Foods[i]*d)
 			end
 		end
 		
-		inv = ply.getinventory(defines.inventory.playerquickbar)
+		inv = ply.get_inventory(defines.inventory.player_quickbar)
 	end
 	
 	return FoodPoints

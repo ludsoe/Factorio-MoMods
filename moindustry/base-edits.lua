@@ -1,7 +1,7 @@
 local M = MoConfig
 
 
-data.raw["item"]["stone-brick"].place_result = "placed-stone-brick"
+--data.raw["item"]["stone-brick"].place_result = "placed-stone-brick"
 
 
 

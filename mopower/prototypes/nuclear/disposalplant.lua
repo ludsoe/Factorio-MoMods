@@ -8,7 +8,7 @@ data:extend(
     minable = {hardness = 0.2, mining_time = 0.5, result = "disposal-plant"},
     max_health = 1200,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "medium-explosion",
     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     module_slots = 2,

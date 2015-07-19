@@ -75,7 +75,7 @@ end)
 --Returns all active timers.
 FuncRegister("GetTimers",function() return Timers end)
 
-game.onevent(defines.events.ontick, function(event) --Timer Master Think.
+game.on_event(defines.events.on_tick, function(event) --Timer Master Think.
 	if not IsLoaded then MLCSaveFix() MergeWaitingList() return end
 	for i,d in pairs(Timers) do
 		if game.tick >= d.Nxt then --Do we run this timer?

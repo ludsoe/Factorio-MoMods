@@ -72,18 +72,19 @@ data:extend(
 		order = "d[rescue-ranger]",
 		attack_parameters =
 		{
-		  ammo_category = "ranger-casing",
-		  movement_slow_down_factor = 0.5,
-		  cooldown = 50,
-		  projectile_creation_distance = 0.6,
-		  range = 40,
-		  sound =
-		  {
+			type = "projectile",
+			ammo_category = "ranger-casing",
+			movement_slow_down_factor = 0.5,
+			cooldown = 50,
+			projectile_creation_distance = 0.6,
+			range = 40,
+			sound =
 			{
-			  filename = "__mocombat__/sound/rescue_ranger_fire.ogg",
-			  volume = 0.3
+				{
+					filename = "__mocombat__/sound/rescue_ranger_fire.ogg",
+					volume = 0.3
+				}
 			}
-		  }
 		},
 		stack_size = 4
 	},

@@ -49,12 +49,15 @@ data:extend(
     stage_counts = {1000, 600, 400, 200, 100, 50, 20, 1},
     stages =
     {
-      filename = "__mopower__/graphics/uranium/uranium-ore.png",
-      priority = "extra-high",
-      width = 38,
-      height = 38,
-      frame_count = 4,
-      direction_count = 8
+		sheet =
+		{
+			filename = "__mopower__/graphics/uranium/uranium-ore.png",
+			priority = "extra-high",
+			width = 38,
+			height = 38,
+			frame_count = 4,
+			variation_count = 8
+		}
     },
     map_color = {r=0.2, g=0.8, b=0.2}
   },

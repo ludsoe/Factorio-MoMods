@@ -25,5 +25,5 @@ if M.BFG then
 	end
 end
 	
-remote.addinterface("MoCombat", ModInterface)
+remote.add_interface("MoCombat", ModInterface)
 

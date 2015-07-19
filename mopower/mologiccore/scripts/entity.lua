@@ -9,7 +9,7 @@ if MLC.Debug then Debug.RegisterTable("Subscribed",Subscribed) end
 
 local EventFuncs = {}
 EventFuncs["Built"] = function(event)
-	local ent = event.createdentity
+	local ent = event.created_entity
 	if ent == nil or not ent.valid then return end -- nil entity don't run it.
 	
 	local Name = ent.name
@@ -21,8 +21,8 @@ EventFuncs["Built"] = function(event)
 end
 
 EventFuncs["PlyBuilt"] = function(event)
-	local index = event.playerindex
-	local ent = game.getplayer(index)
+	local index = event.player_index
+	local ent = game.get_player(index)
 	if ent == nil or not ent.valid then return end -- nil player don't run it.
 	
 	for i,d in pairs(Subscribed.PlyCreated) do
@@ -45,7 +45,7 @@ end
 EventFuncs["PlyDeath"] = function(event)
 	local ent,index
 	for i,v in ipairs(game.players) do
-		if event.entity.equals(v.character) then
+		if event.entity == v.character then
 			ent = v
 			index = i
 		end
@@ -70,12 +70,12 @@ EventFuncs["Removed"] = function(event)
 end
 
 local EventTypes = {}
-EventTypes[defines.events.onbuiltentity] = {"Built"}
-EventTypes[defines.events.onrobotbuiltentity] = {"Built"}
-EventTypes[defines.events.onplayercreated] = {"PlyBuilt"}
-EventTypes[defines.events.onentitydied] = {"PlyDeath","Death","Removed"}
-EventTypes[defines.events.onpreplayermineditem] = {"Removed"}
-EventTypes[defines.events.onrobotpremined] = {"Removed"}
+EventTypes[defines.events.on_built_entity] = {"Built"}
+EventTypes[defines.events.on_robot_built_entity] = {"Built"}
+EventTypes[defines.events.on_player_created] = {"PlyBuilt"}
+EventTypes[defines.events.on_entity_died] = {"PlyDeath","Death","Removed"}
+EventTypes[defines.events.on_preplayer_mined_item] = {"Removed"}
+EventTypes[defines.events.on_robot_pre_mined] = {"Removed"}
 
 --This does all the hard work.
 local function EventHandler(event)
@@ -85,12 +85,12 @@ local function EventHandler(event)
 	end
 end
 
-game.onevent(defines.events.onbuiltentity, EventHandler)
-game.onevent(defines.events.onrobotbuiltentity, EventHandler)
-game.onevent(defines.events.onentitydied, EventHandler)
-game.onevent(defines.events.onplayercreated, EventHandler)
-game.onevent(defines.events.onpreplayermineditem, EventHandler)
-game.onevent(defines.events.onrobotpremined, EventHandler)
+game.on_event(defines.events.on_built_entity, EventHandler)
+game.on_event(defines.events.on_robot_built_entity, EventHandler)
+game.on_event(defines.events.on_entity_died, EventHandler)
+game.on_event(defines.events.on_player_created, EventHandler)
+game.on_event(defines.events.on_preplayer_mined_item, EventHandler)
+game.on_event(defines.events.on_robot_pre_mined, EventHandler)
 
 ------------Entity Related Events------------
 --Allows you to subscribe a function to be called when a entity is built.
@@ -155,7 +155,7 @@ end)
 FuncRegister("loopplayers",function(F)
 	for i,d in pairs(game.players) do
 		if d and d.valid then
-			if d.controllertype == defines.controllers.character then
+			if d.controller_type == defines.controllers.character then
 				F(i,d)
 			end
 		end
@@ -253,7 +253,7 @@ function GetKey(Ent)
 	if Ent==nil or not Ent.valid then return 0 end --Your ent is nil.
 	for i,d in pairs(Entitys.Ents) do
 		if d~=nil and d.valid then
-			if d.equals(Ent) then
+			if d == Ent then
 				return i 
 			end
 		else
