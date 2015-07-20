@@ -39,7 +39,7 @@ function EatFoodItem(ply,dat,food)
 			dat.H=dat.H+Foods[food]
 			return
 		end
-		inv = ply.get_inventory(defines.inventory.playerquickbar)
+		inv = ply.get_inventory(defines.inventory.player_quickbar)
 	end
 end
 

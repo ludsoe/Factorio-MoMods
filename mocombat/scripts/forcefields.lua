@@ -68,7 +68,7 @@ MoTimers.CreateTimer("ForceFieldManage",0.2,0,false,function()
 			if dE==nil or not dE.valid then return false end
 			MoEntity.functraceline(d.P.P1,d.P.P2,"forcefieldwall",function(V)
 				if DE.energy>=EnergyCost then
-					local Wall=game.createentity{name = "forcefieldwall", position= V}
+					local Wall=DE.surface.create_entity{name = "forcefieldwall", position= V}
 					MoEntity.AddToLoop("fields",Wall,{P1=data.entity,P2=d.E})
 					DE.energy=DE.energy-EnergyCost
 				end

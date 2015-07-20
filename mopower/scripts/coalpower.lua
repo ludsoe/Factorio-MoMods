@@ -7,17 +7,18 @@ function CoalToPower(Genr,Tank)
 	--game.player.print("Inv "..Inv)
 	local MJAmount = MoMath.GetMJ()
 	local MaxEnergy = 100*MJAmount
-
+	local surface = Genr.surface
+	
 	for i,d in pairs(Fuels) do
-		local Inv = Tank.getitemcount(i)
+		local Inv = Tank.get_item_count(i)
 		--game.player.print("Fuel "..i.." : "..Inv)
 		if Inv>0 then
 			local FLvl = PLvl+((d*MJAmount)*Inv)
 			--game.player.print("Ener "..i.." : "..FLvl.." o "..MaxEnergy )
 			if FLvl<=MaxEnergy then
-				Tank.getinventory(1).remove({name=i,count=Inv})
+				Tank.get_inventory(1).remove({name=i,count=Inv})
 				Genr.energy = FLvl
-				game.pollute(Genr.position,(d*Inv)*1.2)
+				surface.pollute(Genr.position,(d*Inv)*1.2)
 				return
 			else
 				local Count = math.floor((MaxEnergy-PLvl)/(d*MJAmount))
@@ -25,9 +26,9 @@ function CoalToPower(Genr,Tank)
 				if Inv>=Count and Count>0 then
 					local FLvl = PLvl+((d*MJAmount)*Count)
 					if FLvl<=MaxEnergy then
-						Tank.getinventory(1).remove({name=i,count=Count})
+						Tank.get_inventory(1).remove({name=i,count=Count})
 						Genr.energy = FLvl
-						game.pollute(Genr.position,(d*Count)*1.2)
+						surface.pollute(Genr.position,(d*Count)*1.2)
 						return
 					else
 						--game.player.print("Error "..i.." : "..FLvl)
@@ -62,15 +63,15 @@ MoTimers.CreateTimer("CoalGenUpgrade",0.2,1,false,function()
 		local E = KTE(ent.entity)
 		if E.valid then
 			local Pos = E.position
-			local Chest=game.createentity{name = "wooden-chest", position={x=Pos.x or 0,y=Pos.y or 0}}
+			local Chest=game.create_entity{name = "wooden-chest", position={x=Pos.x or 0,y=Pos.y or 0}}
 			
 			Chest.force = ent.extra.F.force
 			
-			Chest.getinventory(1).insert({name="basic-coalgen",count=1})
-			for i,d in pairs(E.getinventory(1).getcontents()) do
-				Chest.getinventory(1).insert({name=i,count=d})
+			Chest.get_inventory(1).insert({name="basic-coalgen",count=1})
+			for i,d in pairs(E.get_inventory(1).get_contents()) do
+				Chest.get_inventory(1).insert({name=i,count=d})
 			end
-			Chest.orderdeconstruction(Chest.force)
+			Chest.order_deconstruction(Chest.force)
 			
 			if ent.extra.F.valid then ent.extra.F.die() end				
 			E.destroy()
