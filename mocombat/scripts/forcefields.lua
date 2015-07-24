@@ -22,13 +22,13 @@ end
 function OnPostBuilt(entity,fix)
 	fix = fix or false
 	local Connected = {}
-	local Posts=MoEntity.findentinsquareradius(entity.position,30,"forcefield-post")
+	local Posts=MoEntity.findentinsquareradius(entity.surface,entity.position,30,"forcefield-post")
 	local MKey = RegKey(entity)
 	MoEntity.LoopThis(Posts,function(ent)
 		local v1,v2 = entity.position,ent.position
 		if not MoEntity.inline(v1,v2) or util.distance(v1,v2) < 5 then return end
 		local P1,P2 = {x=MoMath.Approach(v1.x,v2.x,FDist),y=MoMath.Approach(v1.y,v2.y,FDist)},{x=MoMath.Approach(v2.x,v1.x,FDist),y=MoMath.Approach(v2.y,v1.y,FDist)}
-		if MoEntity.traceline(P1,P2,"forcefieldwall") then
+		if MoEntity.traceline(ent.surface,P1,P2,"forcefieldwall") then
 			local EKey = RegKey(ent)
 			Connected[EKey]={E=EKey,P={P1=P1,P2=P2}}
 			local Res = MoEntity.GetDataFromLoop("forcefields",ent)
@@ -49,7 +49,7 @@ end
 ModInterface.detectforcefields = function()
 	MoMisc.Print("Detecting ForceFields!")
 	for i,d in pairs(game.players) do
-		MoEntity.LoopThis(MoEntity.findentinsquareradius(MoEntity.getplayerpos(i),20,"forcefield-post"),OnPostBuilt)
+		MoEntity.LoopThis(MoEntity.findentinsquareradius(d.surface,MoEntity.getplayerpos(i),20,"forcefield-post"),OnPostBuilt)
 	end
 end
 
@@ -66,7 +66,7 @@ MoTimers.CreateTimer("ForceFieldManage",0.2,0,false,function()
 		MoEntity.LoopThis(data.extra,function(d)
 			local dE = KTE(d.E)
 			if dE==nil or not dE.valid then return false end
-			MoEntity.functraceline(d.P.P1,d.P.P2,"forcefieldwall",function(V)
+			MoEntity.functraceline(DE.surface,d.P.P1,d.P.P2,"forcefieldwall",function(V)
 				if DE.energy>=EnergyCost then
 					local Wall=DE.surface.create_entity{name = "forcefieldwall", position= V}
 					MoEntity.AddToLoop("fields",Wall,{P1=data.entity,P2=d.E})

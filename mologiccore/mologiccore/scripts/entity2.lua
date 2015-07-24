@@ -14,7 +14,7 @@ end
 function SpawnBit(Ent,Data,Bits)
 	local Pos = Ent.position
 	if not Data.Type then return end -- What is this??? Give me a type!
-	local Bit=game.createentity{name = Data.Type, position={x=Pos.x+(Data.x or 0),y=Pos.y+(Data.y or 0)}}
+	local Bit=Ent.surface.create_entity{name = Data.Type, position={x=Pos.x+(Data.x or 0),y=Pos.y+(Data.y or 0)}}
 	--Add more options that can be configured.
 	
 	Bit.force=Data.Force or Ent.force

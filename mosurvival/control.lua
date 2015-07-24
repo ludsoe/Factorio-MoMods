@@ -92,7 +92,7 @@ MoTimers.CreateTimer("LoopPlayers",0.1,0,false,function()
 			Dat.H = Dat.H-MoConfig.HungerDecay -- Decrease the Hunger value...
 			if Dat.H < MoConfig.MaxHunger/5 and Dat.LHS < game.tick then
 				Dat.LHS = game.tick+(240*60)
-				MoMisc.PlaySound("stomach-growl",d.position)
+				MoMisc.PlaySound("stomach-growl",d.position,d.surface)
 			end
 		else
 			Dat.H = 0

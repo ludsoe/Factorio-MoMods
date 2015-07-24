@@ -24,7 +24,7 @@ remote.add_interface("MoFarm", {
 })
 
 if remote.interfaces.MoPower then
-	remote.call("MoPower", "RegisterFuel", "greenleaf-ore", 1.5)
+	remote.call("MoPower", "RegisterFuel", "greenleaf", 1.5)
 	remote.call("MoPower", "RegisterFuel", "salad", 3)
 end
 	

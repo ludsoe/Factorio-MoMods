@@ -21,8 +21,8 @@ ExtraInfo: None
 require "util"
 require "defines"
 
-local MLCDataVers = 3.0
-local LastCompatable = 3.0
+local MLCDataVers = 3.01
+local LastCompatable = 1.38
 IsLoaded = false
 
 --This automatically sorts all the functions into their respective tables.

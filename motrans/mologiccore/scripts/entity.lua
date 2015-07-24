@@ -151,12 +151,25 @@ FuncRegister("getplayerpos",function(I)
 	return game.get_player(I or 1).position
 end)
 
+function CheckPlayerValid(ply)
+	local X,Y,Rad = ply.position.x,ply.position.y,0.1
+	local Check = ply.surface.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name="player"}
+	for i,d in pairs(Check) do
+		if d == ply.character then
+			return true
+		end
+	end
+	return false
+end
+
 --Easy loop for active players, excludes none character players and offline ones.
 FuncRegister("loopplayers",function(F)
 	for i,d in pairs(game.players) do
 		if d and d.valid then
 			if d.controller_type == defines.controllers.character then
-				F(i,d)
+				if CheckPlayerValid(d) then
+					F(i,d)
+				end
 			end
 		end
 	end
@@ -200,9 +213,9 @@ FuncRegister("addtoentpos",function(Ent,Vec)
 end)
 
 --Finds a certain entity in a square area around a point.
-FuncRegister("findentinsquareradius",function(Vec,Rad,Ent)
+FuncRegister("findentinsquareradius",function(Sur,Vec,Rad,Ent)
 	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
-	return game.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
+	return Sur.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
 end)
 
 --Finds a certain entity in a circular area around a point.
@@ -216,11 +229,11 @@ end)
 
 --Returns if a entity can be placed along the entirety of two points.
 --Warning, Requires MoMath loaded to operate.
-FuncRegister("traceline",function(Vec,Vec2,Ent)
+FuncRegister("traceline",function(Sur,Vec,Vec2,Ent)
 	local V,A = Vec,MoMath.Approach
 	for I=1, util.distance(Vec,Vec2) do
 		V={x=A(V.x,Vec2.x,1),y=A(V.y,Vec2.y,1),1}
-		if not game.can_place_entity({name=Ent, position = V}) then
+		if not Sur.can_place_entity({name=Ent, position = V}) then
 			return false
 		end
 	end
@@ -228,11 +241,11 @@ FuncRegister("traceline",function(Vec,Vec2,Ent)
 end)
 
 --Exactly like traceline, except it has a extra function called for each position being tested. (If its open.)
-FuncRegister("functraceline",function(Vec,Vec2,Ent,Func)
+FuncRegister("functraceline",function(Sur,Vec,Vec2,Ent,Func)
 	local V,A = Vec,MoMath.Approach
 	for I=1, util.distance(Vec,Vec2) do
 		V={x=A(V.x,Vec2.x,1),y=A(V.y,Vec2.y,1)}
-		if game.can_place_entity({name=Ent, position = V}) then
+		if Sur.can_place_entity({name=Ent, position = V}) then
 			if Func(V) then
 				return true
 			end
