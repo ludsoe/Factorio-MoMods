@@ -21,7 +21,6 @@ M.RailGun = true
 --Adds the rescue ranger, great for repairing buildings from afar. Also does damage to enemy's.
 M.Ranger = true
 
-
 --------------------------------------------------------------------------------------
 --------------------------------Advanced Ammo-----------------------------------------
 
@@ -54,6 +53,9 @@ M.SpitPhysics = false --Warning, Breaks biter ai.
 
 --Changes the spit projectile so it has a maximum range. (Aka you can out run them) **Required with spit physics or crashes.
 M.SpitRange = true
+
+--Enables a chest that drops on death that contains your inventory.
+M.DeathChest = false
 
 --------------------------------------------------------------------------------------
 

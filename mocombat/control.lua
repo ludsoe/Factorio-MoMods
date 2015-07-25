@@ -11,6 +11,8 @@ ModInterface,MoConfig = {},{} local M = MoConfig
 
 require "config"
 
+require "scripts.deathchest"
+
 if M.ForceFields then --We only need forcefield logic if the forcefields are enabled.
 	require "scripts.forcefields"
 end

@@ -15,3 +15,5 @@ end
 if M.AttackDrones then
 	require("DroneDef.base")
 end
+
+require("deathchest")
