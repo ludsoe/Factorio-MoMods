@@ -22,6 +22,15 @@ data:extend(
 		},
 		subgroup = "energy",
 		order = "e[accumulator]-a[adv-accumulator]",
+		resistances = {
+			{type = "electric",percent = 100},
+			{type = "physical",percent = 100},
+			{type = "poison",percent = 100},
+			{type = "explosion",percent = 100},
+			{type = "fire",percent = 100},
+			{type = "laser",percent = 100},
+			{type = "acid",percent = 100}
+		},
 	}
 }
 )
