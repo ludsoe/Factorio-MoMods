@@ -64,6 +64,7 @@ data:extend(
 		name = "fuel-storage",
 		icon = "__base__/graphics/icons/wooden-chest.png",
 		flags = {"placeable-neutral", "player-creation","placeable-off-grid"},
+		minable = {hardness = 0.2, mining_time = 1},
 		max_health = 100000,
 		corpse = "small-remnants",
 		collision_box = {{-0.35, -0.35}, {0.35, 0.35}},

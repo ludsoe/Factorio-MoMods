@@ -25,7 +25,7 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 	MoEntity.CallLoop("Turbines",function(ent)
 		local E = MoEntity.KeyToEnt(ent.entity)
 		if E.valid then
-			local energy = game.windspeed*100000
+			local energy = game.wind_speed*100000
 			E.energy = energy
 			return true
 		end	
