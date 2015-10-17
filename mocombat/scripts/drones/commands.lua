@@ -19,7 +19,7 @@ end
 
 Drones.CreateCommandFunc("Idle",function(Drone,Data) 
 	--Run Check for enemies.
-	local Scan = Drones.NearbyEnemy(Drone.position,50)
+	local Scan = Drones.NearbyEnemy(Drone.surface,Drone.position,50)
 	if Scan and Scan.valid then
 		Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan),true)
 		return
@@ -49,7 +49,7 @@ end)
 Drones.CreateCommandFunc("AttackEnemy",function(Drone,Data) 
 	local Targ = KTE(Data.T)
 	if not Targ or not Targ.valid then
-		local Scan = Drones.NearbyEnemy(Drone.position,100)
+		local Scan = Drones.NearbyEnemy(Drone.surface,Drone.position,100)
 		if Scan and Scan.valid then
 			Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan),true)
 			return

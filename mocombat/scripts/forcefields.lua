@@ -53,7 +53,7 @@ ModInterface.detectforcefields = function()
 	end
 end
 
-MoTimers.CreateTimer("ForceFieldManage",0.2,0,false,function()
+function ManageForceFields()
 	MoEntity.CallLoop("forcefields",function(data)
 		local DE = KTE(data.entity)
 		if DE==nil or not DE.valid then return false end
@@ -104,5 +104,6 @@ MoTimers.CreateTimer("ForceFieldManage",0.2,0,false,function()
 		end	
 		return false
 	end)
-	
-end)
+end
+MoTimers.CacheFunction("ManageForceFields",ManageForceFields)
+

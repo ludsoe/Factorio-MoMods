@@ -3,7 +3,7 @@ local Drones = Drones --Localise
 
 Drones.CommandFuncs = {}
 
-MoTimers.CreateTimer("HandleDroneAi",1,0,false,function()
+function ManageCombatDroneAi()
 	--MoMisc.Print("Drone Think")
 	MoEntity.CallLoop("advcomdrones",function(data)
 		local E = KTE(data.entity)
@@ -25,7 +25,7 @@ MoTimers.CreateTimer("HandleDroneAi",1,0,false,function()
 			end
 			
 			--Update the map where we are.
-			E.force.chart{MoEntity.addtoentpos(E,{y=-5,x=-5}),MoEntity.addtoentpos(E,{y=5,x=5})}
+			E.force.chart(E.surface,{MoEntity.addtoentpos(E,{y=-5,x=-5}),MoEntity.addtoentpos(E,{y=5,x=5})})
 
 			local CmdFunc = Drones.CommandFuncs[CMD.F or "None"]
 			if CmdFunc then
@@ -48,13 +48,14 @@ MoTimers.CreateTimer("HandleDroneAi",1,0,false,function()
 		
 		return true
 	end)
-end)
+end
+MoTimers.CacheFunction("ManageCombatDroneAi",ManageCombatDroneAi)
 
-MoTimers.CreateTimer("DroneManagePosts",1,0,false,function()
+function ManageCombatDronePosts()
 	MoEntity.CallLoop("combatroboticspost",function(data)
 		local E = KTE(data.entity)
 		if E==nil or not E.valid then return false end
-		local Enemy = Drones.NearbyEnemy(E.position,200)
+		local Enemy = Drones.NearbyEnemy(E.surface,E.position,200)
 		if Enemy and Enemy.valid then --Add alive check if this is buggy
 			local DCount = Drones.ContainsDrones(E)
 			if DCount ~= nil then
@@ -67,7 +68,8 @@ MoTimers.CreateTimer("DroneManagePosts",1,0,false,function()
 		
 		return true
 	end)
-end)
+end
+MoTimers.CacheFunction("ManageCombatDronePosts",ManageCombatDronePosts)
 
 function Drones.CreateCommandFunc(Name,Function)
 	Drones.CommandFuncs[Name]=Function

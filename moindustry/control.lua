@@ -3,9 +3,9 @@ require "defines"
 
 MLC = {
 	Math=false,
-	Timers=true,
+	Timers=false,
 	Misc=false,
-	Entity=true,
+	Entity=false,
 	Debug=false
 }
 

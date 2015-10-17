@@ -1,7 +1,7 @@
 data:extend(
 {
 	{
-		type = "rail",
+		type = "straight-rail",
 		name = "straight-rail-bridge",
 		icon = "__base__/graphics/icons/straight-rail.png",
 		flags = {"placeable-neutral", "player-creation", "building-direction-8-way"},

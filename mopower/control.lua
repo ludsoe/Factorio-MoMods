@@ -21,7 +21,7 @@ MoEntity.SubscribeOnBuilt("wind-turbine","TurbineSpawn",function(entity)
 	MoEntity.AddToLoop("Turbines",entity)
 end)
 
-MoTimers.CreateTimer("TurbineThink",0,0,false,function()
+function TurbineThink()
 	MoEntity.CallLoop("Turbines",function(ent)
 		local E = MoEntity.KeyToEnt(ent.entity)
 		if E.valid then
@@ -31,6 +31,13 @@ MoTimers.CreateTimer("TurbineThink",0,0,false,function()
 		end	
 		return false
 	end)
+end
+
+MoTimers.CacheFunction("TurbineThink",TurbineThink)
+script.on_configuration_changed(function() 
+	MoTimers.CreateTimer("TurbineThink",0,0,false,TurbineThink) 
+	MoTimers.CreateTimer("NuclearReactorThink",0,0,false,NuclearReactorThink)
+	MoTimers.CreateTimer("BurnerGeneratorThink",0.2,1,false,BurnerGeneratorThink)
 end)
 
 remote.add_interface("MoPower", ModInterface)

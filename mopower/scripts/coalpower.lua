@@ -57,7 +57,7 @@ MoEntity.CreateAdvEntityHook("basic-coalgen","CoalGenSpawn",{{Type="fuel-storage
 	return false		
 end)
 
-MoTimers.CreateTimer("CoalGenUpgrade",0.2,1,false,function()
+function BurnerGeneratorThink()
 	local KTE = MoEntity.KeyToEnt
 	MoEntity.CallLoop("FuelStorages",function(ent)
 		local E = KTE(ent.entity)
@@ -78,4 +78,6 @@ MoTimers.CreateTimer("CoalGenUpgrade",0.2,1,false,function()
 		end	
 		return false		
 	end)
-end)
+end
+
+MoTimers.CacheFunction("BurnerGeneratorThink",BurnerGeneratorThink)

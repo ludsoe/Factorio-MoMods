@@ -15,6 +15,7 @@ data:extend(
 		selection_box = {{-0.4, -0.7}, {0.7, 0.4}},
 		attack_parameters =
 		{
+			type = "projectile",
 			ammo_category = "combat-robot-laser",
 			cooldown = 20,
 			damage_modifier = 3,
@@ -38,7 +39,7 @@ data:extend(
 			sound =
 			{
 				{
-				  filename = "__base__/sound/laser.ogg",
+				  filename = "__base__/sound/fight/old/laser.ogg",
 				  volume = 0.4
 				}
 			},

@@ -104,7 +104,7 @@ remote.addinterface("MoDebug", {
 	end
 })
 
-game.onevent(defines.events.onguiclick, function(event)
+script.on_event(defines.events.onguiclick, function(event)
 	local N = Temp[event.element.name]
 	if N~=nil then
 		N.F(N.T,N.N,N.I,N.ID,N.E)

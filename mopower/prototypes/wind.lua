@@ -8,8 +8,10 @@ data:extend(
     minable = {hardness = 0.2, mining_time = 0.5, result = "wind-turbine"},
     max_health = 250,
     corpse = "medium-remnants",
-    collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
-    selection_box = {{-1, -1}, {1, 1}},
+    --collision_box = {{-0.9, 0}, {0.9, 0.9}},
+	collision_box = {{-0.95, 0}, {0.5, 0.5}},
+	selection_box = {{-0.95, 0}, {0.95, 1.1}},
+   --selection_box = {{-0.95, 0}, {0.95, 0.95}},
     energy_source =
     {
       type = "electric",
@@ -22,30 +24,30 @@ data:extend(
     {
       filename = "__mopower__/graphics/turbine/idle.png",
       priority = "extra-high",
-      width = 90,
-      height = 200,
-      shift = {0.3, -2}
+      width = 66,
+      height = 139,
+      shift = {0, -1.1}
     },
     charge_animation =
     {
       filename = "__mopower__/graphics/turbine/spin.png",
-      width = 90,
-      height = 200,
-      line_length = 9,
-      frame_count = 9,
-      shift = {0.3, -2},
+      width = 66,
+      height = 139,
+      line_length = 6,
+      frame_count = 6,
+      shift = {0, -1.1},
       animation_speed = 0.5
     },
     charge_cooldown = 30,
     charge_light = {intensity = 0, size = 0},
     discharge_animation =
     {
-      filename = "__mopower__/graphics/turbine/idle.png",
-      width = 90,
-      height = 200,
-      line_length = 1,
-      frame_count = 1,
-      shift = {0.3, -2},
+      filename = "__mopower__/graphics/turbine/spin.png",
+      width = 66,
+      height = 139,
+      line_length = 6,
+      frame_count = 6,
+      shift = {0, -1.1},
       animation_speed = 0.5
     },
     discharge_cooldown = 0,
@@ -68,6 +70,7 @@ data:extend(
     energy_required = 5,
     ingredients =
     {
+	  --{"iron-plate",1}
       {"iron-gear-wheel", 10},
       {"steel-plate", 10},
       {"electronic-circuit", 5}

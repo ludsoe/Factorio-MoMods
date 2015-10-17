@@ -85,12 +85,12 @@ local function EventHandler(event)
 	end
 end
 
-game.on_event(defines.events.on_built_entity, EventHandler)
-game.on_event(defines.events.on_robot_built_entity, EventHandler)
-game.on_event(defines.events.on_entity_died, EventHandler)
-game.on_event(defines.events.on_player_created, EventHandler)
-game.on_event(defines.events.on_preplayer_mined_item, EventHandler)
-game.on_event(defines.events.on_robot_pre_mined, EventHandler)
+script.on_event(defines.events.on_built_entity, EventHandler)
+script.on_event(defines.events.on_robot_built_entity, EventHandler)
+script.on_event(defines.events.on_entity_died, EventHandler)
+script.on_event(defines.events.on_player_created, EventHandler)
+script.on_event(defines.events.on_preplayer_mined_item, EventHandler)
+script.on_event(defines.events.on_robot_pre_mined, EventHandler)
 
 ------------Entity Related Events------------
 --Allows you to subscribe a function to be called when a entity is built.
@@ -190,14 +190,16 @@ FuncRegister("addtoplayerpos",function(I,X,Y)
 	return {Pos.x+X,Pos.y+Y}
 end)
 
-FuncRegister("closestplayer",function(X,Y)
+FuncRegister("closestplayer",function(X,Y,Surface)
 	local C = 999999999999999999
 	for i,d in pairs(game.players) do
 		if d.valid then
 			local P = d.position
 			
 			if util.distance(P,{x=X,y=Y}) < C then
-				CP = d
+				if not Surface or Surface == d.surface then
+					CP = d
+				end
 			end
 		end
 	end

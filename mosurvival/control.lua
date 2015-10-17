@@ -24,11 +24,11 @@ require "scripts.foods"
 
 function UpdateGuis(ply,dat)
 	local Per = MoMath.Round((dat.H/MoConfig.MaxHunger)*100)
-	ply.gui.left["MoSurvival"]["MoHunger"]["labelvalue"].caption = tostring(Per).."%"
+	ply.gui.left["MoSurvival"]["MoHunger"]["hunger"].caption = "Hunger: "..tostring(Per).."%"
 	
 	local TotalHunger = dat.H+GetTotalFoodPoints(ply)
 	local TL = MoMath.Round((TotalHunger/MoConfig.HungerDecay)/10)
-	ply.gui.left["MoSurvival"]["TimeLeft"]["labelvalue"].caption = MoMath.SecondsToClock(TL)
+	ply.gui.left["MoSurvival"]["MoHunger"]["timeleft"].caption = "TimeLeft:"..MoMath.SecondsToClock(TL)
 end
 
 function GenerateGui(index,entity)
@@ -36,13 +36,9 @@ function GenerateGui(index,entity)
 	
 	local base = entity.gui.left.add({type="frame", name="MoSurvival", direction="vertical"})
 	
-	local frame = entity.gui.left["MoSurvival"].add({type="frame", name="MoHunger", direction="horizontal"})
-	frame.add({type="label", name="label", caption="Hunger:"})
-	frame.add({type="label", name="labelvalue", caption=tostring(100).."%"})
-	
-	frame = entity.gui.left["MoSurvival"].add({type="frame", name="TimeLeft", direction="horizontal"})
-	frame.add({type="label", name="label", caption="TimeLeft:"})
-	frame.add({type="label", name="labelvalue", caption=tostring(0)})
+	local frame = entity.gui.left["MoSurvival"].add({type="frame", name="MoHunger", direction="vertical"})
+	frame.add({type="label", name="hunger", caption="Hunger: "..tostring(100).."%"})
+	frame.add({type="label", name="timeleft", caption="TimeLeft: "..tostring(0)})
 end
 
 local DataValue = 1
@@ -75,7 +71,7 @@ MoEntity.SubscribeOnPlayerKilled("ResetHunger",function(index,player,entity)
 	ResetData(index,entity)
 end)
 
-MoTimers.CreateTimer("LoopPlayers",0.1,0,false,function()
+function MoSurvivalHunger()
 	MoEntity.loopplayers(function(i,d)
 		local Dat = MoSurvival.Players[i] --Fetch the players data....
 		if not Dat or Dat.DV~=DataValue then RegisterPlayer(i,d) return --[[No Data table...]] end
@@ -104,7 +100,10 @@ MoTimers.CreateTimer("LoopPlayers",0.1,0,false,function()
 			d.character.damage(Damage, d.force, "survival") --FEEEEEEED MEEEEEE!!!!
 		end
 	end)
-end)
+end
+
+MoTimers.CacheFunction("MoSurvivalHunger",MoSurvivalHunger)
+script.on_configuration_changed(function() MoTimers.CreateTimer("MoSurvivalHunger",0.1,0,false,MoSurvivalHunger) end)
 
 ModInterface.GetMaxHunger = function()
 	return MoConfig.MaxHunger

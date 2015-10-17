@@ -29,3 +29,13 @@ end
 	
 remote.add_interface("MoCombat", ModInterface)
 
+script.on_configuration_changed(function() 
+	if M.ForceFields then
+		MoTimers.CreateTimer("ManageForceFields",0.2,0,false,ManageForceFields)
+	end
+	
+	if M.AttackDrones then
+		MoTimers.CreateTimer("ManageCombatDronePosts",1,0,false,ManageCombatDronePosts)
+		MoTimers.CreateTimer("ManageCombatDroneAi",1,0,false,ManageCombatDroneAi)
+	end
+end)

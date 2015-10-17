@@ -16,8 +16,6 @@ end
 
 MoEntity.SubscribeOnDeath("player","death-chest",SpawnDeathChest)
 
-
-
 -- /c remote.call("MoCombat","enabledeathchest")
 ModInterface.enabledeathchest = function()
 	MoMisc.Print("Enabling DeathChest!")

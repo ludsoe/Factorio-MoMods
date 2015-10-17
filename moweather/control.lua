@@ -22,11 +22,36 @@ require "scripts.wind"
 require "scripts.weathers"
 
 require "weather.weather"
+	
+local Length = MoConfig.DayLength
+local TransMult = MoConfig.TransitionMult
+	
+function MoManageWeather()
+	DayNightCycle() ManageWind() ManageWeather()
+	
+	local Wind,Sun = CalculateValues()
+	
+	if not CurrentWeather.SVars.WindOver then game.wind_speed = MoMath.Approach(game.wind_speed,Wind,0.001) end
+	if not CurrentWeather.SVars.LightOver then game.daytime = MoMath.Approach(game.daytime,Sun,(Length/TransMult)) end
+	
+	if Debug~= nil then --Debugging Values.
+		CurrentWeather.GameTime = game.daytime
+		CurrentWeather.Tick = game.tick
+		CurrentWeather.TimeLeft = (CurrentWeather.Time.DayEnd-game.tick)/60
+	end
+end
 
-game.on_init(function() 
+MoTimers.CacheFunction("MoWeatherManage",MoManageWeather)
+
+function Intialize()
 	game:freeze_daytime()
 	game.daytime=0.99
-end) 
+	
+	MoTimers.CreateTimer("MoWeatherManage",0.1,0,false,MoManageWeather)
+end
+
+script.on_configuration_changed(Intialize)
+script.on_init(Intialize) 
 
 function CalculateValues()
 	local W = CurrentWeather.Weather.Data
@@ -42,31 +67,6 @@ function CalculateValues()
 	local Sun = ((MoMath.Clamp((CurrentWeather.Time.Light-W.L)+ModLighting,0,100)/100)/2)+0.49
 	return Wind,Sun
 end
-
-local Length = MoConfig.DayLength
-local TransMult = MoConfig.TransitionMult
-
-MoTimers.CreateTimer("MoWeatherManage",0.1,0,false,function()
-	DayNightCycle()
-	ManageWind()
-	ManageWeather()
-	
-	local Wind,Sun = CalculateValues()
-	
-	if not CurrentWeather.SVars.WindOver then
-		game.wind_speed = MoMath.Approach(game.wind_speed,Wind,0.001)
-	end
-	
-	if not CurrentWeather.SVars.LightOver then
-		game.daytime = MoMath.Approach(game.daytime,Sun,(Length/TransMult))
-	end
-	
-	if Debug~= nil then --Debugging Values.
-		CurrentWeather.GameTime = game.daytime
-		CurrentWeather.Tick = game.tick
-		CurrentWeather.TimeLeft = (CurrentWeather.Time.DayEnd-game.tick)/60
-	end
-end)
 
 ModInterface.stopweather = function(bool) CurrentWeather.SVars.NoWeather = bool or false end
 ModInterface.ignoreweatherlight = function(bool) CurrentWeather.SVars.IgnoreLight = bool or false end

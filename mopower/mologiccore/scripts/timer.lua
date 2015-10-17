@@ -26,6 +26,7 @@ end)
 
 --This creates a timer, which calls a function after a defined time.
 FuncRegister("CreateTimer",function(Name,Length,Repeat,Over,CallBack,Data)
+	if not game then return end
 	if IsLoaded then
 		if Timers[Name]~=nil and Over then return end --If we are given the dont overright flag, dont continue.
 		Timers[Name]={
@@ -75,7 +76,7 @@ end)
 --Returns all active timers.
 FuncRegister("GetTimers",function() return Timers end)
 
-game.on_event(defines.events.on_tick, function(event) --Timer Master Think.
+script.on_event(defines.events.on_tick, function(event) --Timer Master Think.
 	if not IsLoaded then MLCSaveFix() MergeWaitingList() return end
 	for i,d in pairs(Timers) do
 		if game.tick >= d.Nxt then --Do we run this timer?

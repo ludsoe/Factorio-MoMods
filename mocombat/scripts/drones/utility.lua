@@ -11,6 +11,7 @@ function Drones.FindClosestPort(E)
 	MoEntity.CallLoop("combatroboticspost",function(data)
 		local DE = KTE(data.entity)
 		if DE==nil or not DE.valid then return false end
+		if DE.surface ~= E.surface then return false end
 		local MyDist = util.distance(DE.position,Pos)
 		if Dist > MyDist then
 			Dist = MyDist
@@ -33,6 +34,7 @@ function Drones.FindClosestEmptyPort(E)
 	MoEntity.CallLoop("combatroboticspost",function(data)
 		local DE = KTE(data.entity)
 		if DE==nil or not DE.valid then return false end
+		if DE.surface ~= E.surface then return false end
 		local MyDist = util.distance(DE.position,Pos)
 		if Dist > MyDist then
 			if DE.caninsert({name=E.name,count=1}) then
@@ -50,8 +52,8 @@ function Drones.FindClosestEmptyPort(E)
 end
 
 --Check for the nearby enemys.
-function Drones.NearbyEnemy(Pos,Rad)
-	local Scan = game.findnearestenemy{position=Pos, maxdistance=Rad}
+function Drones.NearbyEnemy(Surface,Pos,Rad)
+	local Scan = Surface.find_nearest_enemy{position=Pos, maxdistance=Rad}
 	if Scan~=nil and Scan.valid then
 		return Scan
 	end	
