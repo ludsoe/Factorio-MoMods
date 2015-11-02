@@ -43,7 +43,7 @@ M.TeslaTower = true
 --------------------------------Mechanics---------------------------------------------
 
 --Adds Attack Drones.
-M.AttackDrones = false
+M.AttackDrones = true
 
 --Overrides the worm and spitter spit to have splash damage.
 M.SpitAOE = true

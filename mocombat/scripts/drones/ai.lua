@@ -19,7 +19,8 @@ function ManageCombatDroneAi()
 				local Targ = CMD.D.T
 				if not Targ or Targ and Targ.valid then --Hack around
 					local Distance = (util.distance(CMD.P,E.position)/10) --Add calibration based on bot movement speed.
-					E.setcommand(CMD.C) 
+					--MoMisc.PrintTable(CMD.C)
+					E.set_command(CMD.C) 
 					data.extra.T = game.tick+(Distance*60)
 				end
 			end
@@ -57,11 +58,12 @@ function ManageCombatDronePosts()
 		if E==nil or not E.valid then return false end
 		local Enemy = Drones.NearbyEnemy(E.surface,E.position,200)
 		if Enemy and Enemy.valid then --Add alive check if this is buggy
+			--MoMisc.Print("Enemy Detected! "..tostring(Enemy).." Distance: "..(util.distance(E.position,Enemy.position)))
 			local DCount = Drones.ContainsDrones(E)
 			if DCount ~= nil then
 				for I=1,DCount.A do
 					Drones.SpawnDrone(E,DCount.T,Drones.GetAttackCommand(Enemy))
-					E.getinventory(1).remove({name=DCount.T,count=1})
+					E.get_inventory(1).remove({name=DCount.T,count=1})
 				end
 			end
 		end

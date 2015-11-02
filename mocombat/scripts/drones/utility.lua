@@ -37,7 +37,7 @@ function Drones.FindClosestEmptyPort(E)
 		if DE.surface ~= E.surface then return false end
 		local MyDist = util.distance(DE.position,Pos)
 		if Dist > MyDist then
-			if DE.caninsert({name=E.name,count=1}) then
+			if DE.can_insert({name=E.name,count=1}) then
 				Dist = MyDist
 				Closest = DE
 			end
@@ -53,7 +53,8 @@ end
 
 --Check for the nearby enemys.
 function Drones.NearbyEnemy(Surface,Pos,Rad)
-	local Scan = Surface.find_nearest_enemy{position=Pos, maxdistance=Rad}
+	local Scan = Surface.find_nearest_enemy{position=Pos, max_distance=Rad}
+
 	if Scan~=nil and Scan.valid then
 		return Scan
 	end	

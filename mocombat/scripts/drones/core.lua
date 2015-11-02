@@ -9,16 +9,16 @@ end
 
 --None player spawning of drones.
 function Drones.SpawnDrone(E,T,O)
-	local V = game.findnoncollidingposition(T, E.position, 10, 1)
+	local V = E.surface.find_non_colliding_position(T, E.position, 10, 1)
 	
-	local Drone=game.createentity{name = T, position=V}
+	local Drone=E.surface.create_entity{name = T, position=V}
 	Drone.force=E.force
 	Drones.SetupDrone(Drone,O)
 end
 
 function Drones.ContainsDrones(E)
 	for i,d in pairs(Drones.DroneTypes) do
-		local Drones = E.getitemcount(d)
+		local Drones = E.get_item_count(d)
 		if Drones > 0 then
 			return {T=d,A=Drones}
 		end

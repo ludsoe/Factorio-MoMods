@@ -34,10 +34,14 @@ function TurbineThink()
 end
 
 MoTimers.CacheFunction("TurbineThink",TurbineThink)
-script.on_configuration_changed(function() 
+
+function Intialize()
 	MoTimers.CreateTimer("TurbineThink",0,0,false,TurbineThink) 
 	MoTimers.CreateTimer("NuclearReactorThink",0,0,false,NuclearReactorThink)
 	MoTimers.CreateTimer("BurnerGeneratorThink",0.2,1,false,BurnerGeneratorThink)
-end)
+end
+
+script.on_configuration_changed(Intialize)
+script.on_init(Intialize) 
 
 remote.add_interface("MoPower", ModInterface)

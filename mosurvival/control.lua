@@ -103,7 +103,13 @@ function MoSurvivalHunger()
 end
 
 MoTimers.CacheFunction("MoSurvivalHunger",MoSurvivalHunger)
-script.on_configuration_changed(function() MoTimers.CreateTimer("MoSurvivalHunger",0.1,0,false,MoSurvivalHunger) end)
+
+function Intialize()
+	MoTimers.CreateTimer("MoSurvivalHunger",0.1,0,false,MoSurvivalHunger) 
+end
+
+script.on_configuration_changed(Intialize)
+script.on_init(Intialize) 
 
 ModInterface.GetMaxHunger = function()
 	return MoConfig.MaxHunger

@@ -9,7 +9,7 @@ end
 
 --Returns a formatted goto command for the engine to handle.
 function Drones.GetGotoOrder(Position,MaxDist)
-	return {type=DefC.gotolocation,destination=Position,radius=MaxDist,distraction=DefD.byenemy}
+	return {type=DefC.go_to_location,destination=Position,radius=MaxDist,distraction=DefD.byenemy}
 end
 
 function Drones.SetDroneOrder(Data,Command,Now)
@@ -28,7 +28,7 @@ Drones.CreateCommandFunc("Idle",function(Drone,Data)
 	--Ok nobody to shoot.... Well lets try to find a empty port to go to.
 	local Port = Drones.FindClosestEmptyPort(Drone)
 	if Port and Port.valid then
-		if Port.caninsert({name=Drone.name,count=1}) then
+		if Port.can_insert({name=Drone.name,count=1}) then
 			if util.distance(Port.position,Drone.position) < 10 then
 				Port.insert({name=Drone.name,count=1})
 				Drone.destroy()

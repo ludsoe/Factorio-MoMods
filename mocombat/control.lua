@@ -29,7 +29,7 @@ end
 	
 remote.add_interface("MoCombat", ModInterface)
 
-script.on_configuration_changed(function() 
+function Intialize()
 	if M.ForceFields then
 		MoTimers.CreateTimer("ManageForceFields",0.2,0,false,ManageForceFields)
 	end
@@ -38,4 +38,7 @@ script.on_configuration_changed(function()
 		MoTimers.CreateTimer("ManageCombatDronePosts",1,0,false,ManageCombatDronePosts)
 		MoTimers.CreateTimer("ManageCombatDroneAi",1,0,false,ManageCombatDroneAi)
 	end
-end)
+end
+
+script.on_configuration_changed(Intialize)
+script.on_init(Intialize) 

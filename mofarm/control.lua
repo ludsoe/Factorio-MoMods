@@ -44,6 +44,7 @@ function PosOrNeg(Seed)
 	end
 	return 1
 end
+
 function MoFarmPlanterThink()
 	MoEntity.CallLoop("Planters",function(ent)
 		local E = KTE(ent.entity)
@@ -71,4 +72,13 @@ function MoFarmPlanterThink()
 end
 
 MoTimers.CacheFunction("MoFarmPlanterThink",MoFarmPlanterThink)
-script.on_configuration_changed(function() MoTimers.CreateTimer("MoFarmPlanterThink",1,0,false,MoFarmPlanterThink) end)
+
+function Intialize()
+	MoTimers.CreateTimer("MoFarmPlanterThink",1,0,false,MoFarmPlanterThink) 
+end
+
+script.on_configuration_changed(Intialize)
+script.on_init(Intialize) 
+
+
+
