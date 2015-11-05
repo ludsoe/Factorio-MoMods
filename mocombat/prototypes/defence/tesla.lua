@@ -128,8 +128,8 @@ data:extend(
     {
 	  type = "beam",
       ammo_category = "combat-robot-beam",
-      cooldown = 10,
-      range = 40,
+      cooldown = 100,
+      range = 30,
       projectile_creation_distance = 0.6,
 	  sound =
       {
@@ -141,17 +141,37 @@ data:extend(
 	  ammo_type =
 		{
 			category = "combat-robot-beam",
-			action =
+			action = 
 			{
-			  type = "direct",
-			  action_delivery =
-			  {
-				type = "beam",
-				beam = "lightning-bolt",
-				max_length = 15,
-				duration = 40,
-				source_offset = {0.15, -0.5},
-			  }
+				{
+					type = "area",
+					perimeter = 40,
+					force = "enemy",
+					action_delivery =
+					{
+						{
+							type = "instant",
+							target_effects =
+							{
+								type = "nested-result",
+								action =
+								{
+									{
+									  type = "direct",
+									  action_delivery =
+									  {
+										type = "beam",
+										beam = "lightning-bolt",
+										max_length = 50,
+										duration = 40,
+										source_offset = {0.15, -0.5},
+									  }
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}	
