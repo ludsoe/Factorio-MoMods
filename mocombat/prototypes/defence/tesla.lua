@@ -6,7 +6,7 @@ data:extend(
     icon = "__mocombat__/graphics/icons/tesla-turret.png",
     flags = { "placeable-player", "player-creation"},
     minable = { mining_time = 0.5, result = "tesla-turret" },
-    max_health = 600,
+    max_health = 2000,
     corpse = "small-remnants",
     collision_box = {{ -0.7, -0.7}, {0.7, 0.7}},
     selection_box = {{ -1, -1}, {1, 1}},
@@ -126,11 +126,11 @@ data:extend(
     },
     attack_parameters =
     {
-	  type = "projectile",
-      ammo_category = "electric",
-      cooldown = 200,
+	  type = "beam",
+      ammo_category = "combat-robot-beam",
+      cooldown = 10,
+      range = 40,
       projectile_creation_distance = 0.6,
-      range = 25,
 	  sound =
       {
         {
@@ -140,82 +140,120 @@ data:extend(
       },
 	  ammo_type =
 		{
-			type = "projectile",
-			category = "electric",
-			energy_consumption = "200KJ",
-			speed = 1,
-			action = 
+			category = "combat-robot-beam",
+			action =
 			{
-				{
-					type = "area",
-					perimeter = 25,
-					force = "enemy",
-					action_delivery =
-					{
-						{
-							type = "instant",
-							target_effects =
-							{
-								type = "nested-result",
-								action =
-								{
-									{
-										type = "line",
-										range = 25,
-										width = 1.5,
-
-										source_effects =
-										{
-											type = "create-entity",
-											entity_name = "lightning-bolt"
-										},
-										action_delivery =
-										{
-											type = "instant",
-											target_effects =
-											{
-												type = "damage",
-												damage = { amount = 50, type="electric"}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			  type = "direct",
+			  action_delivery =
+			  {
+				type = "beam",
+				beam = "lightning-bolt",
+				max_length = 15,
+				duration = 40,
+				source_offset = {0.15, -0.5},
+			  }
 			}
-		}  
-    }
+		}
+	}	
   },
   {
-    type = "explosion",
+	type = "beam",
     name = "lightning-bolt",
     flags = {"not-on-map"},
-    animation_speed = 3,
-    rotate = true,
-    beam = true,
-    animations =
+    width = 30,
+    damage_interval = 20,
+    working_sound =
     {
-	  {
-        filename = "__mocombat__/graphics/defenses/tesla/zap.png",
-        priority = "extra-high",
-        width = 50,
-        height = 50,
-        frame_count = 6,
-      },
       {
-        filename = "__mocombat__/graphics/defenses/tesla/zap2.png",
-        priority = "extra-high",
-        width = 50,
-        height = 50,
-        frame_count = 6,
+        filename = "__base__/sound/fight/electric-beam.ogg",
+        volume = 0.7
       }
     },
-    light = {intensity = 1, size = 10},
-    smoke = "smoke-fast",
-    smoke_count = 2,
-    smoke_slow_down_factor = 1
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          {
+            type = "damage",
+            damage = { amount = 30, type = "electric"}
+          }
+        }
+      }
+    },
+    head =
+    {
+      filename = "__base__/graphics/entity/beam/beam-head.png",
+      line_length = 16,
+      width = 45,
+      height = 39,
+      frame_count = 16,
+      animation_speed = 0.5,
+      blend_mode = beam_blend_mode,
+    },
+    tail =
+    {
+      filename = "__base__/graphics/entity/beam/beam-tail.png",
+      line_length = 16,
+      width = 45,
+      height = 39,
+      frame_count = 16,
+      blend_mode = beam_blend_mode,
+    },
+    body =
+    {
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-1.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-2.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-3.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-4.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-5.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+      {
+        filename = "__base__/graphics/entity/beam/beam-body-6.png",
+        line_length = 16,
+        width = 45,
+        height = 39,
+        frame_count = 16,
+        blend_mode = beam_blend_mode,
+      },
+    }
   },
   {
     type = "item",

@@ -133,9 +133,10 @@ data:extend(
       {"steel-plate", 40},
       {"electronic-circuit", 20},
 	  {"processing-unit", 10},
-	  {"medium-electric-pole",2}
+	  {"medium-electric-pole",4}
     },
-    result = "forcefield-post"
+    result = "forcefield-post",
+	result_count = 4
   },
   {
     type = "technology",

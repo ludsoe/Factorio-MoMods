@@ -86,9 +86,19 @@ function MoSurvivalHunger()
 		
 		if Dat.H > 0 then
 			Dat.H = Dat.H-MoConfig.HungerDecay -- Decrease the Hunger value...
-			if Dat.H < MoConfig.MaxHunger/5 and Dat.LHS < game.tick then
+			local HungPer = (Dat.H/MoConfig.MaxHunger)*100 --Grab the hunger percent.
+			
+			if HungPer < 20 and Dat.LHS < game.tick then --Manage the stomach growl
 				Dat.LHS = game.tick+(240*60)
 				MoMisc.PlaySound("stomach-growl",d.position,d.surface)
+			end
+			
+			if HungPer >= MoConfig.HungerHealthRegenLevel then --Check if they can regenerate health via hunger.
+				local Ply = d.character
+				if Ply.health < MoConfig.PlayerHealthRegenMax then --Are they under max health?
+					Dat.H = Dat.H-MoConfig.HungerHealthRegenCost --Take the regen cost from hunger.
+					Ply.health = Ply.health+MoConfig.HungerHealthRegen --Regenerate their health
+				end
 			end
 		else
 			Dat.H = 0
