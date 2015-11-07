@@ -45,11 +45,12 @@ end
 EventFuncs["PlyDeath"] = function(event)
 	local ent,index
 	for i,v in ipairs(game.players) do
-		if event.entity == v.character then
+		if event.entity == v.character or not v.character then
 			ent = v
 			index = i
 		end
 	end
+
 	if ent == nil or not ent.valid then return end -- nil entity don't run it.
 	
 	for i,d in pairs(Subscribed.PlyDeath) do

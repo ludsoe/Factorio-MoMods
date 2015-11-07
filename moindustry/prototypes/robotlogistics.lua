@@ -121,7 +121,7 @@ data:extend({
     type = "item",
     name = "roborecharger",
     icon = "__base__/graphics/icons/roboport.png",
-    flags = {"goes-to-quickbar"},
+    flags = {"goes-to-quickbar", "hidden"},
     subgroup = "logistic-network",
     order = "c[signal]-a[roborecharger]",
     place_result = "roborecharger",

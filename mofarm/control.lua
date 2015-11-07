@@ -52,7 +52,7 @@ function MoFarmPlanterThink()
 			if E.energy >= PlanterCost then
 				local P = E.position
 				local V = {x=P.x+math.random(1,4)*PosOrNeg(P.x),y=P.y+math.random(1,4)*PosOrNeg(P.y)}
-				local Plants = MoEntity.findentinsquareradius(V,1,Plant) 
+				local Plants = MoEntity.findentinsquareradius(E.surface,V,1,Plant) 
 				if #Plants <= 0 then
 					local NewPlant = game.createentity({name = Plant, position= V})
 					NewPlant.amount=math.random(1,3)
