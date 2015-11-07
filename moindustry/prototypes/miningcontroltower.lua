@@ -75,7 +75,7 @@ data:extend({
       ingredients = {
         {"science-pack-1", 4},
         {"science-pack-2", 3},
-        {"science-pack-2", 1},
+        {"science-pack-3", 1},
       },
       time = 50
     },
