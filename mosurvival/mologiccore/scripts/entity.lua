@@ -194,11 +194,15 @@ FuncRegister("closestplayer",function(X,Y,Surface)
 	local C = 999999999999999999
 	for i,d in pairs(game.players) do
 		if d.valid then
-			local P = d.position
-			
-			if util.distance(P,{x=X,y=Y}) < C then
-				if not Surface or Surface == d.surface then
-					CP = d
+			if d.controller_type == defines.controllers.character then
+				if CheckPlayerValid(d) then
+					local P = d.position
+					
+					if util.distance(P,{x=X,y=Y}) < C then
+						if not Surface or Surface == d.surface then
+							CP = d
+						end
+					end
 				end
 			end
 		end
