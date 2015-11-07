@@ -9,8 +9,9 @@ data:extend(
 		max_health = 100000,
 		corpse = "small-remnants",
 		collision_box = {{0, 0}, {0, 0}}, --No collisons.... Might jam trains and cause issues....
+		collision_mask = {"ghost-layer"},
 		selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-		inventory_size = 50,
+		inventory_size = 100,
 		open_sound = { filename = "__base__/sound/wooden-chest-open.ogg" },
 		close_sound = { filename = "__base__/sound/wooden-chest-close.ogg" },
 		picture =
@@ -29,7 +30,8 @@ data:extend(
 			{type = "explosion",percent = 100},
 			{type = "fire",percent = 100},
 			{type = "laser",percent = 100},
-			{type = "acid",percent = 100}
+			{type = "acid",percent = 100},
+			{type = "impact",percent = 100}
 		},
 	}
 }
