@@ -91,7 +91,7 @@ data:extend(
 	{
     type = "ammo",
     name = "ranger-cart",
-    icon = "__base__/graphics/icons/shotgun-shell.png",
+    icon = "__mocombat__/graphics/icons/nano-machine-clip.png",
     flags = {"goes-to-main-inventory"},
     ammo_type =
     {

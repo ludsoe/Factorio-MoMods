@@ -9,7 +9,7 @@ data:extend(
     max_health = 2400,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
-    effectivity = 8,
+    effectivity = 1,
     fluid_usage_per_tick = 0.8,
     resistances =
     {
@@ -22,7 +22,7 @@ data:extend(
     selection_box = {{-3, -5}, {3, 5}},
     fluid_box =
     {
-      base_area = 1,
+      base_area = 8,
       pipe_covers = pipecoverspictures(),
       pipe_connections =
       {
