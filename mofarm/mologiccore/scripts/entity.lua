@@ -3,6 +3,16 @@ GetTable=function()
 	return MoEntity
 end
 
+-------Debug functions used in development.
+
+function PrintString(Text)
+	for i,d in pairs(game.players) do
+		if d and d.valid then
+			d.print(""..Text)
+		end
+	end
+end
+
 ------------Event Handler------------
 Subscribed = {Built={},Death={},PlyCreated={},PlyDeath={},Removed={}}
 if MLC.Debug then Debug.RegisterTable("Subscribed",Subscribed) end
@@ -154,9 +164,9 @@ end)
 
 function CheckPlayerValid(ply)
 	local X,Y,Rad = ply.position.x,ply.position.y,0.1
-	local Check = ply.surface.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name="player"}
+	local Check = ply.surface.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, force=ply.force}
 	for i,d in pairs(Check) do
-		if d == ply.character then
+		if d == ply.character or d == ply.vehicle then --Check if the player is in a vehicle properly.
 			return true
 		end
 	end
@@ -167,7 +177,9 @@ end
 FuncRegister("loopplayers",function(F)
 	for i,d in pairs(game.players) do
 		if d and d.valid then
+			--PrintString("Checking player "..tostring(i))
 			if d.controller_type == defines.controllers.character then
+				--PrintString("	Controller Type: "..tostring(d.controller_type))
 				if CheckPlayerValid(d) then
 					F(i,d)
 				end
