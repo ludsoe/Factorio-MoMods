@@ -22,6 +22,12 @@ M.RailGun = true
 M.Ranger = true
 
 --------------------------------------------------------------------------------------
+--------------------------------Vehicles-----------------------------------------------
+
+--Adds a huge tank thats extremly power, and acts as a combat drone bay (If drones enabled.)
+M.MegaTank = true
+
+--------------------------------------------------------------------------------------
 --------------------------------Advanced Ammo-----------------------------------------
 
 --Adds depleted uranium machine gun rounds. (Requires MoPower to be installed.)

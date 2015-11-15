@@ -137,7 +137,7 @@ local CombatDroneGunAttack = {
 	  scale=0.3,
 	  frame_count = 2,
 	  direction_count = 64,
-	  shift = {0, -0.1875},
+	  shift = {0, -0.05625},
 	  animation_speed = 8,
 	  max_advance = 0.2,
 	  stripes =
@@ -182,7 +182,7 @@ CreateDrone({
       {
         {
           width = 102,height = 86,scale=0.3,
-          frame_count = 2,direction_count = 64,shift = {0, -0.1875},
+          frame_count = 2,direction_count = 64,shift = {0, -0.05625},
           animation_speed = 8,max_advance = 0.2,
           stripes =
           {
@@ -195,7 +195,7 @@ CreateDrone({
           width = 100,height = 75,scale=0.3,
           frame_count = 2,apply_runtime_tint = true,
           direction_count = 64,max_advance = 0.2,
-          line_length = 2,shift = {0, -0.171875},
+          line_length = 2,shift = {0, -0.0515625},
           stripes = util.multiplystripes(2,
           {
             {filename = "__base__/graphics/entity/car/car-mask-1.png",width_in_frames = 1,height_in_frames = 22,},
@@ -206,7 +206,7 @@ CreateDrone({
         {
           width = 114,height = 76,scale=0.3,
           frame_count = 2,draw_as_shadow = true,
-          direction_count = 64,shift = {0.28125, 0.25},max_advance = 0.2,
+          direction_count = 64,shift = {0.084375, 0.075},max_advance = 0.2,
           stripes = util.multiplystripes(2,
           {
            {filename = "__base__/graphics/entity/car/car-shadow-1.png",width_in_frames = 1,height_in_frames = 22,},

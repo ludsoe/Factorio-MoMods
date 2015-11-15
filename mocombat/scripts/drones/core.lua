@@ -33,3 +33,7 @@ end
 --For each storage type we want to act as a combat robotics port.
 MoEntity.SubscribeOnBuilt("combat-roboport-smart","combatroboport",function(entity) MoEntity.AddToLoop("combatroboticspost",entity) end)
 MoEntity.SubscribeOnBuilt("combat-drone-wagon","combatrobowagon",function(entity) MoEntity.AddToLoop("combatroboticspost",entity) end)
+
+if MoConfig.MegaTank then
+	MoEntity.SubscribeOnBuilt("mega-tank","megatankcombatroboport",function(entity) MoEntity.AddToLoop("combatroboticspost",entity) end)
+end

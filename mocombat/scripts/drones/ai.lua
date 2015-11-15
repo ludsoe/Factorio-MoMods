@@ -69,7 +69,11 @@ function ManageCombatDronePosts()
 			if DCount ~= nil then
 				for I=1,DCount.A do
 					Drones.SpawnDrone(E,DCount.T)
-					E.get_inventory(1).remove({name=DCount.T,count=1})
+					if E.type == "car" then
+						E.get_inventory(2).remove({name=DCount.T,count=1})
+					else
+						E.get_inventory(1).remove({name=DCount.T,count=1})
+					end
 				end
 			end
 		end
