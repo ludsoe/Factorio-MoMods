@@ -3,4 +3,4 @@
 MoConfig.ModCompat = {}
 local MC = MoConfig.ModCompat
 
-MC.CombatBotsResearch = {"robotics","combat-robotics-2"}
+MC.CombatBotsResearch = {"robotics","combat-robotics"}

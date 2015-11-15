@@ -3,8 +3,8 @@ local DefC,DefD = defines.command,defines.distraction
 local Drones = Drones --Localise
 
 --Returns a formatted attack command for the engine to handle.
-function Drones.GetAttackCommand(Target)
-	return {F="AttackEnemy",P=Target.position,D={T=RegKey(Target)},C={type=DefC.attack,target=Target,distraction=DefD.byenemy}}
+function Drones.GetAttackCommand(Target,Start)
+	return {F="AttackEnemy",P=Target.position,D={T=RegKey(Target)},C={type=DefC.go_to_location,destination=Target.position,radius=10,distraction=DefD.byenemy}}
 end
 
 --Returns a formatted goto command for the engine to handle.
@@ -19,9 +19,9 @@ end
 
 Drones.CreateCommandFunc("Idle",function(Drone,Data) 
 	--Run Check for enemies.
-	local Scan = Drones.NearbyEnemy(Drone.surface,Drone.position,50)
+	local Scan = Drones.NearbyEnemy(Drone.surface,Drone.position,150)
 	if Scan and Scan.valid then
-		Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan),true)
+		Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan,Drone.position),true)
 		return
 	end
 	
@@ -51,7 +51,7 @@ Drones.CreateCommandFunc("AttackEnemy",function(Drone,Data)
 	if not Targ or not Targ.valid then
 		local Scan = Drones.NearbyEnemy(Drone.surface,Drone.position,100)
 		if Scan and Scan.valid then
-			Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan),true)
+			Drones.SetDroneOrder(Data,Drones.GetAttackCommand(Scan,Drone.position),true)
 			return
 		end
 		Drones.SetDroneOrder(Data,{F="Idle",D={}},false)	
