@@ -13,7 +13,7 @@ MoLogicCore to your hearts content. Please provide info below if you
 modify and redistribute this folder and its contents.
 ------------------------------------------------------------------------ 
 This Version of MoLogicCore is: 
-Version: UnModdified
+Version: 2.1 UnModdified
 Author: Ludsoe
 ExtraInfo: None
 --]]--------------------------------------------------------------------

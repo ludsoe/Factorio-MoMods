@@ -24,6 +24,8 @@ function SpawnDeathChest(player)
 	for I=1, #PlayerInventorys do
 		Amount = PortInventory(player.get_inventory(PlayerInventorys[I]),ChestInv,Amount)
 	end
+	
+	Chest.destructible = false
 end
 
 MoEntity.SubscribeOnDeath("player","death-chest",SpawnDeathChest)

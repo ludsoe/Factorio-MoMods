@@ -57,41 +57,52 @@ function GenerateCompoundEntity(Ent,Data,Extra,Think,Func)
 	MoEntity.AddToLoop("CompoundHiddenLoop",Ent,{B=Bits,F=Func,E=Extra,NT=game.tick+Think*60,T=Think})
 end
 
-MoTimers.CreateTimer("CompoundEntityCheck",0.5,1,false,function()
-	MoTimers.CreateTimer("CompoundEntityCheck",0.01,0,false,function()
-		MoEntity.CallLoop("CompoundHiddenLoop",function(ent)
-			local E = GetEnt(ent.entity)
-			local B = ent.extra.B
-			--PrintError("Checking ent")
-			if game.tick >= ent.extra.NT then
-				ent.extra.NT = game.tick+(ent.extra.T*60)
-				if E and E.valid then
-					--PrintError("Is Valid")
-					if HasNeededBits(B) then
-						local Func = FuncCache[ent.extra.F]
-						if Func then
-							Func({
-								entity=E,
-								bits=B,
-								extra=ent.extra.E
-							})
-						end
-						--PrintError("Ran Function")
-					else
-						--E.die()
-						--KillBits(B)
-					end
-				else
-					--PrintError("Not Valid")
-					KillBits(B)
-					return false
-				end
-			end
-			return true
-		end)
-	end)
+FuncRegister("CreateAdvEntityRaw",function(Ent,Name,Data,Extra,Think)	
+	GenerateCompoundEntity(Ent,Data,Extra,Think,Name)
 end)
 
+FuncRegister("CreateAdvEntityRawFuncCache",function(Name,Func)	
+	FuncCache[Name]=Func
+end)
+
+function CompoundEntityCheck()
+	MoEntity.CallLoop("CompoundHiddenLoop",function(ent)
+		local E = GetEnt(ent.entity)
+		local B = ent.extra.B
+		--PrintError("Checking ent")
+		if game.tick >= ent.extra.NT then
+			ent.extra.NT = game.tick+(ent.extra.T*60)
+			if E and E.valid then
+				--PrintError("Is Valid")
+				if HasNeededBits(B) then
+					local Func = FuncCache[ent.extra.F]
+					if Func then
+						Func({
+							entity=E,
+							bits=B,
+							extra=ent.extra.E
+						})
+						--PrintError("Ran Function")
+					end
+					--PrintError("Function should of ran")
+				else
+					--E.die()
+					--KillBits(B)
+				end
+			else
+				--PrintError("Not Valid")
+				KillBits(B)
+				return false
+			end
+		end
+		return true
+	end)
+end
+MoTimers.CacheFunction("CompoundEntityCheck",CompoundEntityCheck)
+
+function CompoundEntityCheckStartup() MoTimers.CreateTimer("CompoundEntityCheck",0.01,0,false,CompoundEntityCheck) end
+MoTimers.CreateTimer("CompoundEntityCheckStartup",0.5,1,false,CompoundEntityCheckStartup)
+MoTimers.CacheFunction("CompoundEntityCheckStartup",CompoundEntityCheckStartup)
 
 
 

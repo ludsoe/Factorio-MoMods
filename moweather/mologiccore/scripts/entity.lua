@@ -55,9 +55,11 @@ end
 EventFuncs["PlyDeath"] = function(event)
 	local ent,index
 	for i,v in ipairs(game.players) do
-		if event.entity == v.character or not v.character then
-			ent = v
-			index = i
+		if v.connected then
+			if event.entity == v.character or not v.character then
+				ent = v
+				index = i
+			end
 		end
 	end
 
@@ -177,12 +179,8 @@ end
 FuncRegister("loopplayers",function(F)
 	for i,d in pairs(game.players) do
 		if d and d.valid then
-			--PrintString("Checking player "..tostring(i))
-			if d.controller_type == defines.controllers.character then
-				--PrintString("	Controller Type: "..tostring(d.controller_type))
-				if CheckPlayerValid(d) then
-					F(i,d)
-				end
+			if d.connected then
+				F(i,d)
 			end
 		end
 	end

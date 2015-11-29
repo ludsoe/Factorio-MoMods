@@ -1,12 +1,15 @@
-function RegisterOre(name,result)
-	Ores[name]=result
+function RegisterOre(name,result,min,norm,yield)
+	Ores[name]={result=result,min=(min or 0),norm=(norm or 1),yield = (yield or 1)}
 end
 
-RegisterOre("copper-ore","copper-ore")
-RegisterOre("iron-ore","iron-ore")
-RegisterOre("coal","coal")
-RegisterOre("stone","stone")
-
-ModInterface.RegisterOre = function(name,result)
-	RegisterOre(name,result)
+ModInterface.RegisterOre = function(name,result,min,norm,yield)
+	RegisterOre(name,result,min,norm,yield)
 end
+
+for i,d in pairs(MoConfig.DMO) do
+	RegisterOre(d.OreName,d.ItemResult,d.MiniumCount,d.NormalCount,d.Yield)
+end
+
+
+
+-- remote.call("MoIndustry","RegisterOre","coal","coal",100,150,1)

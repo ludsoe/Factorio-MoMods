@@ -45,3 +45,9 @@ script.on_configuration_changed(Intialize)
 script.on_init(Intialize) 
 
 remote.add_interface("MoPower", ModInterface)
+
+--Moindustry Mining robots support.
+if remote.interfaces.MoIndustry then
+	remote.call("MoIndustry", "RegisterOre", "uranium-ore", "uranium-ore")
+end
+

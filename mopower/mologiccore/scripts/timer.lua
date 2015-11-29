@@ -19,6 +19,12 @@ local function MergeWaitingList()
 	WaitingList={}
 end
 
+local function PrintError(Text)
+	for i,d in pairs(game.players) do
+		d.print(""..Text)
+	end
+end
+
 --Caches a function so it doesnt error out while loading a save.
 FuncRegister("CacheFunction",function(Name,Function)
 	Functions["CB"..Name]=Function
@@ -26,13 +32,14 @@ end)
 
 --This creates a timer, which calls a function after a defined time.
 FuncRegister("CreateTimer",function(Name,Length,Repeat,Over,CallBack,Data)
-	if not game then return end
+	local Tick = 0
+	if game then Tick = game.tick end
 	if IsLoaded then
 		if Timers[Name]~=nil and Over then return end --If we are given the dont overright flag, dont continue.
 		Timers[Name]={
 			Name=Name, --Timer name/ID
 			Repeat=Repeat, --How many times the timer repeats.
-			Nxt=game.tick+(Length*60), --When the timer is called again.
+			Nxt=Tick+(Length*60), --When the timer is called again.
 			Dur=Length, --Internal Value for timer length.
 			Del=false, --Internal Value for trash management.
 			CallBack="CB"..Name, --CallBack Function.
@@ -44,7 +51,7 @@ FuncRegister("CreateTimer",function(Name,Length,Repeat,Over,CallBack,Data)
 			O=Over,T={
 				Name=Name, --Timer name/ID
 				Repeat=Repeat, --How many times the timer repeats.
-				Nxt=game.tick+(Length*60), --When the timer is called again.
+				Nxt=Tick+(Length*60), --When the timer is called again.
 				Dur=Length, --Internal Value for timer length.
 				Del=false, --Internal Value for trash management.
 				CallBack="CB"..Name, --CallBack Function.
@@ -98,6 +105,7 @@ script.on_event(defines.events.on_tick, function(event) --Timer Master Think.
 		end
 		if d.Del == true then
 			MoTimers.DeleteTimer(d.Name)
+			--PrintError("Deleting Timer... "..d.Name)
 		end
 	end
 end)

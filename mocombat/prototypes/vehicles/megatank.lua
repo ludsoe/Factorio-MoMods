@@ -23,7 +23,7 @@ data:extend({
       {
         type = "physical",
         decrease = 20,
-        percent = 50
+        percent = 30
       },
       {
         type = "impact",
@@ -37,7 +37,7 @@ data:extend({
       {
         type = "acid",
         decrease = 15,
-        percent = 60
+        percent = 50
       }
     },
     collision_box = {{-2.7, -3.9}, {2.7, 3.9}},
