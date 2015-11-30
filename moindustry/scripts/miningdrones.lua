@@ -63,8 +63,10 @@ function MiningRobotPortThink(ent)
 								--if #Check<5 then
 								if Check then
 									if d.min > 0 then
-										local chance = MoMath.Clamp((d.min/d.norm)*100,0.1,100)
+										local chance = MoMath.Clamp(((ore.amount-d.min)/d.norm)*100,0.01,100)
 										local roll = math.random(0,100)
+										
+										--MoMisc.Print("O "..ore.amount.." "..d.norm.." Chance.. "..chance.." "..roll)
 										
 										if roll<chance then
 											local Loot = ore.surface.create_entity{name = "item-on-ground", position= Check, stack = {name = d.result, count=d.yield}}
