@@ -1,11 +1,11 @@
 
 {
   "name": "mopower",
-  "version": "0.4.25",
+  "version": "0.4.26",
   "title": "MoPower",
   "author": "Ludsoe",
   "contact": "",
   "homepage": "",
   "description": "Adds more power options to factorio.",
-  "dependencies": ["base","? motrans","? moweather","? motoolbar"]
+  "dependencies": ["base","? motrans","? moweather","? motoolbar","? momining"]
 }

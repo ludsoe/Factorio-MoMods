@@ -81,7 +81,7 @@ data:extend(
     animations =
     {
       {
-        filename = "__moweather__/graphics/Rain/rain.png",
+        filename = "__moweather__/graphics/Rain/rain-splash-1.png",
         priority = "low",
         width = 200,
         height = 200,
@@ -89,7 +89,7 @@ data:extend(
 		animation_speed = 0.1
       },
 	  {
-        filename = "__moweather__/graphics/Rain/rain2.png",
+        filename = "__moweather__/graphics/Rain/rain-splash-2.png",
         priority = "low",
         width = 200,
         height = 200,
@@ -97,7 +97,7 @@ data:extend(
 		animation_speed = 0.1
       },
 	  {
-        filename = "__moweather__/graphics/Rain/rain3.png",
+        filename = "__moweather__/graphics/Rain/rain-splash-3.png",
         priority = "low",
         width = 200,
         height = 200,

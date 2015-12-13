@@ -235,6 +235,16 @@ FuncRegister("findentinsquareradius",function(Sur,Vec,Rad,Ent)
 	return Sur.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
 end)
 
+FuncRegister("countentinsquareradius",function(Sur,Vec,Rad,Ent)
+	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
+	return Sur.find_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, name=Ent}
+end)
+
+FuncRegister("counttypeinsquareradius",function(Sur,Vec,Rad,Ent)
+	local X,Y = ((Vec.X or Vec.x)), ((Vec.Y or Vec.y))
+	return Sur.count_entities_filtered{area = {{X-Rad, Y-Rad}, {X+Rad, Y+Rad}}, type=Ent}
+end)
+
 --Finds a certain entity in a circular area around a point.
 FuncRegister("findentinradius",function(Vec,Rad,Ent)
 end)

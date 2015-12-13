@@ -1,11 +1,10 @@
 
 {
-  "name": "mosurvival",
-  "version": "0.1.21",
-  "title": "MoSurvival",
+  "name": "momining",
+  "version": "0.1.01",
+  "title": "MoMining",
   "author": "Ludsoe",
-  "contact": "",
   "homepage": "",
-  "description": "Adds basic survival requirements to factorio.",
+  "description": "Adds more Mining Options to factorio.",
   "dependencies": ["base"]
 }

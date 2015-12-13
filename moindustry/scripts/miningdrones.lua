@@ -62,30 +62,33 @@ function MiningRobotPortThink(ent)
 								local Check = E.surface.find_non_colliding_position("item-on-ground", ore.position, 10, 0.1)
 								--if #Check<5 then
 								if Check then
-									if d.min > 0 then
-										local chance = MoMath.Clamp(((ore.amount-d.min)/d.norm)*100,0.01,100)
-										local roll = math.random(0,100)
-										
-										--MoMisc.Print("O "..ore.amount.." "..d.norm.." Chance.. "..chance.." "..roll)
-										
-										if roll<chance then
+									local Check2 = MoEntity.counttypeinsquareradius(E.surface,Check,0.4,"transport-belt")
+									if Check2 <=0 then
+										if d.min > 0 then
+											local chance = MoMath.Clamp(((ore.amount-d.min)/d.norm)*100,0.01,100)
+											local roll = math.random(0,100)
+											
+											--MoMisc.Print("O "..ore.amount.." "..d.norm.." Chance.. "..chance.." "..roll)
+											
+											if roll<chance then
+												local Loot = ore.surface.create_entity{name = "item-on-ground", position= Check, stack = {name = d.result, count=d.yield}}
+												Loot.order_deconstruction(RoboPort.force)
+												ABots = ABots - 1
+												
+												if ore.amount>d.min then
+													ore.amount=ore.amount-1
+												end
+											end
+										else
 											local Loot = ore.surface.create_entity{name = "item-on-ground", position= Check, stack = {name = d.result, count=d.yield}}
 											Loot.order_deconstruction(RoboPort.force)
 											ABots = ABots - 1
-											
-											if ore.amount>d.min then
+										
+											if ore.amount>1 then
 												ore.amount=ore.amount-1
+											else
+												ore.destroy()
 											end
-										end
-									else
-										local Loot = ore.surface.create_entity{name = "item-on-ground", position= Check, stack = {name = d.result, count=d.yield}}
-										Loot.order_deconstruction(RoboPort.force)
-										ABots = ABots - 1
-									
-										if ore.amount>1 then
-											ore.amount=ore.amount-1
-										else
-											ore.destroy()
 										end
 									end
 								end

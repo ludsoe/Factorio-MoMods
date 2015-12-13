@@ -4,13 +4,13 @@ local M = MoConfig
 -----------------------------Day/Night Cycle------------------------------------------
 
 --Length of a entire day/night cycle, In Minutes.
-M.DayLength=10
+M.DayLength=12
 
 --Percentage of the day night cycle thats night.
-M.DayNightRatio=40 
+M.DayNightRatio=50 
 
 --DayLight Transition Multiplier, Larger Numbers = Slower sunrises/sunsets.
-M.TransitionMult = 5000
+M.TransitionMult = 1500
 
 --------------------------------------------------------------------------------------
 -----------------------------Weather Systems------------------------------------------
