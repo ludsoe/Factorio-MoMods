@@ -50,7 +50,7 @@ data:extend(
         recipe = "attack-drone"
       }
     },
-    prerequisites = {"adv-com-drones"},
+    prerequisites = {"com-drone-rovers"},
     unit =
     {
       count = 50,
